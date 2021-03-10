@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9A8FEE22-3607-4A52-8CF2-DDE210A6075F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WTPCore</RootNamespace>
+    <AssemblyName>WTPCore</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\WTPCore.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CollectionsPattern">
+      <HintPath>..\WTPCoreExample\bin\Release\CollectionsPattern.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="CustomDescriptor">
+      <HintPath>..\WTPCoreExample\bin\Release\CustomDescriptor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SqlDataSolution, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\WTPCoreExample\bin\Release\SqlDataSolution.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Comparers\WTPIndexComparer.cs" />
+    <Compile Include="Comparers\WTPSingleComponentComparer.cs" />
+    <Compile Include="Comparers\WTPSingleRowComparer.cs" />
+    <Compile Include="Comparers\WTPComponentComparer.cs" />
+    <Compile Include="Comparers\WTPRowComparer.cs" />
+    <Compile Include="Comparers\WTPSemesterComparer.cs" />
+    <Compile Include="Data\Interfaces\Base\WTPVARIATION.cs" />
+    <Compile Include="Data\Interfaces\Base\WTP.cs" />
+    <Compile Include="Data\Interfaces\Base\WTPCOMPONENT.cs" />
+    <Compile Include="Data\Interfaces\Base\WTPPARAM.cs" />
+    <Compile Include="Data\Interfaces\Base\WTPPARAMINFO.cs" />
+    <Compile Include="Data\Interfaces\Base\WTPROW.cs" />
+    <Compile Include="Data\Interfaces\Base\WTPROWVALUES.cs" />
+    <Compile Include="Data\Interfaces\Base\WTPSEMESTER.cs" />
+    <Compile Include="Data\IWTPDATAROW.cs" />
+    <Compile Include="Data\SourceInrefaces\WTP.cs" />
+    <Compile Include="Data\SourceInrefaces\WTPCOMPONENT.cs" />
+    <Compile Include="Data\SourceInrefaces\WTPPARAM.cs" />
+    <Compile Include="Data\SourceInrefaces\WTPPARAMINFO.cs" />
+    <Compile Include="Data\SourceInrefaces\WTPROW.cs" />
+    <Compile Include="Data\SourceInrefaces\WTPROWVALUES.cs" />
+    <Compile Include="Data\SourceInrefaces\WTPSEMESTER.cs" />
+    <Compile Include="Data\SourceInrefaces\WTPVARIATION.cs" />
+    <Compile Include="Data\Tables\Base\WTP.cs" />
+    <Compile Include="Data\Tables\Base\WTPCOMPONENT.cs" />
+    <Compile Include="Data\Tables\Base\WTPPARAM.cs" />
+    <Compile Include="Data\Tables\Base\WTPPARAMINFO.cs" />
+    <Compile Include="Data\Tables\Base\WTPROW.cs" />
+    <Compile Include="Data\Tables\Base\WTPROWVALUES.cs" />
+    <Compile Include="Data\Tables\Base\WTPSEMESTER.cs" />
+    <Compile Include="Data\WTPDATAROW.cs" />
+    <Compile Include="Factory\WTPBaseFactory.cs" />
+    <Compile Include="Factory\WTPFactory.cs" />
+    <Compile Include="Loader\WTPLoader.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="WorkTeacherPlan\WTPVariation.cs" />
+    <Compile Include="WorkTeacherPlan\WTPVariations.cs" />
+    <Compile Include="WorkTeacherPlan\Wtp.cs" />
+    <Compile Include="WorkTeacherPlan\WTPComponent.cs" />
+    <Compile Include="WorkTeacherPlan\WTPComponents.cs" />
+    <Compile Include="WorkTeacherPlan\WTPParam.cs" />
+    <Compile Include="WorkTeacherPlan\WTPParamInfo.cs" />
+    <Compile Include="WorkTeacherPlan\WTPParamInfos.cs" />
+    <Compile Include="WorkTeacherPlan\WTPParams.cs" />
+    <Compile Include="WorkTeacherPlan\WTPReadOnlyCollection.cs" />
+    <Compile Include="WorkTeacherPlan\WTPRow.cs" />
+    <Compile Include="WorkTeacherPlan\WTPRows.cs" />
+    <Compile Include="WorkTeacherPlan\WTPRowValue.cs" />
+    <Compile Include="WorkTeacherPlan\WTPRowValues.cs" />
+    <Compile Include="WorkTeacherPlan\WTPSemester.cs" />
+    <Compile Include="WorkTeacherPlan\WTPSemesters.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Docs\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
