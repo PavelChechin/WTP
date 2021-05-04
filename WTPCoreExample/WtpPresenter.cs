@@ -43,7 +43,7 @@ namespace WTPCoreExample
         }
 
         void LoadPlan(WTPLoader loader)
-        {   
+        {
             loader.CreateWTPs();
         }
         #endregion
@@ -94,7 +94,7 @@ namespace WTPCoreExample
             return newRow;
         }
 
-        public  WTPRowValue AddRowValue(IWTPROWVALUES valueRow, WTPRow row)
+        public WTPRowValue AddRowValue(IWTPROWVALUES valueRow, WTPRow row)
         {
             row.Values.FillRow(valueRow);
             return row.Values.Add(valueRow, false);
@@ -120,7 +120,7 @@ namespace WTPCoreExample
 
         public WTPComponent AddComponent(IWTPCOMPONENT row, WTPComponent ParentComponent)
         {
-            
+
             Plan.Components.FillRow(row);
             WTPComponent newComponent = Plan.Components.Add(row, false);
             newComponent.Parent = ParentComponent;
@@ -158,7 +158,7 @@ namespace WTPCoreExample
             DbManager.SaveAll();
         }
         #endregion
-        
+
         /// <summary>
         /// Поиск в таблице дисциплин, если не найдено добавляем
         /// </summary>
@@ -178,10 +178,11 @@ namespace WTPCoreExample
             {
                 var newDiscip = disciplines.CreateRow<ISTUDDISCIPLINE>();
                 newDiscip.STUDDISCIPLINE_NAME = Name;
-                newDiscip.STUDDISCIPLINE_SHORTNAME = ShortName; 
+                newDiscip.STUDDISCIPLINE_SHORTNAME = ShortName;
                 newDiscip.STUDDISCIPLINE_STATE = true;
-                newDiscip.STUDDISCIPTYPE_ID = DiscipTypeId; 
+                newDiscip.STUDDISCIPTYPE_ID = DiscipTypeId;
                 newDiscip.STUDDISCIPLINE_DIPLOMANAME = Name;
+                newDiscip.STUDDISCIPLINE_ID = disciplines.Rows.Cast<ISTUDDISCIPLINE>().Select(r => r.STUDDISCIPLINE_ID).Max() + 1;
 
                 disciplines.Add<ISTUDDISCIPLINE>(newDiscip);
                 disciplines.Save();
@@ -240,18 +241,45 @@ namespace WTPCoreExample
             return SpecialityID;
         }
 
-        public Int64? GetStudDiscipCicleByName(string Name)
+        //public Int64? GetStudDiscipCicleByName(string Name)
+        //{
+        //    var StudDiscipCicles = DbManager.GetDataSourse<RefDataStores.WTP.ISTUDDISCIPCICLE>();
+        //    var StudDiscipCicle = StudDiscipCicles.Rows.
+        //                            Cast<RefDataStores.WTP.ISTUDDISCIPCICLE>().
+        //                            Where(r => r.STUDDISCIPCICLE_NAME == Name).
+        //                            Select(r => r.STUDDISCIPCICLE_ID);
+        //    Int64? id = 0;
+        //    id = StudDiscipCicle.First();
+        //    return id;
+        //}
+
+
+        public Int64? GetStudDiscipCicleByName(string Identifier, string Name)
         {
             var StudDiscipCicles = DbManager.GetDataSourse<RefDataStores.WTP.ISTUDDISCIPCICLE>();
             var StudDiscipCicle = StudDiscipCicles.Rows.
                                     Cast<RefDataStores.WTP.ISTUDDISCIPCICLE>().
                                     Where(r => r.STUDDISCIPCICLE_NAME == Name).
+                                    Where(r => r.STUDDISCIPCICLE_CODE == Identifier).
                                     Select(r => r.STUDDISCIPCICLE_ID);
             Int64? id = 0;
-            id = StudDiscipCicle.First();
+            if (StudDiscipCicle.Count() == 0)
+            {
+                var newStudDiscipCicle = StudDiscipCicles.CreateRow<RefDataStores.WTP.ISTUDDISCIPCICLE>();
+                newStudDiscipCicle.STUDDISCIPCICLE_CODE = Identifier;
+                newStudDiscipCicle.STUDDISCIPCICLE_NAME = Name;
+
+                StudDiscipCicles.Add<RefDataStores.WTP.ISTUDDISCIPCICLE>(newStudDiscipCicle);
+                StudDiscipCicles.Save();
+                id = newStudDiscipCicle.STUDDISCIPCICLE_ID;
+            }
+            else
+            {
+                id = StudDiscipCicle.First();
+            }
             return id;
         }
-         
+
         public Int64? GetChairByCode(string Code)
         {
             var ImportChairs = DbManager.GetDataSourse<IWTPIMPORTCHAIR>();
@@ -265,7 +293,7 @@ namespace WTPCoreExample
         }
 
         public Int64 GetStudYearIDByYear(string Year)
-        {         
+        {
             var StudYears = DbManager.GetDataSourse<ISTUDYEAR>();
             var StudYear = StudYears.Rows.
                             Cast<ISTUDYEAR>().
@@ -273,6 +301,61 @@ namespace WTPCoreExample
                             Select(r => r.STUDYEAR_ID);
             Int64 ID = 0;
             ID = StudYear.First();
+            return ID;
+        }
+
+        public Int64? GetStudDiscComponentByName(string Name)
+        {
+            var StudDiscComponents = DbManager.GetDataSourse<RefDataStores.WTP.ISTUDDISCCOMPONENT>();
+            var StudDiscComponent = StudDiscComponents.Rows.
+                                    Cast<RefDataStores.WTP.ISTUDDISCCOMPONENT>().
+                                    Where(r => r.STUDDISCCOMPONENT_NAME == Name).
+                                    Select(r => r.STUDDISCCOMPONENT_ID);
+            Int64? ID = 0;
+            if (StudDiscComponent.Count() == 0)
+            {
+                var newStudDiscComponent = StudDiscComponents.CreateRow<RefDataStores.WTP.ISTUDDISCCOMPONENT>();
+                newStudDiscComponent.STUDDISCCOMPONENT_NAME = Name;
+                newStudDiscComponent.STUDDISCCOMPONENT_NUM = StudDiscComponents.Rows.
+                                    Cast<RefDataStores.WTP.ISTUDDISCCOMPONENT>().
+                                    Select(r => r.STUDDISCCOMPONENT_NUM).
+                                    Max() + 1;
+                newStudDiscComponent.STUDDISCCOMPONENT_ID = StudDiscComponents.Rows.Cast<RefDataStores.WTP.ISTUDDISCCOMPONENT>().Select(r => r.STUDDISCCOMPONENT_ID).Max() + 1;
+
+                StudDiscComponents.Add<RefDataStores.WTP.ISTUDDISCCOMPONENT>(newStudDiscComponent);
+                StudDiscComponents.Save();
+                ID = newStudDiscComponent.STUDDISCCOMPONENT_ID;
+            }
+            else
+            {
+                ID = StudDiscComponent.First();
+            }
+            return ID;
+        }
+
+        public Int64? GetSpecializationByName(string Name, string Code)
+        {
+            var Specializations = DbManager.GetDataSourse<ISPECIALIZATION>();
+            var Specialization = Specializations.Rows.
+                                    Cast<ISPECIALIZATION>().
+                                    Where(r => r.SPECIALIZATION_NAME == Name).
+                                    Select(r => r.SPECIALIZATION_ID);
+            Int64? ID = 0;
+            if (Specialization.Count() == 0)
+            {
+                var newSpecialization = Specializations.CreateRow<ISPECIALIZATION>();
+                newSpecialization.SPECIALIZATION_NAME = Name;
+                newSpecialization.SPECIALIZATION_NUMB = Code;
+
+                Specializations.Add<ISPECIALIZATION>(newSpecialization);
+                Specializations.Save();
+                ID = newSpecialization.SPECIALIZATION_ID;
+            }
+            else
+            {
+                ID = Specialization.First();
+            }
+
             return ID;
         }
 
