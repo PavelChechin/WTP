@@ -241,7 +241,7 @@ namespace WTPCoreExample
                             break;
 
                         case "1000":
-                            value.WTPPARAM_ID = newPlan.Params["EXAMS"].DataRow.WTPPARAM_ID;
+                            value.WTPPARAM_ID = newPlan.Params["TOTALHOURS"].DataRow.WTPPARAM_ID;
                             break;
 
                         case "107":
