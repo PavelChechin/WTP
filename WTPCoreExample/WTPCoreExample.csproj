@@ -33,41 +33,44 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CollectionsPattern">
-      <HintPath>bin\Release\CollectionsPattern.dll</HintPath>
+      <HintPath>..\..\..\..\components\CollectionsPattern\CollectionsPattern\bin\Release\CollectionsPattern.dll</HintPath>
     </Reference>
     <Reference Include="CustomDescriptor">
-      <HintPath>bin\Release\CustomDescriptor.dll</HintPath>
+      <HintPath>..\..\..\..\components\CustomDescriptor\CustomDescriptor\bin\Release\CustomDescriptor.dll</HintPath>
     </Reference>
     <Reference Include="ISEnvironment">
-      <HintPath>bin\Release\ISEnvironment.dll</HintPath>
+      <HintPath>..\..\..\..\components\ISEnvironment\ISEnvironment\bin\Release\ISEnvironment.dll</HintPath>
     </Reference>
     <Reference Include="LookupBox">
-      <HintPath>bin\Release\LookupBox.dll</HintPath>
+      <HintPath>..\..\..\..\components\LookupBoxSolution\bin\Release\LookupBox.dll</HintPath>
     </Reference>
     <Reference Include="PrefixFormula">
-      <HintPath>bin\Release\PrefixFormula.dll</HintPath>
+      <HintPath>..\..\..\..\components\PrefixFormula\PrefixFormula\bin\Release\PrefixFormula.dll</HintPath>
     </Reference>
-    <Reference Include="RefBookDevExpress">
-      <HintPath>bin\Release\RefBookDevExpress.dll</HintPath>
+    <Reference Include="RefBookDevExpress, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\ASU\RefBookDevExpress.dll</HintPath>
     </Reference>
-    <Reference Include="RefBookHelper">
-      <HintPath>bin\Release\RefBookHelper.dll</HintPath>
+    <Reference Include="RefBookHelper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\ASU\RefBookHelper.dll</HintPath>
     </Reference>
     <Reference Include="RefDataStores">
-      <HintPath>bin\Release\RefDataStores.dll</HintPath>
+      <HintPath>..\..\..\..\components\RefDataStores\RefDataStores\bin\Release\RefDataStores.dll</HintPath>
     </Reference>
     <Reference Include="RefLib">
-      <HintPath>bin\Release\RefLib.dll</HintPath>
+      <HintPath>..\..\..\..\components\RefLib\RefLib\bin\Release\RefLib.dll</HintPath>
     </Reference>
     <Reference Include="ReportService">
-      <HintPath>bin\Release\ReportService.dll</HintPath>
+      <HintPath>..\..\..\..\components\ReportService\ReportService\bin\Release\ReportService.dll</HintPath>
     </Reference>
     <Reference Include="ServerHelper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Release\ServerHelper.dll</HintPath>
+      <HintPath>..\..\..\..\components\ServerHelperEmpty\ServerHelper\bin\Release\ServerHelper.dll</HintPath>
     </Reference>
-    <Reference Include="SqlDataSolution">
-      <HintPath>bin\Release\SqlDataSolution.dll</HintPath>
+    <Reference Include="SqlDataSolution, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\ASU\SqlDataSolution.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -82,8 +85,9 @@
     <Reference Include="WTPCore">
       <HintPath>..\WTPCore\bin\Release\WTPCore.dll</HintPath>
     </Reference>
-    <Reference Include="WTPSqlLibrary">
-      <HintPath>bin\Release\WTPSqlLibrary.dll</HintPath>
+    <Reference Include="WTPSqlLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\components\WTPSolution\WTPSqlLibrary\bin\Release\WTPSqlLibrary.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -94,6 +98,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="ImportConverter.cs" />
     <Compile Include="ImportPlanExample.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

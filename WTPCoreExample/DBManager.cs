@@ -62,7 +62,8 @@ namespace WTPCoreExample
 
         public WTPLoader Load(Int64 wtpId)
         {
-            WTPSqlLoader.FillSqlData(sqlData, wtpId);
+            bool result = WTPSqlLoader.FillSqlData(sqlData, wtpId);
+            Console.WriteLine(result);
 
             return new WTPSqlLoader(sqlData);
         }
@@ -77,7 +78,7 @@ namespace WTPCoreExample
             sqlData.SaveAll();
         }
 
-        public TableDataStore GetDataSourse<T>()
+        public static TableDataStore GetDataSourse<T>()
         {
             TableDataStore ds = ISEnvironment.DataStoreFactory.CreateStore<TableDataStore>();
             ds.RowType = typeof(T);

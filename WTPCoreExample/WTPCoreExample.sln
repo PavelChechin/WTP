@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WTPCoreExample", "WTPCoreEx
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WTPCore", "..\WTPCore\WTPCore.csproj", "{9A8FEE22-3607-4A52-8CF2-DDE210A6075F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EducPlanSolution", "..\EducPlanSolution\EducPlanSolution.csproj", "{AA353754-4409-4A5D-8726-F490570D1493}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{9A8FEE22-3607-4A52-8CF2-DDE210A6075F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A8FEE22-3607-4A52-8CF2-DDE210A6075F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A8FEE22-3607-4A52-8CF2-DDE210A6075F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA353754-4409-4A5D-8726-F490570D1493}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA353754-4409-4A5D-8726-F490570D1493}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA353754-4409-4A5D-8726-F490570D1493}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA353754-4409-4A5D-8726-F490570D1493}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

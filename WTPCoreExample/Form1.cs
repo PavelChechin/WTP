@@ -1,11 +1,16 @@
-﻿using System;
+﻿using RefLib.WTP;
+using ServerHelper;
+using SqlDataSolution;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace WTPCoreExample
 {
@@ -14,12 +19,40 @@ namespace WTPCoreExample
         public Form1()
         {
             InitializeComponent();
+            ServerHelper.ConnectionHelper.SetConnection(new SqlConnection(@"Data Source=192.168.203.56\testserver; Initial Catalog=Entrant;Persist Security Info=False; User ID=superadmin;Password=rdfrfajhtdth"));
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            OpenFileDialog ofd = new OpenFileDialog();
+            if (ofd.ShowDialog() != DialogResult.OK)
+                return;
+            
+            WtpPresenter planPresenter = new WtpPresenter();
+            planPresenter.CreateWtp();
+            var plan = planPresenter.Plan;
+            plan.DataRow.SPECIALFACULTY_ID = 607;
+            plan.DataRow.SPECIALITY_ID = 50;
+            plan.DataRow.STUDYEAR_ID = 33;
+            plan.DataRow.FORMEDUC_ID = 1;
+            plan.DataRow.MODEEDUC_ID = 1;
+            plan.DataRow.STUDYEAR_ID_VERSION = 33;
+            planPresenter.Save();
+
             ImportPlanExample importer = new ImportPlanExample();
-            importer.Import();
+            XDocument xdoc = XDocument.Load(ofd.FileName);
+
+            
+            //planPresenter.Load(1297);
+            if (importer.CheckImportFile(planPresenter.Plan, xdoc, out string ErrorMessage))
+            {
+                if (MessageBox.Show(ErrorMessage + " Продолжить?", "Импорт УП", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.Cancel)
+                    return;
+            }
+
+            if (!importer.Import(planPresenter, xdoc, out string ErrorMessage2))
+                MessageBox.Show(ErrorMessage);
+            
         }
 
         private void button2_Click(object sender, EventArgs e)

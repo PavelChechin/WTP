@@ -40,17 +40,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CollectionsPattern">
-      <HintPath>..\WTPCoreExample\bin\Release\CollectionsPattern.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\..\..\components\CollectionsPattern\CollectionsPattern\bin\Release\CollectionsPattern.dll</HintPath>
     </Reference>
     <Reference Include="CustomDescriptor">
-      <HintPath>..\WTPCoreExample\bin\Release\CustomDescriptor.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\..\..\components\CustomDescriptor\CustomDescriptor\bin\Release\CustomDescriptor.dll</HintPath>
     </Reference>
     <Reference Include="SqlDataSolution, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\WTPCoreExample\bin\Release\SqlDataSolution.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>C:\ASU\SqlDataSolution.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">

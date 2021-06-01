@@ -38,8 +38,8 @@ namespace WTPCoreExample
         {
             var loader = DbManager.Load(id);
             Wtp[] wtps = loader.CreateWTPs();
-
-            return wtps[0];
+            Plan = wtps[0];
+            return Plan;
         }
 
         void LoadPlan(WTPLoader loader)
@@ -168,7 +168,7 @@ namespace WTPCoreExample
         /// <returns></returns>
         public Int64 GetStudDisciplineByName(string Name, string ShortName, Int64 DiscipTypeId)
         {
-            var disciplines = DbManager.GetDataSourse<ISTUDDISCIPLINE>();
+            var disciplines = DBManager.GetDataSourse<ISTUDDISCIPLINE>();
             var discipline = disciplines.Rows.
                                 Cast<ISTUDDISCIPLINE>().
                                 Where(r => r.STUDDISCIPLINE_NAME == Name).
@@ -199,7 +199,7 @@ namespace WTPCoreExample
         /// </summary>
         /// <param name="NUMB">Номер специальности</param>
         /// <param name="PlaceTrainID">ID филиала</param>
-        /// <param name="FacultyID">ID факультета</param>
+        /// <param name="FacultyID">ID факультета</param>GetStudYearIDByYear
         /// <returns></returns>
         public Int64? GetSpecialFacultyByNumb(string NUMB, Int64 PlaceTrainID, Int64 FacultyID)
         {
@@ -231,7 +231,7 @@ namespace WTPCoreExample
 
         public Int64 GetSpecialityByNumb(string NUMB)
         {
-            var specialities = DbManager.GetDataSourse<ISPECIALITY>();
+            var specialities = DBManager.GetDataSourse<ISPECIALITY>();
             var speciality = specialities.Rows.
                                 Cast<ISPECIALITY>().
                                 Where(r => r.SPECIALITY_NUMB == NUMB).
@@ -256,7 +256,7 @@ namespace WTPCoreExample
 
         public Int64? GetStudDiscipCicleByName(string Identifier, string Name)
         {
-            var StudDiscipCicles = DbManager.GetDataSourse<RefDataStores.WTP.ISTUDDISCIPCICLE>();
+            var StudDiscipCicles = DBManager.GetDataSourse<RefDataStores.WTP.ISTUDDISCIPCICLE>();
             var StudDiscipCicle = StudDiscipCicles.Rows.
                                     Cast<RefDataStores.WTP.ISTUDDISCIPCICLE>().
                                     Where(r => r.STUDDISCIPCICLE_NAME == Name).
@@ -282,7 +282,7 @@ namespace WTPCoreExample
 
         public Int64? GetChairByCode(string Code)
         {
-            var ImportChairs = DbManager.GetDataSourse<IWTPIMPORTCHAIR>();
+            var ImportChairs = DBManager.GetDataSourse<IWTPIMPORTCHAIR>();
             var ImportChair = ImportChairs.Rows.
                             Cast<IWTPIMPORTCHAIR>().
                             Where(r => r.WTPIMPORTCHAIR_EXTCODE == Code).
@@ -292,9 +292,9 @@ namespace WTPCoreExample
             return id;
         }
 
-        public Int64 GetStudYearIDByYear(string Year)
+        public static Int64 GetStudYearIDByYear(string Year)
         {
-            var StudYears = DbManager.GetDataSourse<ISTUDYEAR>();
+            var StudYears = DBManager.GetDataSourse<ISTUDYEAR>();
             var StudYear = StudYears.Rows.
                             Cast<ISTUDYEAR>().
                             Where(r => r.STUDYEAR_NUM == Convert.ToInt32(Year)).
@@ -306,7 +306,7 @@ namespace WTPCoreExample
 
         public Int64? GetStudDiscComponentByName(string Name)
         {
-            var StudDiscComponents = DbManager.GetDataSourse<RefDataStores.WTP.ISTUDDISCCOMPONENT>();
+            var StudDiscComponents = DBManager.GetDataSourse<RefDataStores.WTP.ISTUDDISCCOMPONENT>();
             var StudDiscComponent = StudDiscComponents.Rows.
                                     Cast<RefDataStores.WTP.ISTUDDISCCOMPONENT>().
                                     Where(r => r.STUDDISCCOMPONENT_NAME == Name).
@@ -335,7 +335,7 @@ namespace WTPCoreExample
 
         public Int64? GetSpecializationByName(string Name, string Code)
         {
-            var Specializations = DbManager.GetDataSourse<ISPECIALIZATION>();
+            var Specializations = DBManager.GetDataSourse<ISPECIALIZATION>();
             var Specialization = Specializations.Rows.
                                     Cast<ISPECIALIZATION>().
                                     Where(r => r.SPECIALIZATION_NAME == Name).

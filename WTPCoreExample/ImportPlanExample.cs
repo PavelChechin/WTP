@@ -14,49 +14,69 @@ namespace WTPCoreExample
 {
     public class ImportPlanExample
     {
-        const string lections = "LECTIONS";
-        WtpPresenter presenter;
+        WtpPresenter _presenter;
 
         public ImportPlanExample()
         {
-                //Установить строку подключения
-            ServerHelper.ConnectionHelper.SetConnection(new SqlConnection(@"Data Source=localhost; Initial Catalog=WTP; Integrated Security=True"));
             
         }
-        public void Import()
+
+        public bool CheckImportFile(Wtp plan, XDocument xdoc, out string errorMessage)
         {
-            XDocument xdoc = XDocument.Load("23.05.04_ЭЖД_(МТ;ГКР;ПКЖДТ;ТБиЛ)_2020.plx");
-            presenter = new WtpPresenter();
-            Wtp newPlan = presenter.CreateWtp();
-            //сделать поиск аналогично дисциплине ниже (GetStudDisciplineByName),
-            //реализовав метод в WtpPresenter
-            //поиск сделать по коду специальности SPECIALITY_NUMB
             var StudyPlan = xdoc.Root.Element("{urn:schemas-microsoft-com:xml-diffgram-v1}diffgram").Element("{http://tempuri.org/dsMMISDB.xsd}dsMMISDB");
             var SpecialityCode = StudyPlan.Element("{http://tempuri.org/dsMMISDB.xsd}ООП").Attribute("Шифр").Value;
-
-            var SpecialFacultyID = presenter.GetSpecialFacultyByNumb(/*"09.03.01"*/SpecialityCode, 1, 8);
-            newPlan.DataRow.SPECIALFACULTY_ID = 607;//в каких подразделениях обучается на специальности; специальность табличка SPECIALITY
-
-            var StudYearID = presenter.GetStudYearIDByYear(StudyPlan.Element("{http://tempuri.org/dsMMISDB.xsd}Планы").Attribute("ГодНачалаПодготовки").Value);
-            newPlan.DataRow.STUDYEAR_ID = StudYearID;//год
-
             var ModeEducID = StudyPlan.Element("{http://tempuri.org/dsMMISDB.xsd}Планы").Attribute("КодФормыОбучения").Value;
-            newPlan.DataRow.MODEEDUC_ID = Convert.ToInt64(ModeEducID); //1;//очное
+            var StudYearID = WtpPresenter.GetStudYearIDByYear(StudyPlan.Element("{http://tempuri.org/dsMMISDB.xsd}Планы").Attribute("ГодНачалаПодготовки").Value);
+
+            errorMessage = "Не совпадает";
+            bool error = false;
+
+            if(plan.DataRow.SPECIALITY_NUMB != SpecialityCode.Trim())
+            {
+                errorMessage += " код специальности,";
+                error = true;
+            }
+
+            if (plan.DataRow.MODEEDUC_ID != Convert.ToInt64(ModeEducID))
+            {
+                errorMessage += " форма обучения,";
+                error = true;
+            }
 
             var FormEduc = StudyPlan.Element("{http://tempuri.org/dsMMISDB.xsd}Планы").Attribute("Сокращённое").Value;
-            if (FormEduc == "false")
-                newPlan.DataRow.FORMEDUC_ID = 1;            //полная-сокращенная форма
-            if (FormEduc == "true")
-                newPlan.DataRow.FORMEDUC_ID = 2;
+            if (plan.DataRow.FORMEDUC_ID != ImportConverter.GetFormEducId(FormEduc))
+            {
+                errorMessage += " полный или сокращенный срок обучения,";
+                error = true;
+            }
+            errorMessage = errorMessage.TrimEnd(',') + ".";
 
-            newPlan.DataRow.STUDYEAR_ID_VERSION = StudYearID; //год
+            return error;
 
+        }
+        public bool Import(WtpPresenter presenter, XDocument xdoc, out string errorMessage)
+        {
+            _presenter = presenter;
+            
+            var plan = presenter.Plan;
+            errorMessage = string.Empty;
+            //Создание плана скорее всего будет отдельно, поэтому вынесла этот процесс из логики импорта, 
+            //Wtp newPlan = presenter.CreateWtp();
+
+            var StudyPlan = xdoc.Root.Element("{urn:schemas-microsoft-com:xml-diffgram-v1}diffgram").Element("{http://tempuri.org/dsMMISDB.xsd}dsMMISDB");
+
+            var StudYearID = WtpPresenter.GetStudYearIDByYear(StudyPlan.Element("{http://tempuri.org/dsMMISDB.xsd}Планы").Attribute("ГодНачалаПодготовки").Value);
+
+            /*Нужно создать статический класс констант для хранения имен нодов и неймспейса xml.
+             * Чтобы все константы были собраны в одном месте
+             * чтобы обращение было таким: StudyPlan.Descendants(XmlConst.Cycles)
+             */
             IEnumerable<XElement> parentCycles = StudyPlan.Descendants("{http://tempuri.org/dsMMISDB.xsd}ПланыЦиклы").Where(q => q.Attribute("ТипБлока").Value == "1");
             foreach (var parentCycle in parentCycles)
             {
                 IWTPCOMPONENT component = presenter.CreateNewComponent();
                 //поиск по имени STUDDISCIPCICLE_NAME
-                var StudDiscipCicleID = presenter.GetStudDiscipCicleByName(parentCycle.Attribute("Идентификатор").Value, parentCycle.Attribute("Цикл").Value);  //поиск цикла возможно правильнее будет производить по идентификатору, а не по названию
+                var StudDiscipCicleID = presenter.GetStudDiscipCicleByName(parentCycle.Attribute("Идентификатор").Value, parentCycle.Attribute("Цикл").Value);  
                 component.STUDDISCIPCICLE_ID = StudDiscipCicleID;
                 var cycleID = parentCycle.Attribute("Код").Value;
                 var wtpComponent = presenter.AddComponent(component, null);
@@ -71,6 +91,8 @@ namespace WTPCoreExample
                         var childID = presenter.GetStudDiscipCicleByName(childCycle.Attribute("Идентификатор").Value, childCycle.Attribute("Цикл").Value);
                         component2.STUDDISCIPCICLE_ID = childID;
                         var wtpComponent2 = presenter.AddComponent(component2, wtpComponent);
+
+                        //сохранение после каждого действия нужно будет убрать, сохранять только в конце импорта
                         Save();
 
 
@@ -84,7 +106,7 @@ namespace WTPCoreExample
 
                                 var rowValues = StudyPlan.Descendants("{http://tempuri.org/dsMMISDB.xsd}ПланыНовыеЧасы").Where(q => q.Attribute("КодОбъекта").Value == rowID);
 
-                                AddWTPROWValues(newPlan, rowValues, discipRow);
+                                AddWTPROWValues(plan, rowValues, discipRow);
                             }
 
                             if (planRow.Attribute("ТипОбъекта").Value == "1")  //дисциплины специализации
@@ -105,7 +127,7 @@ namespace WTPCoreExample
 
                                     var rowValues = StudyPlan.Descendants("{http://tempuri.org/dsMMISDB.xsd}ПланыНовыеЧасы").Where(q => q.Attribute("КодОбъекта").Value == rowID);
 
-                                    AddWTPROWValues(newPlan, rowValues, discipRow);
+                                    AddWTPROWValues(plan, rowValues, discipRow);
                                 }
 
                                 Save();
@@ -135,7 +157,7 @@ namespace WTPCoreExample
 
                                     var rowValues = StudyPlan.Descendants("{http://tempuri.org/dsMMISDB.xsd}ПланыНовыеЧасы").Where(q => q.Attribute("КодОбъекта").Value == rowID);
 
-                                    AddWTPROWValues(newPlan, rowValues, discipRow);
+                                    AddWTPROWValues(plan, rowValues, discipRow);
 
                                 }
 
@@ -153,21 +175,21 @@ namespace WTPCoreExample
             Save();
 
 
-            
+            return true;
         }
 
         public void Save()
         {
-            presenter.Save();
+            _presenter.Save();
         }
 
         public WTPRow AddWTPROW(XElement planRow, WTPComponent ParentComponent)
         {
-            Int64 discipId = presenter.GetStudDisciplineByName(planRow.Attribute("Дисциплина").Value, "", 1);
-            var newrow = presenter.CreateNewRow();
+            Int64 discipId = _presenter.GetStudDisciplineByName(planRow.Attribute("Дисциплина").Value, "", 1);
+            var newrow = _presenter.CreateNewRow();
             //newrow.CHAIR_ID = presenter.GetChairByCode(planRow.Attribute("КодКафедры").Value);
             newrow.STUDDISCIPLINE_ID = discipId;
-            var discipRow = presenter.AddRow(newrow, ParentComponent);
+            var discipRow = _presenter.AddRow(newrow, ParentComponent);
             Save();
             return discipRow;
         }
@@ -179,7 +201,7 @@ namespace WTPCoreExample
 
             for (int i = firstSemester; i <= lastSemester; i++)
             {
-                var semestr = presenter.CreateNewSemester();
+                var semestr = _presenter.CreateNewSemester();
                 //номер семестра
                 semestr.WTPSEMESTER_NUM = i;
                 discipRow.Semesters.Add(semestr, false);
@@ -197,7 +219,7 @@ namespace WTPCoreExample
 
                 foreach (var valueFromSemestr in valuesFromSemestr)
                 {
-                    var value = presenter.CreateNewRowValues();
+                    var value = _presenter.CreateNewRowValues();
                     value.WTPROWVALUES_SEMNUM = (short?)i;
                     value.WTPROWVALUES_VALUE = valueFromSemestr.Attribute("Количество").Value;
 
@@ -256,7 +278,7 @@ namespace WTPCoreExample
                             continue;
                     }
 
-                    var rowValue = presenter.AddRowValue(value, discipRow);
+                    var rowValue = _presenter.AddRowValue(value, discipRow);
                     Save();
                 }
             }
