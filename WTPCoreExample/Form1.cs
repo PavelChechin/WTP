@@ -1,4 +1,6 @@
-﻿using RefLib.WTP;
+﻿using RefDataStores.General;
+using RefLib;
+using RefLib.WTP;
 using ServerHelper;
 using SqlDataSolution;
 using System;
@@ -19,7 +21,8 @@ namespace WTPCoreExample
         public Form1()
         {
             InitializeComponent();
-            ServerHelper.ConnectionHelper.SetConnection(new SqlConnection(@"Data Source=192.168.203.56\testserver; Initial Catalog=Entrant;Persist Security Info=False; User ID=superadmin;Password=rdfrfajhtdth"));
+            //ServerHelper.ConnectionHelper.SetConnection(new SqlConnection(@"Data Source=192.168.203.56\testserver; Initial Catalog=Entrant;Persist Security Info=False; User ID=superadmin;Password=rdfrfajhtdth"));
+            ServerHelper.ConnectionHelper.SetConnection(new SqlConnection(@"Data Source=localhost; Initial Catalog=WTP; Integrated Security=True"));
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -57,7 +60,20 @@ namespace WTPCoreExample
 
         private void button2_Click(object sender, EventArgs e)
         {
+            var disciplines = SqlData.GetDataSource<STUDDISCIPLINE>(ServerHelper.ConnectionHelper.GetConnection(), "SPU_STUDDISCIPLINE_SEL", null);
+            
 
+            //var disciplines = DBManager.GetDataSourse<ISTUDDISCIPLINE>();
+            var newDiscip = disciplines.CreateNewRow<STUDDISCIPLINE>();
+            newDiscip.STUDDISCIPLINE_NAME = "kfghjcgjtjc";
+            newDiscip.STUDDISCIPLINE_SHORTNAME = "yguykghgh";
+            newDiscip.STUDDISCIPLINE_STATE = true;
+            newDiscip.STUDDISCIPTYPE_ID = 1;
+            newDiscip.STUDDISCIPLINE_DIPLOMANAME = "hjkgfgfjhf";
+            
+
+            disciplines.AddRow(newDiscip);
+            disciplines.SqlData.SaveAll();
         }
     }
 }

@@ -38,6 +38,14 @@
     <Reference Include="CustomDescriptor">
       <HintPath>..\..\..\..\components\CustomDescriptor\CustomDescriptor\bin\Release\CustomDescriptor.dll</HintPath>
     </Reference>
+    <Reference Include="DevExpress.Data.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Printing.v17.1.Core, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraEditors.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraGrid.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraPrinting.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraWizard.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="ISEnvironment">
       <HintPath>..\..\..\..\components\ISEnvironment\ISEnvironment\bin\Release\ISEnvironment.dll</HintPath>
     </Reference>
@@ -68,9 +76,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\components\ServerHelperEmpty\ServerHelper\bin\Release\ServerHelper.dll</HintPath>
     </Reference>
-    <Reference Include="SqlDataSolution, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="SqlDataSolution, Version=830.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\ASU\SqlDataSolution.dll</HintPath>
+      <HintPath>C:\Users\chech\Desktop\Новая папка\SqlDataSolution\SqlDataSolution\bin\Release\SqlDataSolution.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -103,6 +111,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WtpPresenter.cs" />
+    <Compile Include="XmlConst.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
