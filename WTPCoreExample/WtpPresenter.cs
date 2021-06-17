@@ -1,4 +1,6 @@
 ﻿using RefDataStores.General;
+using RefLib;
+using SqlDataSolution;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -168,24 +170,23 @@ namespace WTPCoreExample
         /// <returns></returns>
         public Int64 GetStudDisciplineByName(string Name, string ShortName, Int64 DiscipTypeId)
         {
-            var disciplines = DBManager.GetDataSourse<ISTUDDISCIPLINE>();
+            var disciplines = SqlData.GetDataSource<STUDDISCIPLINE>(ServerHelper.ConnectionHelper.GetConnection(), "SPU_STUDDISCIPLINE_SEL", null);
             var discipline = disciplines.Rows.
                                 Cast<ISTUDDISCIPLINE>().
-                                Where(r => r.STUDDISCIPLINE_NAME == Name).
+                                Where(r => r.STUDDISCIPLINE_DIPLOMANAME.Trim() == Name).
                                 Select(r => r.STUDDISCIPLINE_ID);
             Int64 id = 0;
             if (discipline.Count() == 0)
             {
-                var newDiscip = disciplines.CreateRow<ISTUDDISCIPLINE>();
+                var newDiscip = disciplines.CreateNewRow<STUDDISCIPLINE>();
                 newDiscip.STUDDISCIPLINE_NAME = Name;
-                newDiscip.STUDDISCIPLINE_SHORTNAME = ShortName;
+                newDiscip.STUDDISCIPLINE_SHORTNAME = Name;
                 newDiscip.STUDDISCIPLINE_STATE = true;
                 newDiscip.STUDDISCIPTYPE_ID = DiscipTypeId;
                 newDiscip.STUDDISCIPLINE_DIPLOMANAME = Name;
-                newDiscip.STUDDISCIPLINE_ID = disciplines.Rows.Cast<ISTUDDISCIPLINE>().Select(r => r.STUDDISCIPLINE_ID).Max() + 1;
 
-                disciplines.Add<ISTUDDISCIPLINE>(newDiscip);
-                disciplines.Save();
+                disciplines.AddRow(newDiscip);
+                disciplines.SqlData.SaveAll();
                 id = newDiscip.STUDDISCIPLINE_ID;
             }
             else
@@ -320,7 +321,6 @@ namespace WTPCoreExample
                                     Cast<RefDataStores.WTP.ISTUDDISCCOMPONENT>().
                                     Select(r => r.STUDDISCCOMPONENT_NUM).
                                     Max() + 1;
-                newStudDiscComponent.STUDDISCCOMPONENT_ID = StudDiscComponents.Rows.Cast<RefDataStores.WTP.ISTUDDISCCOMPONENT>().Select(r => r.STUDDISCCOMPONENT_ID).Max() + 1;
 
                 StudDiscComponents.Add<RefDataStores.WTP.ISTUDDISCCOMPONENT>(newStudDiscComponent);
                 StudDiscComponents.Save();
@@ -356,6 +356,13 @@ namespace WTPCoreExample
                 ID = Specialization.First();
             }
 
+            return ID;
+        }
+
+        public Int64 GetLastVariationID()
+        {
+            var Rows = DBManager.GetDataSourse<IWTPROW>();
+            var ID = Rows.Rows.Cast<IWTPROW>().Select(r => r.WTPROW_VARIATIONID).Last();
             return ID;
         }
 

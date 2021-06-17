@@ -29,6 +29,12 @@ namespace WTPCore.WorkTeacherPlan
             private set;
         }
 
+        public WTPRowValues Values
+        {
+            get;
+            private set;
+        }
+
         public WTPComponents Components
         {
             get;

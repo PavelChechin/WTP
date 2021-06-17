@@ -67,10 +67,6 @@ namespace WTPCoreExample
 
             var StudYearID = WtpPresenter.GetStudYearIDByYear(StudyPlan.Element(XmlConst.Plans).Attribute("ГодНачалаПодготовки").Value);
 
-            /*Нужно создать статический класс констант для хранения имен нодов и неймспейса xml.
-             * Чтобы все константы были собраны в одном месте
-             * чтобы обращение было таким: StudyPlan.Descendants(XmlConst.Cycles)
-             */
             IEnumerable<XElement> parentCycles = StudyPlan.Descendants(XmlConst.Cycles).Where(q => q.Attribute("ТипБлока").Value == "1");
             foreach (var parentCycle in parentCycles)
             {
@@ -78,25 +74,28 @@ namespace WTPCoreExample
                 //поиск по имени STUDDISCIPCICLE_NAME
                 var StudDiscipCicleID = presenter.GetStudDiscipCicleByName(parentCycle.Attribute("Идентификатор").Value, parentCycle.Attribute("Цикл").Value);  
                 component.STUDDISCIPCICLE_ID = StudDiscipCicleID;
-                var cycleID = parentCycle.Attribute("Код").Value;
+                component.STUDDISCIPCICLE_NAME = parentCycle.Attribute("Цикл").Value;
+                var parentCycleID = parentCycle.Attribute("Код").Value;
                 var wtpComponent = presenter.AddComponent(component, null);
                 
 
-                var childCycles = StudyPlan.Descendants(XmlConst.Cycles).Where(q => q.Attribute("ТипБлока").Value != "1").Where(q => q.Attribute("КодРодителя").Value == cycleID);
+                var childCycles = StudyPlan.Descendants(XmlConst.Cycles).Where(q => q.Attribute("ТипБлока").Value != "1").Where(q => q.Attribute("КодРодителя").Value == parentCycleID);
                 if (childCycles.Count() != 0)
                 {
                     foreach (var childCycle in childCycles)
                     {
                         IWTPCOMPONENT component2 = presenter.CreateNewComponent();
                         var childID = presenter.GetStudDiscipCicleByName(childCycle.Attribute("Идентификатор").Value, childCycle.Attribute("Цикл").Value);
+                        var childCycleID = childCycle.Attribute("Код").Value;
                         component2.STUDDISCIPCICLE_ID = childID;
+                        component2.STUDDISCIPCICLE_NAME = childCycle.Attribute("Цикл").Value;
                         var wtpComponent2 = presenter.AddComponent(component2, wtpComponent);
 
                         //сохранение после каждого действия нужно будет убрать, сохранять только в конце импорта
                         
 
 
-                        IEnumerable<XElement> planRows = StudyPlan.Descendants(XmlConst.Rows).Where(q => q.Attribute("УровеньВложения").Value == "1");
+                        IEnumerable<XElement> planRows = StudyPlan.Descendants(XmlConst.Rows).Where(q => q.Attribute("УровеньВложения").Value == "1").Where(q => q.Attribute("КодБлока").Value == childCycleID);
                         foreach (var planRow in planRows)
                         {
                             if (planRow.Attribute("ТипОбъекта").Value == "2")
@@ -135,27 +134,28 @@ namespace WTPCoreExample
 
                             if (planRow.Attribute("ТипОбъекта").Value == "5")  //дисциплины по выбору
                             {
-                                IWTPCOMPONENT component3 = presenter.CreateNewComponent();
-                                var ID = presenter.GetStudDiscComponentByName(planRow.Attribute("Дисциплина").Value);
+                                //IWTPCOMPONENT component3 = presenter.CreateNewComponent();
+                                //var ID = presenter.GetStudDiscComponentByName(planRow.Attribute("Дисциплина").Value);
                                 var componentID = planRow.Attribute("Код").Value;
-                                XElement OOP = StudyPlan.Element(XmlConst.OOP);
-                                if (OOP.Attribute("Код").Value != planRow.Attribute("КодООП").Value)
-                                {
-                                    OOP = StudyPlan.Element(XmlConst.OOP).Descendants(XmlConst.OOP).Where(q => q.Attribute("Код").Value == planRow.Attribute("КодООП").Value).First();
-                                }
+                                //XElement OOP = StudyPlan.Element(XmlConst.OOP);
+                                //if (OOP.Attribute("Код").Value != planRow.Attribute("КодООП").Value)
+                                //{
+                                //    OOP = StudyPlan.Element(XmlConst.OOP).Descendants(XmlConst.OOP).Where(q => q.Attribute("Код").Value == planRow.Attribute("КодООП").Value).First();
+                                //}
 
-                                var SpecializationID = presenter.GetSpecializationByName(OOP.Attribute("Название").Value, OOP.Attribute("Шифр").Value);
-                                component3.STUDDISCCOMPONENT_ID = ID;
-                                component3.STUDDISCCOMPONENT_NAME = planRow.Attribute("Дисциплина").Value;
-                                component3.SPECIALIZATION_ID = SpecializationID;
-                                component3.SPECIALIZATION_NAME = OOP.Attribute("Название").Value;
-                                var wtpComponent3 = presenter.AddComponent(component3, wtpComponent2);
+                                //var SpecializationID = presenter.GetSpecializationByName(OOP.Attribute("Название").Value, OOP.Attribute("Шифр").Value);
+                                //component3.STUDDISCCOMPONENT_ID = ID;
+                                //component3.STUDDISCCOMPONENT_NAME = planRow.Attribute("Дисциплина").Value;
+                                //component3.SPECIALIZATION_ID = SpecializationID;
+                                //component3.SPECIALIZATION_NAME = OOP.Attribute("Название").Value;
+                                //var wtpComponent3 = presenter.AddComponent(component3, wtpComponent2);
 
+                                //var VariationID = presenter.GetLastVariationID() + 1;
                                 var chosenRows = StudyPlan.Descendants(XmlConst.Rows).Where(q => q.Attribute("УровеньВложения").Value == "2").Where(q => q.Attribute("КодРодителя").Value == componentID);
                                 foreach (var chosenRow in chosenRows)
                                 {
                                     var rowID = chosenRow.Attribute("Код").Value;
-                                    var discipRow = AddWTPROW(chosenRow, wtpComponent3);
+                                    var discipRow = AddWTPROW(chosenRow, wtpComponent2);
 
                                     var rowValues = StudyPlan.Descendants(XmlConst.NewHours).Where(q => q.Attribute("КодОбъекта").Value == rowID);
 
@@ -165,7 +165,13 @@ namespace WTPCoreExample
 
                             }
 
-                            //if (planRow.Attribute("ТипОбъекта").Value == "3") { } //практики
+                            //if (planRow.Attribute("ТипОбъекта").Value == "3")
+                            //{
+                            //    var rowID = planRow.Attribute("Код").Value;
+                            //    var practiceRow = AddWTPROW(planRow, wtpComponent2);
+                            //    var newPractice = 
+                                
+                            //} //практики
 
                         }
                     }
@@ -182,6 +188,17 @@ namespace WTPCoreExample
             _presenter.Save();
         }
 
+        //public WTPRow AddWTPROW(XElement planRow, WTPComponent ParentComponent, Int64 VariationID) //для дисциплин по выбору
+        //{
+        //    Int64 discipId = _presenter.GetStudDisciplineByName(planRow.Attribute("Дисциплина").Value, "", 1);
+        //    var newrow = _presenter.CreateNewRow();
+        //    //newrow.CHAIR_ID = presenter.GetChairByCode(planRow.Attribute("КодКафедры").Value);
+        //    newrow.STUDDISCIPLINE_ID = discipId;
+        //    newrow.WTPROW_VARIATIONID = VariationID;
+        //    var discipRow = _presenter.AddRow(newrow, ParentComponent);
+        //    return discipRow;
+        //}
+
         public WTPRow AddWTPROW(XElement planRow, WTPComponent ParentComponent)
         {
             Int64 discipId = _presenter.GetStudDisciplineByName(planRow.Attribute("Дисциплина").Value, "", 1);
@@ -191,7 +208,7 @@ namespace WTPCoreExample
             var discipRow = _presenter.AddRow(newrow, ParentComponent);
             return discipRow;
         }
-        
+
         public void AddWTPROWValues(Wtp newPlan, IEnumerable<XElement> rowValues, WTPRow discipRow)
         {
             int firstSemester = (int.Parse(rowValues.First().Attribute("Курс").Value) - 1) * 2 + int.Parse(rowValues.First().Attribute("Семестр").Value);
@@ -217,66 +234,72 @@ namespace WTPCoreExample
 
                 foreach (var valueFromSemestr in valuesFromSemestr)
                 {
-                    var value = _presenter.CreateNewRowValues();
-                    value.WTPROWVALUES_SEMNUM = (short?)i;
-                    value.WTPROWVALUES_VALUE = valueFromSemestr.Attribute("Количество").Value;
+                    var SemNum = (short?)i;
+                    var Value = valueFromSemestr.Attribute("Количество").Value;
+                    Int64? ParamID = 0;
 
                     string WorkType = valueFromSemestr.Attribute("КодВидаРаботы").Value;
                     switch (WorkType)
                     {
                         case "1":
-                            value.WTPPARAM_ID = newPlan.Params["EXAMS"].DataRow.WTPPARAM_ID;
+                            ParamID = newPlan.Params["EXAMS"].DataRow.WTPPARAM_ID;
                             break;
 
                         case "2":
-                            value.WTPPARAM_ID = newPlan.Params["MIDTERMS"].DataRow.WTPPARAM_ID;
+                            ParamID = newPlan.Params["MIDTERMS"].DataRow.WTPPARAM_ID;
                             break;
 
                         case "101":
-                            value.WTPPARAM_ID = newPlan.Params["LECTIONS"].DataRow.WTPPARAM_ID;
+                            ParamID = newPlan.Params["LECTIONS"].DataRow.WTPPARAM_ID;
                             break;
 
                         case "103":
-                            value.WTPPARAM_ID = newPlan.Params["PRACTICS"].DataRow.WTPPARAM_ID;
+                            ParamID = newPlan.Params["PRACTICS"].DataRow.WTPPARAM_ID;
                             break;
 
                         case "102":
-                            value.WTPPARAM_ID = newPlan.Params["LABWORKS"].DataRow.WTPPARAM_ID;
+                            ParamID = newPlan.Params["LABWORKS"].DataRow.WTPPARAM_ID;
                             break;
 
                         case "10":
-                            value.WTPPARAM_ID = newPlan.Params["REFERATS"].DataRow.WTPPARAM_ID;
+                            ParamID = newPlan.Params["REFERATS"].DataRow.WTPPARAM_ID;
                             break;
 
                         case "11":
-                            value.WTPPARAM_ID = newPlan.Params["CALCGRAPHWORKS"].DataRow.WTPPARAM_ID;
+                            ParamID = newPlan.Params["CALCGRAPHWORKS"].DataRow.WTPPARAM_ID;
                             break;
 
                         case "4":
-                            value.WTPPARAM_ID = newPlan.Params["COURSPROJECTS"].DataRow.WTPPARAM_ID;
+                            ParamID = newPlan.Params["COURSPROJECTS"].DataRow.WTPPARAM_ID;
                             break;
 
                         case "5":
-                            value.WTPPARAM_ID = newPlan.Params["COURSWORKS"].DataRow.WTPPARAM_ID;
+                            ParamID = newPlan.Params["COURSWORKS"].DataRow.WTPPARAM_ID;
                             break;
 
                         case "1000":
-                            value.WTPPARAM_ID = newPlan.Params["TOTALHOURS"].DataRow.WTPPARAM_ID;
+                            ParamID = newPlan.Params["TOTALHOURS"].DataRow.WTPPARAM_ID;
                             break;
 
                         case "107":
-                            value.WTPPARAM_ID = newPlan.Params["IndependentWork"].DataRow.WTPPARAM_ID;
+                            ParamID = newPlan.Params["IndependentWork"].DataRow.WTPPARAM_ID;
                             break;
 
                         case "106":
-                            value.WTPPARAM_ID = newPlan.Params["KSR"].DataRow.WTPPARAM_ID;
+                            ParamID = newPlan.Params["KSR"].DataRow.WTPPARAM_ID;
                             break;
 
                         default:
                             continue;
                     }
-
-                    var rowValue = _presenter.AddRowValue(value, discipRow);
+                    if (ParamID != 0)
+                    {
+                        var value = _presenter.CreateNewRowValues();
+                        value.WTPROWVALUES_SEMNUM = SemNum;
+                        value.WTPROWVALUES_VALUE = Value;
+                        value.WTPPARAM_ID = ParamID;
+                        var rowValue = _presenter.AddRowValue(value, discipRow);
+                    }
                 }
             }
         }

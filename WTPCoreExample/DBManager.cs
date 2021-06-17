@@ -12,6 +12,7 @@ using WTPCore.Data.Interfaces.Base;
 using WTPCore.Data.SourceInrefaces;
 using WTPCore.Loader;
 using WTPPresenter.WTPSqlData;
+using WTPPresenter.WTPSqlData.DataRowContainers.Base;
 
 namespace WTPCoreExample
 {
