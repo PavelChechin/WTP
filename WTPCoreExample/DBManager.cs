@@ -86,13 +86,5 @@ namespace WTPCoreExample
             ds.Fill("");
             return ds;
         }
-
-        public TableDataStore GetDataSourсe<T>()
-        {
-            TableDataStore ds = ISEnvironment.DataStoreFactory.CreateStore<TableDataStore>();
-            ds.RowType = typeof(T);
-            ds.Fill("SPU_SPECIALFACULTY_SEL");   //параметр указан для обхода исключения "invalid object name 'OTP'"
-            return ds;
-        }
     }
 }

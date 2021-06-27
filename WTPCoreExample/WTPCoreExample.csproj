@@ -76,7 +76,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\components\ServerHelperEmpty\ServerHelper\bin\Release\ServerHelper.dll</HintPath>
     </Reference>
-    <Reference Include="SqlDataSolution, Version=830.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="SqlDataSolution, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Users\chech\Desktop\Новая папка\SqlDataSolution\SqlDataSolution\bin\Release\SqlDataSolution.dll</HintPath>
     </Reference>
@@ -93,18 +93,14 @@
     <Reference Include="WTPCore">
       <HintPath>..\WTPCore\bin\Release\WTPCore.dll</HintPath>
     </Reference>
-    <Reference Include="WTPSqlLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\components\WTPSolution\WTPSqlLibrary\bin\Release\WTPSqlLibrary.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DBManager.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="ImportForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ImportForm.Designer.cs">
+      <DependentUpon>ImportForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ImportConverter.cs" />
     <Compile Include="ImportPlanExample.cs" />
@@ -113,9 +109,11 @@
     <Compile Include="WtpPresenter.cs" />
     <Compile Include="WTPSqlDataFactory.cs" />
     <Compile Include="XmlConst.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="ImportForm.resx">
+      <DependentUpon>ImportForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -134,6 +132,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WTPSqlLibrary\WTPSqlLibrary.csproj">
+      <Project>{04dca81f-13d8-45e5-836a-b03ebd662365}</Project>
+      <Name>WTPSqlLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -14,18 +14,24 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using WTPCore.WorkTeacherPlan;
 
 namespace WTPCoreExample
 {
-    public partial class Form1 : Form
+    public partial class ImportForm : Form
     {
-        public Form1()
+        Int64 WTP_ID;
+        public ImportForm()
         {
             InitializeComponent();
             //ServerHelper.ConnectionHelper.SetConnection(new SqlConnection(@"Data Source=192.168.203.56\testserver; Initial Catalog=Entrant;Persist Security Info=False; User ID=superadmin;Password=rdfrfajhtdth"));
             ServerHelper.ConnectionHelper.SetConnection(new SqlConnection(@"Data Source=localhost; Initial Catalog=WTP; Integrated Security=True"));
         }
 
+        public Int64 WTPID()
+        {
+            return WTP_ID;
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -39,7 +45,7 @@ namespace WTPCoreExample
             var ModeEduc = 1;
             var StudYearIDVersion = 33;
 
-            Int64 WTP_ID;
+
             var WTP = DBManager.GetDataSourse<IWTP>().Rows.Cast<IWTP>().
                  Where(r => r.SPECIALFACULTY_ID == SpecialFaculty).
                  Where(r => r.SPECIALITY_ID == Speciality).
@@ -51,8 +57,8 @@ namespace WTPCoreExample
             WtpPresenter planPresenter = new WtpPresenter();
             if (WTP.Count() == 0)
             {
-                planPresenter.CreateWtp();
-                var plan = planPresenter.Plan;
+                Wtp plan = planPresenter.CreateWtp();
+                //var plan = planPresenter.Plan;
                 plan.DataRow.SPECIALFACULTY_ID = 607;
                 plan.DataRow.SPECIALITY_ID = 50;
                 plan.DataRow.STUDYEAR_ID = 33;
@@ -60,6 +66,7 @@ namespace WTPCoreExample
                 plan.DataRow.MODEEDUC_ID = 1;
                 plan.DataRow.STUDYEAR_ID_VERSION = 33;
                 planPresenter.Save();
+                WTP_ID = (long)plan.DataRow.WTP_ID;
             }
             else
             {
@@ -67,8 +74,8 @@ namespace WTPCoreExample
                 planPresenter.Load(WTP_ID);
                 var plan = planPresenter.Plan;
             }
-            
-            
+
+
 
             ImportPlanExample importer = new ImportPlanExample();
             XDocument xdoc = XDocument.Load(ofd.FileName);

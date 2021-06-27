@@ -3,13 +3,20 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using WTPCore.Data.Interfaces.Base;
 using WTPCore.WorkTeacherPlan;
 
 namespace WTPCoreExample
 {
     class WTPGridRow : INotifyPropertyChanged
     {
+        private string parentCycle;
+        private string childCycle;
+        private string childCycleCode;
         private string name;
+        private string code;
+        private long? number;
+        private long? semNum;
         private object lections;
         private object exams;
         private object practics;
@@ -22,6 +29,46 @@ namespace WTPCoreExample
         private object totalHours;
         private object ksr;
         private object independentWork;
+        
+
+        public string ParentCycle
+        {
+            get
+            {
+                return parentCycle;
+            }
+            set
+            {
+                parentCycle = value;
+                OnPropertyChanged("ParentCycle");
+            }
+        }
+
+        public string ChildCycle
+        {
+            get
+            {
+                return childCycle;
+            }
+            set
+            {
+                childCycle = value;
+                OnPropertyChanged("ChildCycle");
+            }
+        }
+
+        public string ChildCycleCode
+        {
+            get
+            {
+                return childCycleCode;
+            }
+            set
+            {
+                childCycleCode = value;
+                OnPropertyChanged("ChildCycle");
+            }
+        }
 
         public string Discip_Name
         {
@@ -33,6 +80,45 @@ namespace WTPCoreExample
             {
                 name = value;
                 OnPropertyChanged("Discip_Name");
+            }
+        }
+
+        public string Code
+        {
+            get
+            {
+                return code;
+            }
+            set
+            {
+                code = value;
+                OnPropertyChanged("Code");
+            }
+        }
+
+        public long? Number
+        {
+            get
+            {
+                return number;
+            }
+            set
+            {
+                number = value;
+                OnPropertyChanged("Number");
+            }
+        }
+
+        public long? SemNum
+        {
+            get
+            {
+                return semNum;
+            }
+            set
+            {
+                semNum = value;
+                OnPropertyChanged("SemNum");
             }
         }
 
@@ -192,9 +278,16 @@ namespace WTPCoreExample
             }
         }
 
-        public WTPGridRow(string discip_name, WTPRowValues values)
+        public WTPGridRow(string parentComponent, WTPComponent childComponent, WTPRow row, WTPRowValues values, long? sem_num)
         {
-            Discip_Name = discip_name;
+            ParentCycle = parentComponent;
+            ChildCycle = childComponent.DataRow.WTPCOMPONENT_NAME;
+            ChildCycleCode = row.Component.DataRow.WTPCOMPONENT_CODE;
+            Discip_Name = row.DataRow.STUDDISCIPLINE_NAME;
+            SemNum = sem_num;
+            Code = row.Component.DataRow.WTPCOMPONENT_CODE +"."+ row.DataRow.WTPROW_NUMBER;
+            Number = row.DataRow.WTPROW_SORTINDEX;
+
             foreach (WTPRowValue value in values)
             {
                 switch (value.DataRow.WTPPARAM_ID)

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using WTPCore.Data.Interfaces.Base;
 
 namespace WTPCore.WorkTeacherPlan
 {
@@ -36,19 +37,16 @@ namespace WTPCore.WorkTeacherPlan
             row.WTP_ID = Wtp.DataRow.WTP_ID;
         }
 
-        public void Add(WTPRow Row)
+        public void Add(WTPPractice Row)
         {
             AddToList(Row);
         }
         /// <summary>
-        /// Добавление существующей дисциплины
-        /// </summary>
-        /// <param name="DataRow">Идентификатор дисциплины</param>
-        /// <param name="FromBase"></param>
-        /// <returns></returns>
-        public WTPRow Add(IWTPROW DataRow, bool FromBase)
+        /// Добавление существующего значения
+        /// </summary>   
+        public WTPPractice Add(IWTPPRACTICE DataRow, bool FromBase)
         {
-            WTPRow newRow = new WTPRow(this, DataRow);
+            WTPPractice newRow = new WTPPractice(this, DataRow);
             Add(newRow);
             return newRow;
         }

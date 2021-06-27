@@ -20,6 +20,12 @@ namespace WTPCore.Data.SourceInrefaces
             get;
             set;
         }
+
+        Int32? WTPROW_NUMBER
+        {
+            get;
+            set;
+        }
         string WTPROW_INDEX
         {
             get;

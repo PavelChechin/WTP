@@ -74,7 +74,7 @@ namespace WTPCore.WorkTeacherPlan
         }
         #endregion
         /// <summary>
-        /// Получение зачения по названию колонки. 
+        /// Получение значения по названию колонки. 
         /// </summary>
         /// <param name="ColumnName">Название колонки</param>
         /// <param name="AutoCreate">Создавать значение, если не найдено</param>

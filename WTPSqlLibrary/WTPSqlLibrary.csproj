@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{04DCA81F-13D8-45E5-836A-B03EBD662365}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WTPSqlLibrary</RootNamespace>
+    <AssemblyName>WTPSqlLibrary</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CollectionsPattern">
+      <HintPath>..\..\Chechin\WTP\dll\CollectionsPattern.dll</HintPath>
+    </Reference>
+    <Reference Include="ServerHelper">
+      <HintPath>..\..\Chechin\WTP\dll\ServerHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="SqlDataSolution, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\chech\Desktop\Новая папка\SqlDataSolution\SqlDataSolution\bin\Release\SqlDataSolution.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataRowContainers\Base\CALENDARGRAPHVALUES.cs" />
+    <Compile Include="DataRowContainers\Base\WTP.cs" />
+    <Compile Include="DataRowContainers\Base\WTPCOMPONENT.cs" />
+    <Compile Include="DataRowContainers\Base\WTPPARAM.cs" />
+    <Compile Include="DataRowContainers\Base\WTPPARAMINFO.cs" />
+    <Compile Include="DataRowContainers\Base\WTPPRACTICE.cs" />
+    <Compile Include="DataRowContainers\Base\WTPROW.cs" />
+    <Compile Include="DataRowContainers\Base\WTPROWVALUES.cs" />
+    <Compile Include="DataRowContainers\Base\WTPSEMESTER.cs" />
+    <Compile Include="DataRowContainers\Base\WTPVARIATION.cs" />
+    <Compile Include="DataRowContainers\WTPDRContainer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WTPSqlDataFactory.cs" />
+    <Compile Include="WTPSqlLoader.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WTPCore\WTPCore.csproj">
+      <Project>{9a8fee22-3607-4a52-8cf2-dde210a6075f}</Project>
+      <Name>WTPCore</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

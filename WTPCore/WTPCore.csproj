@@ -45,9 +45,9 @@
     <Reference Include="CustomDescriptor">
       <HintPath>..\..\..\..\components\CustomDescriptor\CustomDescriptor\bin\Release\CustomDescriptor.dll</HintPath>
     </Reference>
-    <Reference Include="SqlDataSolution, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="SqlDataSolution, Version=830.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\ASU\SqlDataSolution.dll</HintPath>
+      <HintPath>C:\Users\chech\Desktop\Новая папка\SqlDataSolution\SqlDataSolution\bin\Release\SqlDataSolution.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">

@@ -2,11 +2,14 @@ using System;
 using SqlDataSolution.Attributes;
 using WTPCore.Data.Interfaces.Base;
 
-namespace WTPCore.Data.Tables.Base
+namespace WTPPresenter.WTPSqlData.DataRowContainers.Base
 {
-	public class WTPROW :  WTPDATAROW, IWTPROW
+	[DataTableName("WTPROW")]
+    [SaveIndex(2)]
+    public class WTPROW : WTPDRContainer, IWTPROW
 	{
         [DataColumnName("WTP_ID")]
+        [AllowDBNull]
         public Int64? WTP_ID
         {
             get
@@ -18,7 +21,9 @@ namespace WTPCore.Data.Tables.Base
                 SetData<Int64?>("WTP_ID", value);
             }
         }
+
 		[DataColumnName("WTPROW_ID")]
+		[AllowDBNull]
 		public Int64? WTPROW_ID
 		{
 			get
@@ -32,6 +37,7 @@ namespace WTPCore.Data.Tables.Base
 		}
 
         [DataColumnName("WTPROW_SORTINDEX")]
+		[AllowDBNull]
         public Int32? WTPROW_SORTINDEX
 		{
 			get
@@ -43,8 +49,22 @@ namespace WTPCore.Data.Tables.Base
                 SetData<Int32?>("WTPROW_SORTINDEX", value);
 			}
 		}
+        [DataColumnName("WTPROW_INDEX")]
+        [AllowDBNull]
+        public string WTPROW_INDEX
+        {
+            get
+            {
+                return GetData<string>("WTPROW_INDEX");
+            }
+            set
+            {
+                SetData<string>("WTPROW_INDEX", value);
+            }
+        }
 
         [DataColumnName("WTPROW_NUMBER")]
+        [AllowDBNull]
         public Int32? WTPROW_NUMBER
         {
             get
@@ -57,20 +77,8 @@ namespace WTPCore.Data.Tables.Base
             }
         }
 
-        [DataColumnName("WTPROW_INDEX")]
-        public string WTPROW_INDEX
-        {
-            get
-            {
-                return GetData<string>("WTPROW_INDEX");
-            }
-            set
-            {
-                SetData<string>("WTPROW_INDEX", value);
-            }
-        }
-		
-		[DataColumnName("WTPROW_LEVEL")]
+        [DataColumnName("WTPROW_LEVEL")]
+		[AllowDBNull]
 		public Int64? WTPROW_LEVEL
 		{
 			get
@@ -84,6 +92,7 @@ namespace WTPCore.Data.Tables.Base
 		}
 
 		[DataColumnName("WTPROW_DISCIPLINESPEC")]
+		[AllowDBNull]
 		public Boolean? WTPROW_DISCIPLINESPEC
 		{
 			get
@@ -97,6 +106,7 @@ namespace WTPCore.Data.Tables.Base
 		}
 
 		[DataColumnName("WTPROW_VARIATCHAST")]
+		[AllowDBNull]
 		public Boolean? WTPROW_VARIATCHAST
 		{
 			get
@@ -109,6 +119,7 @@ namespace WTPCore.Data.Tables.Base
 			}
 		}
         [DataColumnName("WTPCOMPONENT_ID")]
+        [AllowDBNull]
         public Int64? WTPCOMPONENT_ID
         {
             get
@@ -121,6 +132,7 @@ namespace WTPCore.Data.Tables.Base
             }
         }
         [DataColumnName("STUDDISCCOMPONENT_ID")]
+		[AllowDBNull]
         public Int64? STUDDISCCOMPONENT_ID
 		{
 			get
@@ -134,6 +146,7 @@ namespace WTPCore.Data.Tables.Base
 		}
 
         [DataColumnName("STUDDISCCOMPONENT_NAME")]
+		[AllowDBNull]
         public String STUDDISCCOMPONENT_NAME
 		{
 			get
@@ -147,6 +160,7 @@ namespace WTPCore.Data.Tables.Base
 		}
 
         [DataColumnName("STUDDISCCOMPONENT_CODE")]
+		[AllowDBNull]
         public String STUDDISCCOMPONENT_CODE
 		{
 			get
@@ -160,6 +174,7 @@ namespace WTPCore.Data.Tables.Base
 		}
 
         [DataColumnName("STUDDISCCOMPONENT_NUM")]
+		[AllowDBNull]
         public Int32? STUDDISCCOMPONENT_NUM
 		{
 			get
@@ -173,6 +188,7 @@ namespace WTPCore.Data.Tables.Base
 		}
 
 		[DataColumnName("CHAIR_ID")]
+		[AllowDBNull]
 		public Int64? CHAIR_ID
 		{
 			get
@@ -186,6 +202,7 @@ namespace WTPCore.Data.Tables.Base
 		}
 
 		[DataColumnName("CHAIR_NAME")]
+		[AllowDBNull]
 		public String CHAIR_NAME
 		{
 			get
@@ -199,6 +216,7 @@ namespace WTPCore.Data.Tables.Base
 		}
 
 		[DataColumnName("CHAIR_SHORTNAME")]
+		[AllowDBNull]
 		public String CHAIR_SHORTNAME
 		{
 			get
@@ -211,6 +229,7 @@ namespace WTPCore.Data.Tables.Base
 			}
 		}
         [DataColumnName("CHAIR_CODE")]
+        [AllowDBNull]
         public String CHAIR_CODE
         {
             get
@@ -222,8 +241,8 @@ namespace WTPCore.Data.Tables.Base
                 SetData<String>("CHAIR_CODE", value);
             }
         }
-
 		[DataColumnName("STUDDISCIPLINE_ID")]
+		[AllowDBNull]
 		public Int64? STUDDISCIPLINE_ID
 		{
 			get
@@ -237,6 +256,7 @@ namespace WTPCore.Data.Tables.Base
 		}
 
 		[DataColumnName("STUDDISCIPLINE_NAME")]
+		[AllowDBNull]
 		public String STUDDISCIPLINE_NAME
 		{
 			get
@@ -250,6 +270,7 @@ namespace WTPCore.Data.Tables.Base
 		}
 
 		[DataColumnName("STUDDISCIPLINE_SHORTNAME")]
+		[AllowDBNull]
 		public String STUDDISCIPLINE_SHORTNAME
 		{
 			get
@@ -263,6 +284,7 @@ namespace WTPCore.Data.Tables.Base
 		}
 
 		[DataColumnName("STUDDISCIPTYPE_ID")]
+		[AllowDBNull]
 		public Int64? STUDDISCIPTYPE_ID
 		{
 			get
@@ -276,6 +298,7 @@ namespace WTPCore.Data.Tables.Base
 		}
 
 		[DataColumnName("STUDDISCIPCICLE_ID")]
+		[AllowDBNull]
 		public Int64? STUDDISCIPCICLE_ID
 		{
 			get
@@ -289,6 +312,7 @@ namespace WTPCore.Data.Tables.Base
 		}
 
 		[DataColumnName("STUDDISCIPCICLE_NAME")]
+		[AllowDBNull]
 		public String STUDDISCIPCICLE_NAME
 		{
 			get
@@ -302,6 +326,7 @@ namespace WTPCore.Data.Tables.Base
 		}
 
 		[DataColumnName("STUDDISCIPCICLE_CODE")]
+		[AllowDBNull]
 		public String STUDDISCIPCICLE_CODE
 		{
 			get
@@ -315,6 +340,7 @@ namespace WTPCore.Data.Tables.Base
 		}
 
 		[DataColumnName("STUDDISCIPCICLE_NUM")]
+		[AllowDBNull]
 		public Int32? STUDDISCIPCICLE_NUM
 		{
 			get
@@ -328,6 +354,7 @@ namespace WTPCore.Data.Tables.Base
 		}
 
 		[DataColumnName("SPECFACSPECIALIZATION_ID")]
+		[AllowDBNull]
 		public Int64? SPECFACSPECIALIZATION_ID
 		{
 			get
@@ -341,6 +368,7 @@ namespace WTPCore.Data.Tables.Base
 		}
 
 		[DataColumnName("SPECIALIZATION_ID")]
+		[AllowDBNull]
 		public Int64? SPECIALIZATION_ID
 		{
 			get
@@ -354,6 +382,7 @@ namespace WTPCore.Data.Tables.Base
 		}
 
 		[DataColumnName("SPECIALIZATION_NUMB")]
+		[AllowDBNull]
 		public String SPECIALIZATION_NUMB
 		{
 			get
@@ -367,6 +396,7 @@ namespace WTPCore.Data.Tables.Base
 		}
 
 		[DataColumnName("SPECIALIZATION_NAME")]
+		[AllowDBNull]
 		public String SPECIALIZATION_NAME
 		{
 			get
@@ -380,6 +410,7 @@ namespace WTPCore.Data.Tables.Base
 		}
 
 		[DataColumnName("SPECIALIZATION_SHORTNAME")]
+		[AllowDBNull]
 		public String SPECIALIZATION_SHORTNAME
 		{
 			get
@@ -393,6 +424,7 @@ namespace WTPCore.Data.Tables.Base
 		}
 
         [DataColumnName("WTPROW_VARIATIONID")]
+        [AllowDBNull]
         public long WTPROW_VARIATIONID
         {
             get

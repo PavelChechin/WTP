@@ -1,5 +1,6 @@
 ﻿using RefDataStores.General;
 using RefLib;
+using RefLib.WTP;
 using SqlDataSolution;
 using System;
 using System.Collections.Generic;
@@ -195,40 +196,7 @@ namespace WTPCoreExample
             }
             return id;
         }
-        /// <summary>
-        /// Поиск подразделений по номеру специальности
-        /// </summary>
-        /// <param name="NUMB">Номер специальности</param>
-        /// <param name="PlaceTrainID">ID филиала</param>
-        /// <param name="FacultyID">ID факультета</param>GetStudYearIDByYear
-        /// <returns></returns>
-        public Int64? GetSpecialFacultyByNumb(string NUMB, Int64 PlaceTrainID, Int64 FacultyID)
-        {
-            var specialFaculties = DbManager.GetDataSourсe<ISPECIALFACULTY>();
-            var specialFaculty = specialFaculties.Rows.
-                                Cast<ISPECIALFACULTY>().
-                                Where(r => r.SPECIALITY_NUMB == NUMB).
-                                Where(r => r.PLACETRAIN_ID == PlaceTrainID).
-                                Where(r => r.FACULTY_ID == FacultyID).
-                                Select(r => r.SPECIALFACULTY_ID);
-            Int64? ID = 0;
-            if (specialFaculty.Count() == 0)
-            {
-                var newSpecialFaculty = specialFaculties.CreateRow<ISPECIALFACULTY>();
-                newSpecialFaculty.SPECIALITY_ID = GetSpecialityByNumb(NUMB);
-                newSpecialFaculty.PLACETRAIN_ID = PlaceTrainID;
-                newSpecialFaculty.FACULTY_ID = FacultyID;
 
-                specialFaculties.Add<ISPECIALFACULTY>(newSpecialFaculty);
-                specialFaculties.Save();
-                ID = newSpecialFaculty.SPECIALFACULTY_ID;
-            }
-            else
-            {
-                ID = specialFaculty.First();
-            }
-            return ID;
-        }
 
         public Int64 GetSpecialityByNumb(string NUMB)
         {
@@ -305,9 +273,9 @@ namespace WTPCoreExample
             return ID;
         }
 
-        public Int64? GetStudDiscComponentByName(string Name)
+        public Int64? GetStudDiscComponentByName(string Name, string Code)
         {
-            var StudDiscComponents = DBManager.GetDataSourse<RefDataStores.WTP.ISTUDDISCCOMPONENT>();
+            var StudDiscComponents = SqlData.GetDataSource<STUDDISCCOMPONENT>(ServerHelper.ConnectionHelper.GetConnection(), "SPU_STUDDISCCOMPONENT_SEL", null); ;
             var StudDiscComponent = StudDiscComponents.Rows.
                                     Cast<RefDataStores.WTP.ISTUDDISCCOMPONENT>().
                                     Where(r => r.STUDDISCCOMPONENT_NAME == Name).
@@ -315,15 +283,17 @@ namespace WTPCoreExample
             Int64? ID = 0;
             if (StudDiscComponent.Count() == 0)
             {
-                var newStudDiscComponent = StudDiscComponents.CreateRow<RefDataStores.WTP.ISTUDDISCCOMPONENT>();
+                var newStudDiscComponent = StudDiscComponents.CreateNewRow<STUDDISCCOMPONENT>();
                 newStudDiscComponent.STUDDISCCOMPONENT_NAME = Name;
-                newStudDiscComponent.STUDDISCCOMPONENT_NUM = StudDiscComponents.Rows.
-                                    Cast<RefDataStores.WTP.ISTUDDISCCOMPONENT>().
-                                    Select(r => r.STUDDISCCOMPONENT_NUM).
-                                    Max() + 1;
+                newStudDiscComponent.STUDDISCCOMPONENT_CODE = Code;
 
-                StudDiscComponents.Add<RefDataStores.WTP.ISTUDDISCCOMPONENT>(newStudDiscComponent);
-                StudDiscComponents.Save();
+
+                //StudDiscComponents.Add<RefDataStores.WTP.ISTUDDISCCOMPONENT>(newStudDiscComponent);
+                //StudDiscComponents.Save();
+                //ID = newStudDiscComponent.STUDDISCCOMPONENT_ID;
+
+                StudDiscComponents.AddRow(newStudDiscComponent);
+                StudDiscComponents.SqlData.SaveAll();
                 ID = newStudDiscComponent.STUDDISCCOMPONENT_ID;
             }
             else

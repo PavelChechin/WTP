@@ -3,7 +3,6 @@ using WTPCore.Data.Interfaces.Base;
 using CollectionsPattern;
 using System.Collections;
 using System.ComponentModel;
-using WTPCore.Data.Interfaces.Base;
 
 namespace WTPCore.WorkTeacherPlan
 {
@@ -15,7 +14,7 @@ namespace WTPCore.WorkTeacherPlan
             get { return !DataRow.WTPPRACTICE_ID.HasValue; }
         }
 
-        public WTPPractice(IWTPPRACTICE PracticeDataRow)
+        public WTPPractice(WTPPractices Practices, IWTPPRACTICE PracticeDataRow)
             : base(PracticeDataRow)
         {
 

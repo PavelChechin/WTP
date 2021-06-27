@@ -22,7 +22,7 @@ namespace WTPCoreExample
             ISEnvironmentSolution.Common.MapperProvider.RegisterMapper(new RefLib.RefLibMapper());
             RBDEShowRef.Initialize();
             ISEnvironment.Initialize();
-            Application.Run(new Form1());
+            Application.Run(new ImportForm());
         }
     }
 }

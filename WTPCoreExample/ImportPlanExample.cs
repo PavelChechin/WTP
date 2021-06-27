@@ -70,12 +70,30 @@ namespace WTPCoreExample
             IEnumerable<XElement> parentCycles = StudyPlan.Descendants(XmlConst.Cycles).Where(q => q.Attribute("ТипБлока").Value == "1");
             foreach (var parentCycle in parentCycles)
             {
+                var StudDiscipCicleID = presenter.GetStudDiscipCicleByName(parentCycle.Attribute("Идентификатор").Value, parentCycle.Attribute("Цикл").Value);  
+                var StudDiscipCicleName = parentCycle.Attribute("Цикл").Value;
+                var parentCycleID = parentCycle.Attribute("Код").Value;
+                //var cycle = DBManager.GetDataSourse<IWTPCOMPONENT>().Rows.Cast<IWTPCOMPONENT>().
+                //    Where(r => r.STUDDISCIPCICLE_ID == StudDiscipCicleID).
+                //    Where(r => r.STUDDISCIPCICLE_NAME == StudDiscipCicleName);
+                //if (cycle.Count() == 0)
+                //{
+                //    IWTPCOMPONENT component = presenter.CreateNewComponent();
+                //    //поиск по имени STUDDISCIPCICLE_NAME
+                //    component.STUDDISCIPCICLE_ID = StudDiscipCicleID;
+                //    component.STUDDISCIPCICLE_NAME = parentCycle.Attribute("Цикл").Value;
+                //}
+                //else
+                //{
+
+                //}
+
                 IWTPCOMPONENT component = presenter.CreateNewComponent();
                 //поиск по имени STUDDISCIPCICLE_NAME
-                var StudDiscipCicleID = presenter.GetStudDiscipCicleByName(parentCycle.Attribute("Идентификатор").Value, parentCycle.Attribute("Цикл").Value);  
                 component.STUDDISCIPCICLE_ID = StudDiscipCicleID;
                 component.STUDDISCIPCICLE_NAME = parentCycle.Attribute("Цикл").Value;
-                var parentCycleID = parentCycle.Attribute("Код").Value;
+                component.WTPCOMPONENT_CODE = parentCycle.Attribute("Идентификатор").Value;
+
                 var wtpComponent = presenter.AddComponent(component, null);
                 
 
@@ -89,6 +107,7 @@ namespace WTPCoreExample
                         var childCycleID = childCycle.Attribute("Код").Value;
                         component2.STUDDISCIPCICLE_ID = childID;
                         component2.STUDDISCIPCICLE_NAME = childCycle.Attribute("Цикл").Value;
+                        component2.WTPCOMPONENT_CODE = childCycle.Attribute("Идентификатор").Value;
                         var wtpComponent2 = presenter.AddComponent(component2, wtpComponent);
 
                         //сохранение после каждого действия нужно будет убрать, сохранять только в конце импорта
@@ -111,7 +130,7 @@ namespace WTPCoreExample
                             if (planRow.Attribute("ТипОбъекта").Value == "1")  //дисциплины специализации
                             {
                                 IWTPCOMPONENT component3 = presenter.CreateNewComponent();
-                                var ID = presenter.GetStudDiscComponentByName(planRow.Attribute("Дисциплина").Value);
+                                var ID = presenter.GetStudDiscComponentByName(planRow.Attribute("Дисциплина").Value, planRow.Attribute("ДисциплинаКод").Value);
                                 var componentID = planRow.Attribute("Код").Value;
                                 var OOP = StudyPlan.Element(XmlConst.OOP).Descendants(XmlConst.OOP).Where(q => q.Attribute("Код").Value == planRow.Attribute("КодООП").Value).First();/*Where(q => q.Attribute("Код").Value == planRow.Attribute("КодООП").Value).First();*/
                                 var SpecializationID = presenter.GetSpecializationByName(OOP.Attribute("Название").Value, OOP.Attribute("Шифр").Value);
@@ -177,6 +196,8 @@ namespace WTPCoreExample
                     }
                 }
             }
+
+
             Save();
 
 
@@ -205,6 +226,8 @@ namespace WTPCoreExample
             var newrow = _presenter.CreateNewRow();
             //newrow.CHAIR_ID = presenter.GetChairByCode(planRow.Attribute("КодКафедры").Value);
             newrow.STUDDISCIPLINE_ID = discipId;
+            newrow.WTPROW_SORTINDEX = int.Parse(planRow.Attribute("Порядок").Value);
+            newrow.WTPROW_NUMBER = int.Parse(planRow.Attribute("Номер").Value);
             var discipRow = _presenter.AddRow(newrow, ParentComponent);
             return discipRow;
         }

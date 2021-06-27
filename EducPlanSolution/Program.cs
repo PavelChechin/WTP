@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ISEnvironmentSolution;
+using RefBookHelper.RBDE;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -15,7 +17,12 @@ namespace EducPlanSolution
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            ISEnvironmentSolution.Reports.ReportProvider.RegisterProvider(new ReportService.ReportProvider());
+            ISEnvironmentSolution.Common.MapperProvider.RegisterMapper(new RefLib.RefLibMapper());
+            RBDEShowRef.Initialize();
+            ISEnvironment.Initialize();
+            Application.Run(new MainForm());
         }
     }
 }
