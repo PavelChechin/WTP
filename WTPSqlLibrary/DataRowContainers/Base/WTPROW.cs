@@ -42,11 +42,11 @@ namespace WTPPresenter.WTPSqlData.DataRowContainers.Base
 		{
 			get
 			{
-                return GetData<Int32?>("WTPROW_SORTINDEX");
+                return GetData<int?>("WTPROW_SORTINDEX");
 			}
 			set
 			{
-                SetData<Int32?>("WTPROW_SORTINDEX", value);
+                SetData("WTPROW_SORTINDEX", value);
 			}
 		}
         [DataColumnName("WTPROW_INDEX")]
@@ -76,7 +76,7 @@ namespace WTPPresenter.WTPSqlData.DataRowContainers.Base
                 SetData<Int32?>("WTPROW_NUMBER", value);
             }
         }
-
+        
         [DataColumnName("WTPROW_LEVEL")]
 		[AllowDBNull]
 		public Int64? WTPROW_LEVEL

@@ -1,4 +1,6 @@
 ﻿using RefDataStores.General;
+using RefDataStores.PRACTICE;
+using RefDataStores.WTP.TYPEACTIVITY;
 using RefLib;
 using RefLib.WTP;
 using SqlDataSolution;
@@ -89,6 +91,18 @@ namespace WTPCoreExample
             return newDataRow;
         }
 
+        public IWTPPRACTICE CreateNewPractice()
+        {
+            IWTPPRACTICE newDataRow = DbManager.CreateRow<IWTPPRACTICE>();
+            return newDataRow;
+        }
+
+        public ICALENDARGRAPHVALUES CreateNewGraphValue()
+        {
+            ICALENDARGRAPHVALUES newDataRow = DbManager.CreateRow<ICALENDARGRAPHVALUES>();
+            return newDataRow;
+        }
+
         public WTPRow AddRow(IWTPROW row, WTPComponent ParentComponent)
         {
             Plan.Rows.FillRow(row);
@@ -101,6 +115,12 @@ namespace WTPCoreExample
         {
             row.Values.FillRow(valueRow);
             return row.Values.Add(valueRow, false);
+        }
+
+        public WTPPractice AddPractice(IWTPPRACTICE practiceRow, WTPRow row)
+        {
+            row.Practices.FillRow(practiceRow);
+            return row.Practices.Add(practiceRow, false);
         }
 
         public WTPSemester AddSemester(IWTPSEMESTER semester, WTPRow wtpRow)
@@ -136,6 +156,12 @@ namespace WTPCoreExample
 
             AddComponent(newRow, ParentComponent);
         }
+
+
+        //public void AddGraphValue(CalendarGraphValue GraphValue)
+        //{
+        //    ICALENDARGRAPHVALUES newValue = DbManager.CreateRow<>
+        //}
         #endregion
 
         #region Delete
@@ -279,6 +305,7 @@ namespace WTPCoreExample
             var StudDiscComponent = StudDiscComponents.Rows.
                                     Cast<RefDataStores.WTP.ISTUDDISCCOMPONENT>().
                                     Where(r => r.STUDDISCCOMPONENT_NAME == Name).
+                                    Where(r => r.STUDDISCCOMPONENT_CODE == Code).
                                     Select(r => r.STUDDISCCOMPONENT_ID);
             Int64? ID = 0;
             if (StudDiscComponent.Count() == 0)
@@ -329,12 +356,61 @@ namespace WTPCoreExample
             return ID;
         }
 
-        public Int64 GetLastVariationID()
+        public long GetTypeActivityIDByCode(int Code)
         {
-            var Rows = DBManager.GetDataSourse<IWTPROW>();
-            var ID = Rows.Rows.Cast<IWTPROW>().Select(r => r.WTPROW_VARIATIONID).Last();
+            var Activities = DBManager.GetDataSourse<ITYPEACTIVITY>();   //создать интерфейс в RefDataStores
+            var Activity = Activities.Rows.
+                            Cast<ITYPEACTIVITY>().
+                            Where(r => r.TYPEACTIVITY_CODE == Code).
+                            Select(r => r.TYPEACTIVITY_ID);
+            long ID = 0;
+            if (Activity.Count() == 0)      //возможно стоит оставить только поиск
+            {
+                var newActivity = Activities.CreateRow<ITYPEACTIVITY>();
+                newActivity.TYPEACTIVITY_CODE = Code;
+
+                Activities.Add<ITYPEACTIVITY>(newActivity);
+                Activities.Save();
+                ID = newActivity.TYPEACTIVITY_ID;
+            }
+            else
+            {
+                ID = Activity.First();
+            }
+
             return ID;
         }
+
+        public long GetTypePracticeIDByName(string Name)
+        {
+            var Types = DBManager.GetDataSourse<ITYPEPRACTICE>();
+            var Type = Types.Rows.
+                        Cast<ITYPEPRACTICE>().
+                        Where(r => r.TYPEPRACTICE_NAME == Name).
+                        Select(r => r.TYPEPRACTICE_ID);
+            long ID = 0;
+            if (Type.Count() == 0)
+            {
+                var newType = Types.CreateRow<ITYPEPRACTICE>();
+                newType.TYPEPRACTICE_NAME = Name;
+
+                Types.Add<ITYPEPRACTICE>(newType);
+                Types.Save();
+                ID = newType.TYPEPRACTICE_ID;
+            }
+            else
+            {
+                ID = Type.First();
+            }
+            return ID;
+        }
+
+        //public Int64 GetLastVariationID()
+        //{
+        //    var Rows = DBManager.GetDataSourse<IWTPROW>();
+        //    var ID = Rows.Rows.Cast<IWTPROW>().Select(r => r.WTPROW_VARIATIONID).Last();
+        //    return ID;
+        //}
 
         private WTPComponent GetParentComponent(object Row)
         {

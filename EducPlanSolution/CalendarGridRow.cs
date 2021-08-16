@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using WTPCore.Data.Interfaces.Base;
+using WTPCore.Data.Tables.Base;
 
 namespace EducPlanSolution
 {
     class CalendarGridRow : INotifyPropertyChanged
     {
         private int cours;
+        private int semestr;
         private int weekNumber;
         private string monday;
         private string tuesday;
@@ -27,6 +30,19 @@ namespace EducPlanSolution
             {
                 cours = value;
                 OnPropertyChanged("Cours");
+            }
+        }
+
+        public int Semestr
+        {
+            get
+            {
+                return semestr;
+            }
+            set
+            {
+                semestr = value;
+                OnPropertyChanged("Semestr");
             }
         }
 
@@ -122,6 +138,11 @@ namespace EducPlanSolution
         }
 
         public CalendarGridRow()
+        {
+
+        }
+
+        public CalendarGridRow(int day, string shortName, int weekNumber, int semNumber)
         {
 
         }

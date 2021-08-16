@@ -1,6 +1,7 @@
 ﻿using CollectionsPattern;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using WTPCore.Data.Interfaces.Base;
@@ -9,32 +10,48 @@ namespace WTPCore.WorkTeacherPlan
 {
     public class WTPPractices : DeletableCollection<WTPPractice>
     {
-        public Wtp Wtp
+        //public Wtp Wtp
+        //{
+        //    get;
+        //    private set;
+        //}
+
+        public WTPRow WtpRow
         {
             get;
             private set;
         }
 
-
-        public WTPPractices(Wtp Wtp)
+        public WTPPractices(WTPRow WtpRow)
         {
-            this.Wtp = Wtp;
+            this.WtpRow = WtpRow;
+            this.WtpRow.DataRow.PropertyChanged += DataRow_PropertyChanged;
         }
+
+        void DataRow_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "WTPROW_ID")
+            {
+                foreach (WTPPractice practice in this)
+                {
+                    practice.DataRow.WTPROW_ID = WtpRow.DataRow.WTPROW_ID;
+                }
+            }
+        }
+        //public WTPPractices(Wtp Wtp)
+        //{
+        //    this.Wtp = Wtp;
+        //}
+
 
 
         /// <summary>
-        /// Заполнение строки
-        /// </summary>
-        /// <param name="row">Строка</param>
-        /// <param name="ROWCHAIR_ID">Идентификатор дисциплины в нагрузке на кафедру</param>
-        /// <param name="Name">Название дисциплины</param>
-        /// <param name="SpecNumb">Шифр специальности</param>
-        /// <param name="Chanded">Изменение</param>
-        /// <param name="Notes">Примечания</param>
-        public void FillRow(IWTPROW row)
+        /// Заполнение значения
+        /// </summary> 
+        public void FillRow(IWTPPRACTICE row)
         {
-            row.WTPROW_ID = null;
-            row.WTP_ID = Wtp.DataRow.WTP_ID;
+            row.WTPPRACTICE_ID = null;
+            row.WTPROW_ID = WtpRow.DataRow.WTPROW_ID;
         }
 
         public void Add(WTPPractice Row)

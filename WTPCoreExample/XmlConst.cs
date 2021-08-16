@@ -7,6 +7,8 @@ namespace WTPCoreExample
 {
     static class XmlConst
     {
+        public static string Graph = "{http://tempuri.org/dsMMISDB.xsd}ПланыГрафикиЯчейки";
+
         public static string Cycles = "{http://tempuri.org/dsMMISDB.xsd}ПланыЦиклы";
 
         public static string Plans = "{http://tempuri.org/dsMMISDB.xsd}Планы";
@@ -20,5 +22,7 @@ namespace WTPCoreExample
         public static string diffgram = "{urn:schemas-microsoft-com:xml-diffgram-v1}diffgram";
 
         public static string dsMMISDB = "{http://tempuri.org/dsMMISDB.xsd}dsMMISDB";
+
+        public static string PracticeCatalog = "{http://tempuri.org/dsMMISDB.xsd}СправочникВидыПрактик";
     }
 }

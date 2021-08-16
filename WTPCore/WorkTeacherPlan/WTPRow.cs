@@ -26,6 +26,11 @@ namespace WTPCore.WorkTeacherPlan
             get;
             private set;
         }
+        public WTPPractices Practices
+        {
+            get;
+            private set;
+        }
         public override bool New
         {
             get { return !DataRow.WTPROW_ID.HasValue; }
@@ -113,6 +118,7 @@ namespace WTPCore.WorkTeacherPlan
         {
             Semesters = new WTPSemesters(this);
             Values = new WTPRowValues(this);
+            Practices = new WTPPractices(this);
 
             Semesters.PropertyChanged += OnPropertyChanged;
             Values.PropertyChanged += OnPropertyChanged;

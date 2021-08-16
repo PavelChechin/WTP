@@ -31,6 +31,14 @@ namespace EducPlanSolution
             disciplineChoice.Properties.DisplayMember = "STUDDISCIPLINE_NAME";
             disciplineChoice.Properties.ValueMember = "STUDDISCIPLINE_ID";
 
+            ServerHelper.ConnectionHelper.SetConnection(new SqlConnection(@"Data Source=localhost; Initial Catalog=WTP; Integrated Security=True"));
+
+            var components = DBManager.GetDataSourse<ISTUDDISCCOMPONENT>().Rows.
+                                Cast<ISTUDDISCCOMPONENT>();
+            componentChoice.Properties.DataSource = components;
+            componentChoice.Properties.DisplayMember = "STUDDISCCOMPONENT_NAME";
+            componentChoice.Properties.ValueMember = "STUDDISCCOMPONENT_ID";
+
 
         }
 

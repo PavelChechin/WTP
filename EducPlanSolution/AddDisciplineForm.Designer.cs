@@ -32,11 +32,11 @@
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.lookUpEdit1 = new DevExpress.XtraEditors.LookUpEdit();
+            this.componentChoice = new DevExpress.XtraEditors.LookUpEdit();
             this.checkedListBoxControl1 = new DevExpress.XtraEditors.CheckedListBoxControl();
             this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.disciplineChoice.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lookUpEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.componentChoice.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkedListBoxControl1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -78,14 +78,16 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Родительский компонент:";
             // 
-            // lookUpEdit1
+            // componentChoice
             // 
-            this.lookUpEdit1.Location = new System.Drawing.Point(20, 76);
-            this.lookUpEdit1.Name = "lookUpEdit1";
-            this.lookUpEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.componentChoice.Location = new System.Drawing.Point(20, 76);
+            this.componentChoice.Name = "componentChoice";
+            this.componentChoice.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.lookUpEdit1.Size = new System.Drawing.Size(265, 20);
-            this.lookUpEdit1.TabIndex = 4;
+            this.componentChoice.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("STUDDISCCOMPONENT_NAME", "Компонент")});
+            this.componentChoice.Size = new System.Drawing.Size(265, 20);
+            this.componentChoice.TabIndex = 4;
             // 
             // checkedListBoxControl1
             // 
@@ -125,15 +127,15 @@
             this.ClientSize = new System.Drawing.Size(300, 201);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.checkedListBoxControl1);
-            this.Controls.Add(this.lookUpEdit1);
+            this.Controls.Add(this.componentChoice);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.simpleButton1);
             this.Controls.Add(this.disciplineChoice);
             this.Name = "AddDisciplineForm";
-            this.Text = "AddDiscipline";
+            this.Text = "Добавление дисциплины";
             ((System.ComponentModel.ISupportInitialize)(this.disciplineChoice.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lookUpEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.componentChoice.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkedListBoxControl1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -146,7 +148,7 @@
         private DevExpress.XtraEditors.SimpleButton simpleButton1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private DevExpress.XtraEditors.LookUpEdit lookUpEdit1;
+        private DevExpress.XtraEditors.LookUpEdit componentChoice;
         private DevExpress.XtraEditors.CheckedListBoxControl checkedListBoxControl1;
         private System.Windows.Forms.Label label3;
     }

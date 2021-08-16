@@ -28,59 +28,27 @@ namespace EducPlanSolution
             InitializeComponent();
             ServerHelper.ConnectionHelper.SetConnection(new SqlConnection(@"Data Source=localhost; Initial Catalog=WTP; Integrated Security=True"));
 
-            if (WTP_ID != null)
-            {
-                WtpPresenter _presenter = new WtpPresenter();
-                //_presenter.Load(21355);
-                _presenter.Load((long)WTP_ID);
-                var plan = _presenter.Plan;
-                formEducLabel.Text = "Программа: " + plan.DataRow.FORMEDUC_NAME;
-                modeEducLabel.Text = "Форма обучения: " + plan.DataRow.MODEEDUC_NAME;
-                specialityNameLabel.Text = "Специальность: " + plan.DataRow.SPECIALITY_NAME;
-                specialityNumbLabel.Text = "Код направления: " + plan.DataRow.SPECIALITY_NUMB;
-                studYearLabel.Text = "Год обучения: " + plan.DataRow.STUDYEAR_NAME;
-                facultyNameLabel.Text = "Факультет :" + plan.DataRow.FACULTY_FULLNAME;
-                qualificationLabel.Text = "Квалификация: " + plan.DataRow.QUALIFICATION_NAME;
-                formEducLabel.Visible = true;
-                modeEducLabel.Visible = true;
-                specialityNameLabel.Visible = true;
-                specialityNumbLabel.Visible = true;
-                studYearLabel.Visible = true;
-                facultyNameLabel.Visible = true;
-                qualificationLabel.Visible = true;
-                addDiscipButton.Visible = true;
-                tabPane1.Visible = true;
-                List<WTPGridRow> list = new List<WTPGridRow>();
-                //BindingList<WTPGridRow> grid = new BindingList<WTPGridRow>();
-                foreach (WTPComponent parentComponent in plan.Components.Where(q => q.DataRow.WTPCOMPONENT_PARENTID == null))
-                {
-                    foreach (WTPComponent childComponent in plan.Components.Where(q => q.DataRow.WTPCOMPONENT_PARENTID == parentComponent.DataRow.WTPCOMPONENT_ID))
-                    {
-                        foreach (WTPRow wtprow in plan.Rows.Where(r => r.DataRow.WTPCOMPONENT_ID == childComponent.DataRow.WTPCOMPONENT_ID))
-                        {
-                            foreach (WTPSemester semestr in wtprow.Semesters)
-                            {
-                                if (semestr.DataRow.WTPSEMESTER_NUM != null)
-                                {
-                                    list.Add(new WTPGridRow(parentComponent.DataRow.WTPCOMPONENT_NAME, childComponent, wtprow, wtprow.Values, semestr.DataRow.WTPSEMESTER_NUM));
-                                }
-                            }
-                        }
-                    }
-                }
-                list = list.OrderBy(r => r.Number).ToList();
-                var grid = new BindingList<WTPGridRow>(list);
-                //semestrNumColumn.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
-                gridControl1.DataSource = grid;
-            }
+            DisplayRows(WTP_ID);
 
             BindingList<CalendarGridRow> calendar = new BindingList<CalendarGridRow>();
-            calendar.Add(new CalendarGridRow() {Cours = 1,WeekNumber = 1,Monday ="1", Tuesday = "1", Wednesday = "1", Thursday = "1", Friday = "1", Saturday = "1" });
-            calendar.Add(new CalendarGridRow() { Cours = 1, WeekNumber = 2, Monday = "1", Tuesday = "1", Wednesday = "1", Thursday = "1", Friday = "1", Saturday = "1" });
-            calendar.Add(new CalendarGridRow() { Cours = 1, WeekNumber = 3, Monday = "1", Tuesday = "1", Wednesday = "1", Thursday = "1", Friday = "1", Saturday = "1" });
-            calendar.Add(new CalendarGridRow() { Cours = 1, WeekNumber = 4, Monday = "1", Tuesday = "1", Wednesday = "1", Thursday = "1", Friday = "1", Saturday = "1" });
-            calendar.Add(new CalendarGridRow() { Cours = 1, WeekNumber = 5, Monday = "1", Tuesday = "1", Wednesday = "1", Thursday = "1", Friday = "1", Saturday = "1" });
-            calendar.Add(new CalendarGridRow() { Cours = 1, WeekNumber = 6, Monday = "1", Tuesday = "1", Wednesday = "1", Thursday = "1", Friday = "1", Saturday = "1" });
+            for (int j = 1; j <= 5; j++)
+            {
+                for (int i = 1; i <= 26; i++)
+                {
+
+                    if (i == 18) calendar.Add(new CalendarGridRow() { Cours = j, WeekNumber = i, Monday = " ", Tuesday = " ", Wednesday = " ", Thursday = " ", Friday = "*", Saturday = "*" });
+                    else if (i == 19) calendar.Add(new CalendarGridRow() { Cours = j, WeekNumber = i, Monday = "*", Tuesday = "*", Wednesday = "*", Thursday = "*", Friday = "*", Saturday = " " });
+                    else if (i == 20) calendar.Add(new CalendarGridRow() { Cours = j, WeekNumber = i, Monday = " ", Tuesday = " ", Wednesday = "Э", Thursday = "Э", Friday = "Э", Saturday = "Э" });
+                    else if (i == 21) calendar.Add(new CalendarGridRow() { Cours = j, WeekNumber = i, Monday = "Э", Tuesday = "Э", Wednesday = "Э", Thursday = "Э", Friday = "Э", Saturday = "Э" });
+                    else if (i == 22) calendar.Add(new CalendarGridRow() { Cours = j, WeekNumber = i, Monday = "Э", Tuesday = "Э", Wednesday = "Э", Thursday = "Э", Friday = "Э", Saturday = "Э" });
+                    else if (i == 23) calendar.Add(new CalendarGridRow() { Cours = j, WeekNumber = i, Monday = "К", Tuesday = "К", Wednesday = "К", Thursday = "К", Friday = "К", Saturday = "К" });
+                    else if (i == 42) calendar.Add(new CalendarGridRow() { Cours = j, WeekNumber = i, Monday = "Э", Tuesday = "Э", Wednesday = "Э", Thursday = "Э", Friday = "Э", Saturday = "Э" });
+                    else if (i == 43) calendar.Add(new CalendarGridRow() { Cours = j, WeekNumber = i, Monday = "Э", Tuesday = "Э", Wednesday = "Э", Thursday = "Э", Friday = "Э", Saturday = "Э" });
+                    else if (i == 44 || i == 45 || i == 46) calendar.Add(new CalendarGridRow() { Cours = j, WeekNumber = i, Monday = "У", Tuesday = "У", Wednesday = "У", Thursday = "У", Friday = "У", Saturday = "У" });
+                    else if (i == 47 || i == 48 || i == 49 || i == 50 || i == 51 || i == 52) calendar.Add(new CalendarGridRow() { Cours = j, WeekNumber = i, Monday = "К", Tuesday = "К", Wednesday = "К", Thursday = "К", Friday = "К", Saturday = "К" });
+                    else calendar.Add(new CalendarGridRow() { Cours = j, WeekNumber = i, Monday = " ", Tuesday = " ", Wednesday = " ", Thursday = " ", Friday = " ", Saturday = " " });
+                }
+            }
 
             gridControl2.DataSource = calendar;
         }
@@ -91,53 +59,10 @@ namespace EducPlanSolution
             WTPCoreExample.ImportForm importForm = new WTPCoreExample.ImportForm();
             importForm.ShowDialog();
 
-            MessageBox.Show(importForm.WTPID().ToString());
+            //MessageBox.Show(importForm.WTPID().ToString());
             WTP_ID = importForm.WTPID();
-            if (WTP_ID != null)
-            {
-                WtpPresenter _presenter = new WtpPresenter();
-                //_presenter.Load(21355);
-                _presenter.Load((long)WTP_ID);
-                var plan = _presenter.Plan;
-                formEducLabel.Text = "Программа: " + plan.DataRow.FORMEDUC_NAME;
-                modeEducLabel.Text = "Форма обучения: " + plan.DataRow.MODEEDUC_NAME;
-                specialityNameLabel.Text = "Специальность: " + plan.DataRow.SPECIALITY_NAME;
-                specialityNumbLabel.Text = "Код направления: " + plan.DataRow.SPECIALITY_NUMB;
-                studYearLabel.Text = "Год обучения: " + plan.DataRow.STUDYEAR_NAME;
-                facultyNameLabel.Text = "Факультет :" + plan.DataRow.FACULTY_FULLNAME;
-                qualificationLabel.Text = "Квалификация: " + plan.DataRow.QUALIFICATION_NAME;
-                formEducLabel.Visible = true;
-                modeEducLabel.Visible = true;
-                specialityNameLabel.Visible = true;
-                specialityNumbLabel.Visible = true;
-                studYearLabel.Visible = true;
-                facultyNameLabel.Visible = true;
-                qualificationLabel.Visible = true;
-                addDiscipButton.Visible = true;
-                tabPane1.Visible = true;
-                List<WTPGridRow> list = new List<WTPGridRow>();
-                //BindingList<WTPGridRow> grid = new BindingList<WTPGridRow>();
-                foreach (WTPComponent parentComponent in plan.Components.Where(q => q.DataRow.WTPCOMPONENT_PARENTID == null))
-                {
-                    foreach (WTPComponent childComponent in plan.Components.Where(q => q.DataRow.WTPCOMPONENT_PARENTID == parentComponent.DataRow.WTPCOMPONENT_ID))
-                    {
-                        foreach (WTPRow wtprow in plan.Rows.Where(r => r.DataRow.WTPCOMPONENT_ID == childComponent.DataRow.WTPCOMPONENT_ID))
-                        {
-                            foreach (WTPSemester semestr in wtprow.Semesters)
-                            {
-                                if (semestr.DataRow.WTPSEMESTER_NUM != null)
-                                {
-                                    list.Add(new WTPGridRow(parentComponent.DataRow.WTPCOMPONENT_NAME, childComponent, wtprow, wtprow.Values, semestr.DataRow.WTPSEMESTER_NUM));
-                                }
-                            }
-                        }
-                    }
-                }
-                list = list.OrderBy(r => r.Number).ToList();
-                var grid = new BindingList<WTPGridRow>(list);
-                //semestrNumColumn.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
-                gridControl1.DataSource = grid;
-            }
+
+            DisplayRows(WTP_ID);
         }
 
         private void addDiscipButton_Click(object sender, EventArgs e)
@@ -152,90 +77,10 @@ namespace EducPlanSolution
             if (row != null)
             {
                 WTP_ID = row.WTP_ID;
-                MessageBox.Show(row.WTP_ID.ToString());
+                //MessageBox.Show(row.WTP_ID.ToString());
             }
 
-            if (WTP_ID != null)
-            {
-                WtpPresenter _presenter = new WtpPresenter();
-                //_presenter.Load(21355);
-                _presenter.Load((long)WTP_ID);
-                var plan = _presenter.Plan;
-                formEducLabel.Text = "Программа: " + plan.DataRow.FORMEDUC_NAME;
-                modeEducLabel.Text = "Форма обучения: " + plan.DataRow.MODEEDUC_NAME;
-                specialityNameLabel.Text = "Специальность: " + plan.DataRow.SPECIALITY_NAME;
-                specialityNumbLabel.Text = "Код направления: " + plan.DataRow.SPECIALITY_NUMB;
-                studYearLabel.Text = "Год обучения: " + plan.DataRow.STUDYEAR_NAME;
-                facultyNameLabel.Text = "Факультет :" + plan.DataRow.FACULTY_FULLNAME;
-                qualificationLabel.Text = "Квалификация: " + plan.DataRow.QUALIFICATION_NAME;
-                formEducLabel.Visible = true;
-                modeEducLabel.Visible = true;
-                specialityNameLabel.Visible = true;
-                specialityNumbLabel.Visible = true;
-                studYearLabel.Visible = true;
-                facultyNameLabel.Visible = true;
-                qualificationLabel.Visible = true;
-                addDiscipButton.Visible = true;
-                tabPane1.Visible = true;
-                List<WTPGridRow> list = new List<WTPGridRow>();
-                //BindingList<WTPGridRow> grid = new BindingList<WTPGridRow>();
-                foreach (WTPComponent parentComponent in plan.Components.Where(q => q.DataRow.WTPCOMPONENT_PARENTID == null))
-                {
-                    foreach (WTPComponent childComponent in plan.Components.Where(q => q.DataRow.WTPCOMPONENT_PARENTID == parentComponent.DataRow.WTPCOMPONENT_ID))
-                    {
-                        foreach (WTPRow wtprow in plan.Rows.Where(r => r.DataRow.WTPCOMPONENT_ID == childComponent.DataRow.WTPCOMPONENT_ID))
-                        {
-                            foreach (WTPSemester semestr in wtprow.Semesters)
-                            {
-                                if (semestr.DataRow.WTPSEMESTER_NUM != null)
-                                {
-                                    list.Add(new WTPGridRow(parentComponent.DataRow.WTPCOMPONENT_NAME, childComponent, wtprow, wtprow.Values, semestr.DataRow.WTPSEMESTER_NUM));
-                                }
-                            }
-                        }
-                    }
-                }
-                list = list.OrderBy(r => r.Number).ToList();
-                var grid = new BindingList<WTPGridRow>(list);
-                //semestrNumColumn.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
-                gridControl1.DataSource = grid;
-
-                //WtpPresenter _presenter = new WtpPresenter();
-                ////_presenter.Load(21355);
-                //_presenter.Load((long)WTP_ID);
-                //var plan = _presenter.Plan;
-                //formEducLabel.Text = "Программа: " + plan.DataRow.FORMEDUC_NAME;
-                //modeEducLabel.Text = "Форма обучения: " + plan.DataRow.MODEEDUC_NAME;
-                //specialityNameLabel.Text = "Специальность: " + plan.DataRow.SPECIALITY_NAME;
-                //specialityNumbLabel.Text = "Код направления: " + plan.DataRow.SPECIALITY_NUMB;
-                //studYearLabel.Text = "Год обучения: " + plan.DataRow.STUDYEAR_NAME;
-                //facultyNameLabel.Text = "Факультет :" + plan.DataRow.FACULTY_FULLNAME;
-                //qualificationLabel.Text = "Квалификация: " + plan.DataRow.QUALIFICATION_NAME;
-                //formEducLabel.Visible = true;
-                //modeEducLabel.Visible = true;
-                //specialityNameLabel.Visible = true;
-                //specialityNumbLabel.Visible = true;
-                //studYearLabel.Visible = true;
-                //facultyNameLabel.Visible = true;
-                //qualificationLabel.Visible = true;
-                //addDiscipButton.Visible = true;
-                //tabPane1.Visible = true;
-
-                //BindingList<WTPGridRow> grid = new BindingList<WTPGridRow>();
-                //foreach (WTPRow wtprow in plan.Rows)
-                //{
-                //    foreach (int? semestr in wtprow.Values.Select(r => r.DataRow.WTPROWVALUES_SEMNUM).Distinct())
-                //    {
-                //        if (semestr != null)
-                //        {
-                //            grid.Add(new WTPGridRow(wtprow, wtprow.Values, semestr));
-                //        }
-                //    }
-                //}
-
-                //gridControl1.DataSource = grid;
-                //semestrNumColumn.SortOrder = DevExpress.Data.ColumnSortOrder.Descending;
-            }
+            DisplayRows(WTP_ID);
         }
 
         private void simpleButton1_Click(object sender, EventArgs e)
@@ -285,6 +130,88 @@ namespace EducPlanSolution
             List<WTPGridRow> sortedList = ds.OrderBy(i => i.Number).ToList();
             gridControl1.DataSource = new BindingList<WTPGridRow>(sortedList);
             gridControl1.RefreshDataSource();
+        }
+
+        private void DisplayRows(long? WTP_ID)
+        {
+            if (WTP_ID != null)
+            {
+                WtpPresenter _presenter = new WtpPresenter();
+                //_presenter.Load(21355);
+                _presenter.Load((long)WTP_ID);
+                var plan = _presenter.Plan;
+                formEducLabel.Text = "Программа: " + plan.DataRow.FORMEDUC_NAME;
+                modeEducLabel.Text = "Форма обучения: " + plan.DataRow.MODEEDUC_NAME;
+                specialityNameLabel.Text = "Специальность: " + plan.DataRow.SPECIALITY_NAME;
+                specialityNumbLabel.Text = "Код направления: " + plan.DataRow.SPECIALITY_NUMB;
+                studYearLabel.Text = "Год обучения: " + plan.DataRow.STUDYEAR_NAME;
+                facultyNameLabel.Text = "Факультет :" + plan.DataRow.FACULTY_FULLNAME;
+                qualificationLabel.Text = "Квалификация: " + plan.DataRow.QUALIFICATION_NAME;
+                formEducLabel.Visible = true;
+                modeEducLabel.Visible = true;
+                specialityNameLabel.Visible = true;
+                specialityNumbLabel.Visible = true;
+                studYearLabel.Visible = true;
+                facultyNameLabel.Visible = true;
+                qualificationLabel.Visible = true;
+                addDiscipButton.Visible = true;
+                simpleButton1.Visible = true;
+                simpleButton2.Visible = true;
+                tabPane1.Visible = true;
+                List<WTPGridRow> list = new List<WTPGridRow>();
+                //BindingList<WTPGridRow> grid = new BindingList<WTPGridRow>();
+                foreach (WTPComponent parentComponent in plan.Components.Where(q => q.DataRow.WTPCOMPONENT_PARENTID == null).Where(q => q.DataRow.STUDDISCIPCICLE_ID != null))
+                {
+                    if (parentComponent.GetAllChildComponents().Count() == 0)
+                    {
+                        foreach (WTPRow wtprow in plan.Rows.Where(r => r.DataRow.WTPCOMPONENT_ID == parentComponent.DataRow.WTPCOMPONENT_ID).OrderBy(r => r.DataRow.WTPROW_SORTINDEX))
+                        {
+                            foreach (WTPSemester semestr in wtprow.Semesters)
+                            {
+                                if (semestr.DataRow.WTPSEMESTER_NUM != null)
+                                {
+                                    var WTPROWValues = wtprow.Values.Where(r => r.DataRow.WTPROWVALUES_SEMNUM == semestr.DataRow.WTPSEMESTER_NUM).ToList();
+                                    list.Add(new WTPGridRow(parentComponent, wtprow, WTPROWValues, semestr.DataRow.WTPSEMESTER_NUM));
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        foreach (WTPComponent childComponent in plan.Components.Where(q => q.DataRow.WTPCOMPONENT_PARENTID == parentComponent.DataRow.WTPCOMPONENT_ID))
+                        {
+
+                            foreach (WTPComponent module in plan.Components.Where(q => q.DataRow.WTPCOMPONENT_PARENTID == childComponent.DataRow.WTPCOMPONENT_ID))// plan.Components.Where(q => q.DataRow.WTPCOMPONENT_PARENTID == childComponent.DataRow.WTPCOMPONENT_ID))
+                            {
+                                foreach (WTPRow wtprow in plan.Rows.Where(r => r.DataRow.WTPCOMPONENT_ID == module.DataRow.WTPCOMPONENT_ID))
+                                {
+                                    foreach (WTPSemester semestr in wtprow.Semesters)
+                                    {
+                                        var WTPROWValues = wtprow.Values.Where(r => r.DataRow.WTPROWVALUES_SEMNUM == semestr.DataRow.WTPSEMESTER_NUM).ToList();
+                                        list.Add(new WTPGridRow(parentComponent, childComponent, module, wtprow, WTPROWValues, semestr.DataRow.WTPSEMESTER_NUM));
+                                    }
+                                }
+                            }
+
+                            foreach (WTPRow wtprow in plan.Rows.Where(r => r.DataRow.WTPCOMPONENT_ID == childComponent.DataRow.WTPCOMPONENT_ID).OrderBy(r => r.DataRow.WTPROW_SORTINDEX))
+                            {
+                                foreach (WTPSemester semestr in wtprow.Semesters)
+                                {
+                                    if (semestr.DataRow.WTPSEMESTER_NUM != null)
+                                    {
+                                        var WTPROWValues = wtprow.Values.Where(r => r.DataRow.WTPROWVALUES_SEMNUM == semestr.DataRow.WTPSEMESTER_NUM).ToList();
+                                        list.Add(new WTPGridRow(parentComponent, childComponent, wtprow, WTPROWValues, semestr.DataRow.WTPSEMESTER_NUM));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                var grid = new BindingList<WTPGridRow>(list.OrderBy(r => r.SortIndex).ToList());
+                gridControl1.DataSource = null;
+                gridControl1.DataSource = grid;
+                gridControl1.Refresh();
+            }
         }
     }
 }

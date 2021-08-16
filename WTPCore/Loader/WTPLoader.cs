@@ -213,14 +213,14 @@ namespace WTPCore.Loader
                 WTPRow[] sortedRows = wtp.Rows.OrderBy(r => r, WTPRowComparer.Instance).ToArray();
                 for (int i = 0; i < sortedRows.Length; i++)
                 {
-                    if (sortedRows[i].DataRow.WTPROW_SORTINDEX != i)
-                        sortedRows[i].DataRow.WTPROW_SORTINDEX = i;
+                    //if (sortedRows[i].DataRow.WTPROW_SORTINDEX != i)
+                    //    sortedRows[i].DataRow.WTPROW_SORTINDEX = i;
                 }
                 WTPComponent[] sortedComponents = wtp.Components.OrderBy(c => c, WTPComponentComparer.Instance).ToArray();
                 for (int i = 0; i < sortedComponents.Length; i++)
                 {
-                    if (sortedComponents[i].DataRow.WTPCOMPONENT_SORTINDEX != i)
-                        sortedComponents[i].DataRow.WTPCOMPONENT_SORTINDEX = i;
+                    //if (sortedComponents[i].DataRow.WTPCOMPONENT_SORTINDEX != i)
+                    //    sortedComponents[i].DataRow.WTPCOMPONENT_SORTINDEX = i;
                 }
                 wtp.Variations.Refresh(); 
             }

@@ -33,7 +33,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -102,16 +101,6 @@
             this.label4.TabIndex = 5;
             this.label4.Text = "Вид обучения:";
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(50, 170);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(161, 15);
-            this.label5.TabIndex = 6;
-            this.label5.Text = "Специальность института";
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -154,6 +143,8 @@
             this.lookUpEdit1.Name = "lookUpEdit1";
             this.lookUpEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.lookUpEdit1.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("STUDYEAR_NAME", "Год введения")});
             this.lookUpEdit1.Size = new System.Drawing.Size(283, 20);
             this.lookUpEdit1.TabIndex = 11;
             // 
@@ -163,6 +154,8 @@
             this.lookUpEdit2.Name = "lookUpEdit2";
             this.lookUpEdit2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.lookUpEdit2.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("STUDYEAR_NAME", "Год версии")});
             this.lookUpEdit2.Size = new System.Drawing.Size(283, 20);
             this.lookUpEdit2.TabIndex = 12;
             // 
@@ -172,6 +165,8 @@
             this.lookUpEdit3.Name = "lookUpEdit3";
             this.lookUpEdit3.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.lookUpEdit3.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("FORMEDUC_NAME", "Форма обучения")});
             this.lookUpEdit3.Size = new System.Drawing.Size(132, 20);
             this.lookUpEdit3.TabIndex = 13;
             // 
@@ -181,6 +176,8 @@
             this.lookUpEdit4.Name = "lookUpEdit4";
             this.lookUpEdit4.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.lookUpEdit4.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("MODEEDUC_NAME", "Вид обучения")});
             this.lookUpEdit4.Size = new System.Drawing.Size(132, 20);
             this.lookUpEdit4.TabIndex = 14;
             // 
@@ -190,6 +187,8 @@
             this.lookUpEdit5.Name = "lookUpEdit5";
             this.lookUpEdit5.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.lookUpEdit5.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("SPECIALITY_NAME", "Специальность")});
             this.lookUpEdit5.Size = new System.Drawing.Size(283, 20);
             this.lookUpEdit5.TabIndex = 15;
             // 
@@ -199,6 +198,8 @@
             this.lookUpEdit6.Name = "lookUpEdit6";
             this.lookUpEdit6.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.lookUpEdit6.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("SPECIALIZATION_NAME", "Специализация")});
             this.lookUpEdit6.Size = new System.Drawing.Size(283, 20);
             this.lookUpEdit6.TabIndex = 16;
             // 
@@ -208,6 +209,8 @@
             this.lookUpEdit7.Name = "lookUpEdit7";
             this.lookUpEdit7.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.lookUpEdit7.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("FACULTY_FULLNAME", "Факультет")});
             this.lookUpEdit7.Size = new System.Drawing.Size(283, 20);
             this.lookUpEdit7.TabIndex = 17;
             // 
@@ -217,6 +220,8 @@
             this.lookUpEdit8.Name = "lookUpEdit8";
             this.lookUpEdit8.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.lookUpEdit8.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("PLACETRAIN_NAME", "Филиал")});
             this.lookUpEdit8.Size = new System.Drawing.Size(136, 20);
             this.lookUpEdit8.TabIndex = 18;
             // 
@@ -237,7 +242,6 @@
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -265,7 +269,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;

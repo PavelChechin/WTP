@@ -39,8 +39,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CollectionsPattern">
-      <HintPath>..\..\..\..\components\CollectionsPattern\CollectionsPattern\bin\Release\CollectionsPattern.dll</HintPath>
+    <Reference Include="CollectionsPattern, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Release\CollectionsPattern.dll</HintPath>
     </Reference>
     <Reference Include="CustomDescriptor">
       <HintPath>..\..\..\..\components\CustomDescriptor\CustomDescriptor\bin\Release\CustomDescriptor.dll</HintPath>

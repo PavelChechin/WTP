@@ -29,12 +29,16 @@ namespace EducPlanSolution
         /// </summary>
         private void InitializeComponent()
         {
+            DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.parentComponentNameColumn = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.childComponentNameColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.discipNameColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.discipCodeColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.semestrNumColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.lectionsColumn = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.zeColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.examsColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.practicsColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.labWorksColumn = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -46,6 +50,7 @@ namespace EducPlanSolution
             this.totalHoursColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.ksrColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.independentWorkColumn = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.discipSortIndexColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.discipNumberColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.tabPane1 = new DevExpress.XtraBars.Navigation.TabPane();
             this.tabNavigationPage1 = new DevExpress.XtraBars.Navigation.TabNavigationPage();
@@ -53,8 +58,17 @@ namespace EducPlanSolution
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.addDiscipButton = new DevExpress.XtraEditors.SimpleButton();
             this.tabNavigationPage2 = new DevExpress.XtraBars.Navigation.TabNavigationPage();
-            this.simpleButton5 = new DevExpress.XtraEditors.SimpleButton();
-            this.simpleButton4 = new DevExpress.XtraEditors.SimpleButton();
+            this.simpleButton11 = new DevExpress.XtraEditors.SimpleButton();
+            this.simpleButton12 = new DevExpress.XtraEditors.SimpleButton();
+            this.simpleButton13 = new DevExpress.XtraEditors.SimpleButton();
+            this.simpleButton14 = new DevExpress.XtraEditors.SimpleButton();
+            this.simpleButton15 = new DevExpress.XtraEditors.SimpleButton();
+            this.simpleButton16 = new DevExpress.XtraEditors.SimpleButton();
+            this.simpleButton10 = new DevExpress.XtraEditors.SimpleButton();
+            this.simpleButton9 = new DevExpress.XtraEditors.SimpleButton();
+            this.simpleButton8 = new DevExpress.XtraEditors.SimpleButton();
+            this.simpleButton7 = new DevExpress.XtraEditors.SimpleButton();
+            this.simpleButton6 = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButton3 = new DevExpress.XtraEditors.SimpleButton();
             this.gridControl2 = new DevExpress.XtraGrid.GridControl();
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -75,8 +89,6 @@ namespace EducPlanSolution
             this.facultyNameLabel = new System.Windows.Forms.Label();
             this.qualificationLabel = new System.Windows.Forms.Label();
             this.openPlanButton = new DevExpress.XtraEditors.SimpleButton();
-            this.parentComponentNameColumn = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.childComponentNameColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabPane1)).BeginInit();
@@ -92,11 +104,15 @@ namespace EducPlanSolution
             this.gridControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            gridLevelNode1.RelationName = "Level1";
+            this.gridControl1.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
+            gridLevelNode1});
             this.gridControl1.Location = new System.Drawing.Point(0, 30);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.Size = new System.Drawing.Size(1309, 391);
             this.gridControl1.TabIndex = 0;
+            this.gridControl1.UseEmbeddedNavigator = true;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
             // 
@@ -109,6 +125,7 @@ namespace EducPlanSolution
             this.discipCodeColumn,
             this.semestrNumColumn,
             this.lectionsColumn,
+            this.zeColumn,
             this.examsColumn,
             this.practicsColumn,
             this.labWorksColumn,
@@ -120,14 +137,36 @@ namespace EducPlanSolution
             this.totalHoursColumn,
             this.ksrColumn,
             this.independentWorkColumn,
+            this.discipSortIndexColumn,
             this.discipNumberColumn});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.GroupCount = 2;
             this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsDetail.AllowOnlyOneMasterRowExpanded = true;
             this.gridView1.OptionsMenu.ShowGroupSummaryEditorItem = true;
+            this.gridView1.OptionsView.GroupDrawMode = DevExpress.XtraGrid.Views.Grid.GroupDrawMode.Office;
+            this.gridView1.OptionsView.ShowChildrenInGroupPanel = true;
             this.gridView1.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.parentComponentNameColumn, DevExpress.Data.ColumnSortOrder.Ascending),
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.childComponentNameColumn, DevExpress.Data.ColumnSortOrder.Ascending)});
+            // 
+            // parentComponentNameColumn
+            // 
+            this.parentComponentNameColumn.Caption = " ";
+            this.parentComponentNameColumn.FieldName = "ParentCycle";
+            this.parentComponentNameColumn.Name = "parentComponentNameColumn";
+            this.parentComponentNameColumn.Visible = true;
+            this.parentComponentNameColumn.VisibleIndex = 0;
+            this.parentComponentNameColumn.Width = 22;
+            // 
+            // childComponentNameColumn
+            // 
+            this.childComponentNameColumn.Caption = " ";
+            this.childComponentNameColumn.FieldName = "ChildCycle";
+            this.childComponentNameColumn.Name = "childComponentNameColumn";
+            this.childComponentNameColumn.Visible = true;
+            this.childComponentNameColumn.VisibleIndex = 0;
+            this.childComponentNameColumn.Width = 22;
             // 
             // discipNameColumn
             // 
@@ -136,7 +175,7 @@ namespace EducPlanSolution
             this.discipNameColumn.Name = "discipNameColumn";
             this.discipNameColumn.Visible = true;
             this.discipNameColumn.VisibleIndex = 0;
-            this.discipNameColumn.Width = 309;
+            this.discipNameColumn.Width = 200;
             // 
             // discipCodeColumn
             // 
@@ -145,7 +184,7 @@ namespace EducPlanSolution
             this.discipCodeColumn.Name = "discipCodeColumn";
             this.discipCodeColumn.Visible = true;
             this.discipCodeColumn.VisibleIndex = 1;
-            this.discipCodeColumn.Width = 76;
+            this.discipCodeColumn.Width = 49;
             // 
             // semestrNumColumn
             // 
@@ -154,7 +193,7 @@ namespace EducPlanSolution
             this.semestrNumColumn.Name = "semestrNumColumn";
             this.semestrNumColumn.Visible = true;
             this.semestrNumColumn.VisibleIndex = 2;
-            this.semestrNumColumn.Width = 76;
+            this.semestrNumColumn.Width = 49;
             // 
             // lectionsColumn
             // 
@@ -162,8 +201,17 @@ namespace EducPlanSolution
             this.lectionsColumn.FieldName = "Lections";
             this.lectionsColumn.Name = "lectionsColumn";
             this.lectionsColumn.Visible = true;
-            this.lectionsColumn.VisibleIndex = 8;
-            this.lectionsColumn.Width = 59;
+            this.lectionsColumn.VisibleIndex = 9;
+            this.lectionsColumn.Width = 56;
+            // 
+            // zeColumn
+            // 
+            this.zeColumn.Caption = "З.Е.";
+            this.zeColumn.FieldName = "ZE";
+            this.zeColumn.Name = "zeColumn";
+            this.zeColumn.Visible = true;
+            this.zeColumn.VisibleIndex = 6;
+            this.zeColumn.Width = 46;
             // 
             // examsColumn
             // 
@@ -172,7 +220,7 @@ namespace EducPlanSolution
             this.examsColumn.Name = "examsColumn";
             this.examsColumn.Visible = true;
             this.examsColumn.VisibleIndex = 3;
-            this.examsColumn.Width = 56;
+            this.examsColumn.Width = 49;
             // 
             // practicsColumn
             // 
@@ -180,8 +228,8 @@ namespace EducPlanSolution
             this.practicsColumn.FieldName = "Practics";
             this.practicsColumn.Name = "practicsColumn";
             this.practicsColumn.Visible = true;
-            this.practicsColumn.VisibleIndex = 11;
-            this.practicsColumn.Width = 59;
+            this.practicsColumn.VisibleIndex = 12;
+            this.practicsColumn.Width = 56;
             // 
             // labWorksColumn
             // 
@@ -189,8 +237,8 @@ namespace EducPlanSolution
             this.labWorksColumn.FieldName = "LabWorks";
             this.labWorksColumn.Name = "labWorksColumn";
             this.labWorksColumn.Visible = true;
-            this.labWorksColumn.VisibleIndex = 12;
-            this.labWorksColumn.Width = 54;
+            this.labWorksColumn.VisibleIndex = 13;
+            this.labWorksColumn.Width = 56;
             // 
             // midTermsColumn
             // 
@@ -199,7 +247,7 @@ namespace EducPlanSolution
             this.midTermsColumn.Name = "midTermsColumn";
             this.midTermsColumn.Visible = true;
             this.midTermsColumn.VisibleIndex = 4;
-            this.midTermsColumn.Width = 60;
+            this.midTermsColumn.Width = 49;
             // 
             // referatsColumn
             // 
@@ -207,8 +255,8 @@ namespace EducPlanSolution
             this.referatsColumn.FieldName = "Referats";
             this.referatsColumn.Name = "referatsColumn";
             this.referatsColumn.Visible = true;
-            this.referatsColumn.VisibleIndex = 9;
-            this.referatsColumn.Width = 63;
+            this.referatsColumn.VisibleIndex = 10;
+            this.referatsColumn.Width = 56;
             // 
             // calcGraphWorksColumn
             // 
@@ -216,8 +264,8 @@ namespace EducPlanSolution
             this.calcGraphWorksColumn.FieldName = "CalcGraphWorks";
             this.calcGraphWorksColumn.Name = "calcGraphWorksColumn";
             this.calcGraphWorksColumn.Visible = true;
-            this.calcGraphWorksColumn.VisibleIndex = 10;
-            this.calcGraphWorksColumn.Width = 63;
+            this.calcGraphWorksColumn.VisibleIndex = 11;
+            this.calcGraphWorksColumn.Width = 56;
             // 
             // coursProjectsColumn
             // 
@@ -226,7 +274,7 @@ namespace EducPlanSolution
             this.coursProjectsColumn.Name = "coursProjectsColumn";
             this.coursProjectsColumn.Visible = true;
             this.coursProjectsColumn.VisibleIndex = 5;
-            this.coursProjectsColumn.Width = 54;
+            this.coursProjectsColumn.Width = 49;
             // 
             // coursWorksColumn
             // 
@@ -234,8 +282,8 @@ namespace EducPlanSolution
             this.coursWorksColumn.FieldName = "CoursWorks";
             this.coursWorksColumn.Name = "coursWorksColumn";
             this.coursWorksColumn.Visible = true;
-            this.coursWorksColumn.VisibleIndex = 6;
-            this.coursWorksColumn.Width = 49;
+            this.coursWorksColumn.VisibleIndex = 7;
+            this.coursWorksColumn.Width = 58;
             // 
             // totalHoursColumn
             // 
@@ -243,8 +291,8 @@ namespace EducPlanSolution
             this.totalHoursColumn.FieldName = "TotalHours";
             this.totalHoursColumn.Name = "totalHoursColumn";
             this.totalHoursColumn.Visible = true;
-            this.totalHoursColumn.VisibleIndex = 7;
-            this.totalHoursColumn.Width = 72;
+            this.totalHoursColumn.VisibleIndex = 8;
+            this.totalHoursColumn.Width = 80;
             // 
             // ksrColumn
             // 
@@ -252,8 +300,8 @@ namespace EducPlanSolution
             this.ksrColumn.FieldName = "KSR";
             this.ksrColumn.Name = "ksrColumn";
             this.ksrColumn.Visible = true;
-            this.ksrColumn.VisibleIndex = 13;
-            this.ksrColumn.Width = 131;
+            this.ksrColumn.VisibleIndex = 14;
+            this.ksrColumn.Width = 91;
             // 
             // independentWorkColumn
             // 
@@ -261,14 +309,26 @@ namespace EducPlanSolution
             this.independentWorkColumn.FieldName = "IndependentWork";
             this.independentWorkColumn.Name = "independentWorkColumn";
             this.independentWorkColumn.Visible = true;
-            this.independentWorkColumn.VisibleIndex = 14;
-            this.independentWorkColumn.Width = 275;
+            this.independentWorkColumn.VisibleIndex = 15;
+            this.independentWorkColumn.Width = 97;
+            // 
+            // discipSortIndexColumn
+            // 
+            this.discipSortIndexColumn.Caption = "Порядок";
+            this.discipSortIndexColumn.FieldName = "SortIndex";
+            this.discipSortIndexColumn.Name = "discipSortIndexColumn";
+            this.discipSortIndexColumn.Visible = true;
+            this.discipSortIndexColumn.VisibleIndex = 16;
+            this.discipSortIndexColumn.Width = 109;
             // 
             // discipNumberColumn
             // 
             this.discipNumberColumn.Caption = "Номер";
             this.discipNumberColumn.FieldName = "Number";
             this.discipNumberColumn.Name = "discipNumberColumn";
+            this.discipNumberColumn.Visible = true;
+            this.discipNumberColumn.VisibleIndex = 17;
+            this.discipNumberColumn.Width = 85;
             // 
             // tabPane1
             // 
@@ -305,6 +365,7 @@ namespace EducPlanSolution
             this.simpleButton2.Size = new System.Drawing.Size(94, 23);
             this.simpleButton2.TabIndex = 3;
             this.simpleButton2.Text = "Сместить вверх";
+            this.simpleButton2.Visible = false;
             this.simpleButton2.Click += new System.EventHandler(this.simpleButton2_Click);
             // 
             // simpleButton1
@@ -314,6 +375,7 @@ namespace EducPlanSolution
             this.simpleButton1.Size = new System.Drawing.Size(86, 23);
             this.simpleButton1.TabIndex = 2;
             this.simpleButton1.Text = "Сместить вниз";
+            this.simpleButton1.Visible = false;
             this.simpleButton1.Click += new System.EventHandler(this.simpleButton1_Click);
             // 
             // addDiscipButton
@@ -323,45 +385,131 @@ namespace EducPlanSolution
             this.addDiscipButton.Size = new System.Drawing.Size(126, 23);
             this.addDiscipButton.TabIndex = 1;
             this.addDiscipButton.Text = "Добавить дисцилину";
+            this.addDiscipButton.Visible = false;
             this.addDiscipButton.Click += new System.EventHandler(this.addDiscipButton_Click);
             // 
             // tabNavigationPage2
             // 
             this.tabNavigationPage2.Caption = "График";
-            this.tabNavigationPage2.Controls.Add(this.simpleButton5);
-            this.tabNavigationPage2.Controls.Add(this.simpleButton4);
+            this.tabNavigationPage2.Controls.Add(this.simpleButton11);
+            this.tabNavigationPage2.Controls.Add(this.simpleButton12);
+            this.tabNavigationPage2.Controls.Add(this.simpleButton13);
+            this.tabNavigationPage2.Controls.Add(this.simpleButton14);
+            this.tabNavigationPage2.Controls.Add(this.simpleButton15);
+            this.tabNavigationPage2.Controls.Add(this.simpleButton16);
+            this.tabNavigationPage2.Controls.Add(this.simpleButton10);
+            this.tabNavigationPage2.Controls.Add(this.simpleButton9);
+            this.tabNavigationPage2.Controls.Add(this.simpleButton8);
+            this.tabNavigationPage2.Controls.Add(this.simpleButton7);
+            this.tabNavigationPage2.Controls.Add(this.simpleButton6);
             this.tabNavigationPage2.Controls.Add(this.simpleButton3);
             this.tabNavigationPage2.Controls.Add(this.gridControl2);
             this.tabNavigationPage2.Name = "tabNavigationPage2";
             this.tabNavigationPage2.Size = new System.Drawing.Size(1309, 424);
             // 
-            // simpleButton5
+            // simpleButton11
             // 
-            this.simpleButton5.Location = new System.Drawing.Point(751, 20);
-            this.simpleButton5.Name = "simpleButton5";
-            this.simpleButton5.Size = new System.Drawing.Size(26, 23);
-            this.simpleButton5.TabIndex = 5;
+            this.simpleButton11.Location = new System.Drawing.Point(376, 116);
+            this.simpleButton11.Name = "simpleButton11";
+            this.simpleButton11.Size = new System.Drawing.Size(26, 26);
+            this.simpleButton11.TabIndex = 16;
+            this.simpleButton11.Text = "=";
             // 
-            // simpleButton4
+            // simpleButton12
             // 
-            this.simpleButton4.Location = new System.Drawing.Point(719, 20);
-            this.simpleButton4.Name = "simpleButton4";
-            this.simpleButton4.Size = new System.Drawing.Size(26, 23);
-            this.simpleButton4.TabIndex = 4;
+            this.simpleButton12.Location = new System.Drawing.Point(344, 116);
+            this.simpleButton12.Name = "simpleButton12";
+            this.simpleButton12.Size = new System.Drawing.Size(26, 26);
+            this.simpleButton12.TabIndex = 15;
+            this.simpleButton12.Text = "*";
+            // 
+            // simpleButton13
+            // 
+            this.simpleButton13.Location = new System.Drawing.Point(312, 116);
+            this.simpleButton13.Name = "simpleButton13";
+            this.simpleButton13.Size = new System.Drawing.Size(26, 26);
+            this.simpleButton13.TabIndex = 14;
+            this.simpleButton13.Text = "К";
+            // 
+            // simpleButton14
+            // 
+            this.simpleButton14.Location = new System.Drawing.Point(376, 52);
+            this.simpleButton14.Name = "simpleButton14";
+            this.simpleButton14.Size = new System.Drawing.Size(26, 26);
+            this.simpleButton14.TabIndex = 13;
+            this.simpleButton14.Text = "Пд";
+            // 
+            // simpleButton15
+            // 
+            this.simpleButton15.Location = new System.Drawing.Point(344, 52);
+            this.simpleButton15.Name = "simpleButton15";
+            this.simpleButton15.Size = new System.Drawing.Size(26, 26);
+            this.simpleButton15.TabIndex = 12;
+            this.simpleButton15.Text = "П";
+            // 
+            // simpleButton16
+            // 
+            this.simpleButton16.Location = new System.Drawing.Point(312, 52);
+            this.simpleButton16.Name = "simpleButton16";
+            this.simpleButton16.Size = new System.Drawing.Size(26, 26);
+            this.simpleButton16.TabIndex = 11;
+            this.simpleButton16.Text = "Н";
+            // 
+            // simpleButton10
+            // 
+            this.simpleButton10.Location = new System.Drawing.Point(376, 84);
+            this.simpleButton10.Name = "simpleButton10";
+            this.simpleButton10.Size = new System.Drawing.Size(26, 26);
+            this.simpleButton10.TabIndex = 10;
+            this.simpleButton10.Text = "Г";
+            // 
+            // simpleButton9
+            // 
+            this.simpleButton9.Location = new System.Drawing.Point(344, 84);
+            this.simpleButton9.Name = "simpleButton9";
+            this.simpleButton9.Size = new System.Drawing.Size(26, 26);
+            this.simpleButton9.TabIndex = 9;
+            this.simpleButton9.Text = "Д";
+            // 
+            // simpleButton8
+            // 
+            this.simpleButton8.Location = new System.Drawing.Point(312, 84);
+            this.simpleButton8.Name = "simpleButton8";
+            this.simpleButton8.Size = new System.Drawing.Size(26, 26);
+            this.simpleButton8.TabIndex = 8;
+            this.simpleButton8.Text = "ПА";
+            // 
+            // simpleButton7
+            // 
+            this.simpleButton7.Location = new System.Drawing.Point(376, 20);
+            this.simpleButton7.Name = "simpleButton7";
+            this.simpleButton7.Size = new System.Drawing.Size(26, 26);
+            this.simpleButton7.TabIndex = 7;
+            this.simpleButton7.Text = "У";
+            // 
+            // simpleButton6
+            // 
+            this.simpleButton6.Location = new System.Drawing.Point(344, 20);
+            this.simpleButton6.Name = "simpleButton6";
+            this.simpleButton6.Size = new System.Drawing.Size(26, 26);
+            this.simpleButton6.TabIndex = 6;
+            this.simpleButton6.Text = "Э";
             // 
             // simpleButton3
             // 
-            this.simpleButton3.Location = new System.Drawing.Point(687, 20);
+            this.simpleButton3.Location = new System.Drawing.Point(312, 20);
             this.simpleButton3.Name = "simpleButton3";
-            this.simpleButton3.Size = new System.Drawing.Size(26, 23);
+            this.simpleButton3.Size = new System.Drawing.Size(26, 26);
             this.simpleButton3.TabIndex = 3;
             // 
             // gridControl2
             // 
+            this.gridControl2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.gridControl2.Location = new System.Drawing.Point(3, 3);
             this.gridControl2.MainView = this.gridView2;
             this.gridControl2.Name = "gridControl2";
-            this.gridControl2.Size = new System.Drawing.Size(660, 249);
+            this.gridControl2.Size = new System.Drawing.Size(291, 418);
             this.gridControl2.TabIndex = 2;
             this.gridControl2.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView2});
@@ -378,7 +526,10 @@ namespace EducPlanSolution
             this.gridColumn20,
             this.gridColumn21});
             this.gridView2.GridControl = this.gridControl2;
+            this.gridView2.GroupCount = 1;
             this.gridView2.Name = "gridView2";
+            this.gridView2.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
+            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.gridColumn14, DevExpress.Data.ColumnSortOrder.Ascending)});
             // 
             // gridColumn14
             // 
@@ -387,6 +538,7 @@ namespace EducPlanSolution
             this.gridColumn14.Name = "gridColumn14";
             this.gridColumn14.Visible = true;
             this.gridColumn14.VisibleIndex = 0;
+            this.gridColumn14.Width = 49;
             // 
             // gridColumn15
             // 
@@ -394,7 +546,8 @@ namespace EducPlanSolution
             this.gridColumn15.FieldName = "WeekNumber";
             this.gridColumn15.Name = "gridColumn15";
             this.gridColumn15.Visible = true;
-            this.gridColumn15.VisibleIndex = 1;
+            this.gridColumn15.VisibleIndex = 0;
+            this.gridColumn15.Width = 44;
             // 
             // gridColumn16
             // 
@@ -402,7 +555,8 @@ namespace EducPlanSolution
             this.gridColumn16.FieldName = "Monday";
             this.gridColumn16.Name = "gridColumn16";
             this.gridColumn16.Visible = true;
-            this.gridColumn16.VisibleIndex = 2;
+            this.gridColumn16.VisibleIndex = 1;
+            this.gridColumn16.Width = 32;
             // 
             // gridColumn17
             // 
@@ -410,7 +564,8 @@ namespace EducPlanSolution
             this.gridColumn17.FieldName = "Tuesday";
             this.gridColumn17.Name = "gridColumn17";
             this.gridColumn17.Visible = true;
-            this.gridColumn17.VisibleIndex = 3;
+            this.gridColumn17.VisibleIndex = 2;
+            this.gridColumn17.Width = 36;
             // 
             // gridColumn18
             // 
@@ -418,7 +573,8 @@ namespace EducPlanSolution
             this.gridColumn18.FieldName = "Wednesday";
             this.gridColumn18.Name = "gridColumn18";
             this.gridColumn18.Visible = true;
-            this.gridColumn18.VisibleIndex = 4;
+            this.gridColumn18.VisibleIndex = 3;
+            this.gridColumn18.Width = 38;
             // 
             // gridColumn19
             // 
@@ -426,7 +582,8 @@ namespace EducPlanSolution
             this.gridColumn19.FieldName = "Thursday";
             this.gridColumn19.Name = "gridColumn19";
             this.gridColumn19.Visible = true;
-            this.gridColumn19.VisibleIndex = 5;
+            this.gridColumn19.VisibleIndex = 4;
+            this.gridColumn19.Width = 44;
             // 
             // gridColumn20
             // 
@@ -434,7 +591,8 @@ namespace EducPlanSolution
             this.gridColumn20.FieldName = "Friday";
             this.gridColumn20.Name = "gridColumn20";
             this.gridColumn20.Visible = true;
-            this.gridColumn20.VisibleIndex = 6;
+            this.gridColumn20.VisibleIndex = 5;
+            this.gridColumn20.Width = 41;
             // 
             // gridColumn21
             // 
@@ -442,7 +600,8 @@ namespace EducPlanSolution
             this.gridColumn21.FieldName = "Saturday";
             this.gridColumn21.Name = "gridColumn21";
             this.gridColumn21.Visible = true;
-            this.gridColumn21.VisibleIndex = 7;
+            this.gridColumn21.VisibleIndex = 6;
+            this.gridColumn21.Width = 38;
             // 
             // formEducLabel
             // 
@@ -467,7 +626,7 @@ namespace EducPlanSolution
             // specialityNameLabel
             // 
             this.specialityNameLabel.AutoSize = true;
-            this.specialityNameLabel.Location = new System.Drawing.Point(647, 43);
+            this.specialityNameLabel.Location = new System.Drawing.Point(760, 43);
             this.specialityNameLabel.Name = "specialityNameLabel";
             this.specialityNameLabel.Size = new System.Drawing.Size(104, 13);
             this.specialityNameLabel.TabIndex = 5;
@@ -477,7 +636,7 @@ namespace EducPlanSolution
             // specialityNumbLabel
             // 
             this.specialityNumbLabel.AutoSize = true;
-            this.specialityNumbLabel.Location = new System.Drawing.Point(399, 43);
+            this.specialityNumbLabel.Location = new System.Drawing.Point(372, 43);
             this.specialityNumbLabel.Name = "specialityNumbLabel";
             this.specialityNumbLabel.Size = new System.Drawing.Size(104, 13);
             this.specialityNumbLabel.TabIndex = 6;
@@ -496,7 +655,7 @@ namespace EducPlanSolution
             // studYearLabel
             // 
             this.studYearLabel.AutoSize = true;
-            this.studYearLabel.Location = new System.Drawing.Point(647, 9);
+            this.studYearLabel.Location = new System.Drawing.Point(760, 9);
             this.studYearLabel.Name = "studYearLabel";
             this.studYearLabel.Size = new System.Drawing.Size(75, 13);
             this.studYearLabel.TabIndex = 8;
@@ -506,7 +665,7 @@ namespace EducPlanSolution
             // facultyNameLabel
             // 
             this.facultyNameLabel.AutoSize = true;
-            this.facultyNameLabel.Location = new System.Drawing.Point(399, 9);
+            this.facultyNameLabel.Location = new System.Drawing.Point(372, 9);
             this.facultyNameLabel.Name = "facultyNameLabel";
             this.facultyNameLabel.Size = new System.Drawing.Size(92, 13);
             this.facultyNameLabel.TabIndex = 9;
@@ -516,7 +675,7 @@ namespace EducPlanSolution
             // qualificationLabel
             // 
             this.qualificationLabel.AutoSize = true;
-            this.qualificationLabel.Location = new System.Drawing.Point(863, 9);
+            this.qualificationLabel.Location = new System.Drawing.Point(976, 9);
             this.qualificationLabel.Name = "qualificationLabel";
             this.qualificationLabel.Size = new System.Drawing.Size(89, 13);
             this.qualificationLabel.TabIndex = 10;
@@ -531,24 +690,6 @@ namespace EducPlanSolution
             this.openPlanButton.TabIndex = 11;
             this.openPlanButton.Text = "Открыть план";
             this.openPlanButton.Click += new System.EventHandler(this.openPlanButton_Click);
-            // 
-            // parentComponentNameColumn
-            // 
-            this.parentComponentNameColumn.Caption = " ";
-            this.parentComponentNameColumn.FieldName = "ParentCycle";
-            this.parentComponentNameColumn.Name = "parentComponentNameColumn";
-            this.parentComponentNameColumn.Visible = true;
-            this.parentComponentNameColumn.VisibleIndex = 0;
-            this.parentComponentNameColumn.Width = 76;
-            // 
-            // childComponentNameColumn
-            // 
-            this.childComponentNameColumn.Caption = " ";
-            this.childComponentNameColumn.FieldName = "ChildCycle";
-            this.childComponentNameColumn.Name = "childComponentNameColumn";
-            this.childComponentNameColumn.Visible = true;
-            this.childComponentNameColumn.VisibleIndex = 0;
-            this.childComponentNameColumn.Width = 76;
             // 
             // MainForm
             // 
@@ -622,14 +763,25 @@ namespace EducPlanSolution
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn19;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn20;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn21;
-        private DevExpress.XtraEditors.SimpleButton simpleButton5;
-        private DevExpress.XtraEditors.SimpleButton simpleButton4;
         private DevExpress.XtraEditors.SimpleButton simpleButton3;
         private DevExpress.XtraGrid.Columns.GridColumn semestrNumColumn;
         private DevExpress.XtraGrid.Columns.GridColumn discipCodeColumn;
-        private DevExpress.XtraGrid.Columns.GridColumn discipNumberColumn;
+        private DevExpress.XtraGrid.Columns.GridColumn discipSortIndexColumn;
         private DevExpress.XtraGrid.Columns.GridColumn parentComponentNameColumn;
         private DevExpress.XtraGrid.Columns.GridColumn childComponentNameColumn;
+        private DevExpress.XtraEditors.SimpleButton simpleButton11;
+        private DevExpress.XtraEditors.SimpleButton simpleButton12;
+        private DevExpress.XtraEditors.SimpleButton simpleButton13;
+        private DevExpress.XtraEditors.SimpleButton simpleButton14;
+        private DevExpress.XtraEditors.SimpleButton simpleButton15;
+        private DevExpress.XtraEditors.SimpleButton simpleButton16;
+        private DevExpress.XtraEditors.SimpleButton simpleButton10;
+        private DevExpress.XtraEditors.SimpleButton simpleButton9;
+        private DevExpress.XtraEditors.SimpleButton simpleButton8;
+        private DevExpress.XtraEditors.SimpleButton simpleButton7;
+        private DevExpress.XtraEditors.SimpleButton simpleButton6;
+        private DevExpress.XtraGrid.Columns.GridColumn discipNumberColumn;
+        private DevExpress.XtraGrid.Columns.GridColumn zeColumn;
     }
 }
 
