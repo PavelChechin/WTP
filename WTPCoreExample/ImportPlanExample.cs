@@ -119,75 +119,78 @@ namespace WTPCoreExample
                         IEnumerable<XElement> planRows = StudyPlan.Descendants(XmlConst.Rows).Where(q => q.Attribute("УровеньВложения").Value == "1").Where(q => q.Attribute("КодБлока").Value == childCycleID);
                         foreach (var planRow in planRows)
                         {
-                            //if (planRow.Attribute("ТипОбъекта").Value == "2")
-                            //{
-                            //    var rowID = planRow.Attribute("Код").Value;
-                            //    var discipRow = AddWTPROW(planRow, wtpComponent2);
+                            if (planRow.Attribute("ТипОбъекта").Value == "2")
+                            {
+                                var rowID = planRow.Attribute("Код").Value;
+                                var discipRow = AddWTPROW(planRow, wtpComponent2);
 
-                            //    var rowValues = StudyPlan.Descendants(XmlConst.NewHours).Where(q => q.Attribute("КодОбъекта").Value == rowID);
+                                var rowValues = StudyPlan.Descendants(XmlConst.NewHours).Where(q => q.Attribute("КодОбъекта").Value == rowID);
 
-                            //    AddWTPROWValues(plan, rowValues, discipRow);
-                            //}
+                                AddWTPROWValues(plan, rowValues, discipRow);
+                            }
 
-                            //if (planRow.Attribute("ТипОбъекта").Value == "1")  //дисциплины специализации 
-                            //{
-                            //    IWTPCOMPONENT component3 = presenter.CreateNewComponent();
-                            //    string componentCode = planRow.Attribute("ДисциплинаКод").Value;
-                            //    var studDiscComponentID = presenter.GetStudDiscComponentByName(planRow.Attribute("Дисциплина").Value, componentCode.Remove(componentCode.Length - 3));
+                            if (planRow.Attribute("ТипОбъекта").Value == "1")  //дисциплины специализации 
+                            {
+                                IWTPCOMPONENT component3 = presenter.CreateNewComponent();
+                                string componentCode = planRow.Attribute("ДисциплинаКод").Value;
+                                var studDiscComponentID = presenter.GetStudDiscComponentByName(planRow.Attribute("Дисциплина").Value, componentCode.Remove(componentCode.Length - 3));
 
-                            //    var OOP = StudyPlan.Element(XmlConst.OOP).Descendants(XmlConst.OOP).Where(q => q.Attribute("Код").Value == planRow.Attribute("КодООП").Value).First();/*Where(q => q.Attribute("Код").Value == planRow.Attribute("КодООП").Value).First();*/
-                            //    var SpecializationID = presenter.GetSpecializationByName(OOP.Attribute("Название").Value, OOP.Attribute("Шифр").Value);
-                            //    component3.SPECIALIZATION_ID = SpecializationID;
-                            //    component3.SPECIALIZATION_NAME = OOP.Attribute("Название").Value;
-                            //    component3.WTPCOMPONENT_CODE = planRow.Attribute("ДисциплинаКод").Value;
-                            //    component3.STUDDISCCOMPONENT_ID = studDiscComponentID;
-                            //    component3.STUDDISCCOMPONENT_NAME = planRow.Attribute("Дисциплина").Value;
-                            //    var wtpComponent3 = presenter.AddComponent(component3, wtpComponent2);
+                                var OOP = StudyPlan.Element(XmlConst.OOP).Descendants(XmlConst.OOP).Where(q => q.Attribute("Код").Value == planRow.Attribute("КодООП").Value).First();/*Where(q => q.Attribute("Код").Value == planRow.Attribute("КодООП").Value).First();*/
+                                var SpecializationID = presenter.GetSpecializationByName(OOP.Attribute("Название").Value, OOP.Attribute("Шифр").Value);
+                                component3.SPECIALIZATION_ID = SpecializationID;
+                                component3.SPECIALIZATION_NAME = OOP.Attribute("Название").Value;
+                                component3.WTPCOMPONENT_CODE = planRow.Attribute("ДисциплинаКод").Value;
+                                component3.STUDDISCCOMPONENT_ID = studDiscComponentID;
+                                component3.STUDDISCCOMPONENT_NAME = planRow.Attribute("Дисциплина").Value;
+                                var wtpComponent3 = presenter.AddComponent(component3, wtpComponent2);
 
-                            //    var componentID = planRow.Attribute("Код").Value;
+                                var componentID = planRow.Attribute("Код").Value;
 
-                            //    var specRows = StudyPlan.Descendants(XmlConst.Rows).Where(q => q.Attribute("УровеньВложения").Value == "2").Where(q => q.Attribute("КодРодителя").Value == componentID);
-                            //    foreach (var specRow in specRows)
-                            //    {
-                            //        var rowID = specRow.Attribute("Код").Value;
-                            //        var discipRow = AddWTPROW(specRow, wtpComponent3);
+                                var specRows = StudyPlan.Descendants(XmlConst.Rows).Where(q => q.Attribute("УровеньВложения").Value == "2").Where(q => q.Attribute("КодРодителя").Value == componentID);
+                                foreach (var specRow in specRows)
+                                {
+                                    var rowID = specRow.Attribute("Код").Value;
+                                    var discipRow = AddWTPROW(specRow, wtpComponent3);
 
-                            //        var rowValues = StudyPlan.Descendants(XmlConst.NewHours).Where(q => q.Attribute("КодОбъекта").Value == rowID);
+                                    var rowValues = StudyPlan.Descendants(XmlConst.NewHours).Where(q => q.Attribute("КодОбъекта").Value == rowID);
 
-                            //        AddWTPROWValues(plan, rowValues, discipRow);
-                            //    }
+                                    AddWTPROWValues(plan, rowValues, discipRow);
+                                }
 
-                            //}
+                            }
 
-                            //if (planRow.Attribute("ТипОбъекта").Value == "5")  //дисциплины по выбору     вносить только те дисциплины, у которых стоит галочка Считать в плане
-                            //{
-                            //    //XElement OOP = StudyPlan.Element(XmlConst.OOP);
-                            //    //if (OOP.Attribute("Код").Value != planRow.Attribute("КодООП").Value)
-                            //    //{
-                            //    //    OOP = StudyPlan.Element(XmlConst.OOP).Descendants(XmlConst.OOP).Where(q => q.Attribute("Код").Value == planRow.Attribute("КодООП").Value).First();
-                            //    //}
+                            if (planRow.Attribute("ТипОбъекта").Value == "5")  //дисциплины по выбору     вносить только те дисциплины, у которых стоит галочка Считать в плане
+                            {
+                                XElement OOP = StudyPlan.Element(XmlConst.OOP);
+                                if (OOP.Attribute("Код").Value != planRow.Attribute("КодООП").Value)
+                                {
+                                    OOP = StudyPlan.Element(XmlConst.OOP).Descendants(XmlConst.OOP).Where(q => q.Attribute("Код").Value == planRow.Attribute("КодООП").Value).First();
+                                }
 
-                            //    //var SpecializationID = presenter.GetSpecializationByName(OOP.Attribute("Название").Value, OOP.Attribute("Шифр").Value);
-                            //    //component3.STUDDISCCOMPONENT_ID = ID;
-                            //    //component3.STUDDISCCOMPONENT_NAME = planRow.Attribute("Дисциплина").Value;
-                            //    //component3.SPECIALIZATION_ID = SpecializationID;
-                            //    //component3.SPECIALIZATION_NAME = OOP.Attribute("Название").Value;
-                            //    //var wtpComponent3 = presenter.AddComponent(component3, wtpComponent2);
+                                var SpecializationID = presenter.GetSpecializationByName(OOP.Attribute("Название").Value, OOP.Attribute("Шифр").Value);
+                                //component2.STUDDISCCOMPONENT_NAME = planRow.Attribute("Дисциплина").Value;
+                                //component2.SPECIALIZATION_ID = SpecializationID;
+                                //component2.SPECIALIZATION_NAME = OOP.Attribute("Название").Value;
+                                //var wtpComponent3 = presenter.AddComponent(component2, wtpComponent2);
 
-                            //    //var VariationID = presenter.GetLastVariationID() + 1;
-                            //    var chosenRows = StudyPlan.Descendants(XmlConst.Rows).Where(q => q.Attribute("УровеньВложения").Value == "2").Where(q => q.Attribute("КодРодителя").Value == componentID);
-                            //    foreach (var chosenRow in chosenRows)
-                            //    {
-                            //        var rowID = chosenRow.Attribute("Код").Value;
-                            //        var discipRow = AddWTPROW(chosenRow, wtpComponent2);
+                                //var VariationID = presenter.GetLastVariationID() + 1;
+                                var chosenRows = StudyPlan.Descendants(XmlConst.Rows).Where(q => q.Attribute("УровеньВложения").Value == "2").Where(q => q.Attribute("КодРодителя").Value == planRow.Attribute("Код").Value);
+                                foreach (var chosenRow in chosenRows)
+                                {
+                                    if (chosenRow.Attribute("СчитатьВПлане").Value == "true")
+                                    {
+                                        var rowID = chosenRow.Attribute("Код").Value;
+                                        var discipRow = AddWTPROW(chosenRow, wtpComponent2, SpecializationID);
 
-                            //        var rowValues = StudyPlan.Descendants(XmlConst.NewHours).Where(q => q.Attribute("КодОбъекта").Value == rowID);
+                                        var rowValues = StudyPlan.Descendants(XmlConst.NewHours).Where(q => q.Attribute("КодОбъекта").Value == rowID);
 
-                            //        AddWTPROWValues(plan, rowValues, discipRow);
+                                        AddWTPROWValues(plan, rowValues, discipRow);
+                                    }
+                                    else continue;
 
-                            //    }
+                                }
 
-                            //}
+                            }
 
 
 
@@ -231,24 +234,24 @@ namespace WTPCoreExample
                 }
                 else
                 {
-                    //IEnumerable<XElement> planRows = StudyPlan.Descendants(XmlConst.Rows).Where(q => q.Attribute("УровеньВложения").Value == "1").Where(q => q.Attribute("КодБлока").Value == parentCycleID);
-                    //foreach (var planRow in planRows)
-                    //{
-                    //    if (planRow.Attribute("ТипОбъекта").Value == "6" || planRow.Attribute("ТипОбъекта").Value == "2")  //государственная итоговая аттестация и факультативы
-                    //    {
-                    //        var rowID = planRow.Attribute("Код").Value;
-                    //        var diplomaRow = AddWTPROW(planRow, wtpComponent);
+                    IEnumerable<XElement> planRows = StudyPlan.Descendants(XmlConst.Rows).Where(q => q.Attribute("УровеньВложения").Value == "1").Where(q => q.Attribute("КодБлока").Value == parentCycleID);
+                    foreach (var planRow in planRows)
+                    {
+                        if (planRow.Attribute("ТипОбъекта").Value == "6" || planRow.Attribute("ТипОбъекта").Value == "2")  //государственная итоговая аттестация и факультативы
+                        {
+                            var rowID = planRow.Attribute("Код").Value;
+                            var diplomaRow = AddWTPROW(planRow, wtpComponent);
 
-                    //        var rowValues = StudyPlan.Descendants(XmlConst.NewHours).Where(q => q.Attribute("КодОбъекта").Value == rowID);
+                            var rowValues = StudyPlan.Descendants(XmlConst.NewHours).Where(q => q.Attribute("КодОбъекта").Value == rowID);
 
-                    //        AddWTPROWValues(plan, rowValues, diplomaRow);
-                    //    }
-                    //}
+                            AddWTPROWValues(plan, rowValues, diplomaRow);
+                        }
+                    }
                 }
             }
 
             //импорт календарного учебного графика
-            //int maxCourse = int.Parse(StudyPlan.Descendants("{http://tempuri.org/dsMMISDB.xsd}Заезды").Last().Attribute("Курс").Value);   
+            //int maxCourse = int.Parse(StudyPlan.Descendants("{http://tempuri.org/dsMMISDB.xsd}Заезды").Last().Attribute("Курс").Value);
             //for (int i = 1; i <= maxCourse; i++)
             //{
             //    IEnumerable<XElement> graphValues = StudyPlan.Descendants(XmlConst.Graph).Where(q => q.Attribute("Курс").Value == i.ToString());
@@ -262,7 +265,7 @@ namespace WTPCoreExample
             //        newValue.CALENDARGRAPHVALUES_SEMNUM = semestr;
             //        //newValue.CALENDARGRAPHVALUES_WEEK = weekNumber;
             //        newValue.CALENDARGRAPHVALUES_ID = typeActivity;
-            //        var graph = presenter.AddGraphValue();//написать метод в презентере для добавления значений графика
+            //        var graph = presenter.AddGraphValue(newValue);//написать метод в презентере для добавления значений графика
             //    }
             //}
 
@@ -279,16 +282,18 @@ namespace WTPCoreExample
             _presenter.Save();
         }
 
-        //public WTPRow AddWTPROW(XElement planRow, WTPComponent ParentComponent, Int64 VariationID) //для дисциплин по выбору
-        //{
-        //    Int64 discipId = _presenter.GetStudDisciplineByName(planRow.Attribute("Дисциплина").Value, "", 1);
-        //    var newrow = _presenter.CreateNewRow();
-        //    //newrow.CHAIR_ID = presenter.GetChairByCode(planRow.Attribute("КодКафедры").Value);
-        //    newrow.STUDDISCIPLINE_ID = discipId;
-        //    newrow.WTPROW_VARIATIONID = VariationID;
-        //    var discipRow = _presenter.AddRow(newrow, ParentComponent);
-        //    return discipRow;
-        //}
+        public WTPRow AddWTPROW(XElement planRow, WTPComponent ParentComponent, long? SpecializationID) //для дисциплин по выбору
+        {
+            Int64 discipId = _presenter.GetStudDisciplineByName(planRow.Attribute("Дисциплина").Value, "", 1);
+            var newrow = _presenter.CreateNewRow();
+            //newrow.CHAIR_ID = presenter.GetChairByCode(planRow.Attribute("КодКафедры").Value);
+            newrow.STUDDISCIPLINE_ID = discipId;
+            newrow.SPECIALIZATION_ID = SpecializationID;
+            newrow.WTPROW_SORTINDEX = int.Parse(planRow.Attribute("Порядок").Value);
+            newrow.WTPROW_NUMBER = int.Parse(planRow.Attribute("Номер").Value);
+            var discipRow = _presenter.AddRow(newrow, ParentComponent);
+            return discipRow;
+        }
 
 
 
@@ -307,20 +312,16 @@ namespace WTPCoreExample
         public void AddWTPROWValues(Wtp newPlan, IEnumerable<XElement> rowValues, WTPRow discipRow)
         {
             List<int> semesters = new List<int>();
-            foreach (var rowValue in rowValues.Where(r => r.Attribute("КодТипаЧасов").Value == "1"))
+            foreach (var rowValue in rowValues.Where(r => r.Attribute("КодТипаЧасов").Value == "1"))    //where используется для того, чтобы отсеивать значения предметов в часах в неделю, которые присутствуют в файле, но не отображаются в Шахтах
             {
                 int semestr = (int.Parse(rowValue.Attribute("Курс").Value) - 1) * 2 + int.Parse(rowValue.Attribute("Семестр").Value);
                 semesters.Add(semestr);
             }
             semesters = semesters.Distinct().ToList();
 
-            //int firstSemester = (int.Parse(rowValues.Where(r => r.Attribute("КодТипаЧасов").Value == "1").First().Attribute("Курс").Value) - 1) * 2 + int.Parse(rowValues.Where(r => r.Attribute("КодТипаЧасов").Value == "1").First().Attribute("Семестр").Value);    //where используется для того, чтобы отсеиваться значения предметов в часах в неделю
-            //int lastSemester = (int.Parse(rowValues.Where(r => r.Attribute("КодТипаЧасов").Value == "1").Last().Attribute("Курс").Value) - 1) * 2 + int.Parse(rowValues.Where(r => r.Attribute("КодТипаЧасов").Value == "1").Last().Attribute("Семестр").Value);       //которые присутствуют в файле, но не отображаются в Шахтах
-
             foreach (int semestr in semesters)
             {
                 var newSemestr = _presenter.CreateNewSemester();
-                //номер семестра
                 newSemestr.WTPSEMESTER_NUM = semestr;
                 discipRow.Semesters.Add(newSemestr, false);
 

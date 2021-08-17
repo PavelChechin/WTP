@@ -20,7 +20,7 @@ namespace WTPCoreExample
 {
     public partial class ImportForm : Form
     {
-        Int64 WTP_ID;
+        Int64? WTP_ID;
         public ImportForm()
         {
             InitializeComponent();
@@ -76,7 +76,7 @@ namespace WTPCoreExample
             lookUpEdit8.Properties.ValueMember = "PLACETRAIN_ID";
         }
 
-        public Int64 WTPID()
+        public Int64? WTPID()
         {
             return WTP_ID;
         }
@@ -87,7 +87,7 @@ namespace WTPCoreExample
                 return;
 
             var SpecialFaculty = 1231;
-            var Speciality = 50;
+            //var Speciality = 50;
             var StudYear = 22;
             var FormEduc = 1;
             var ModeEduc = 1;
@@ -96,19 +96,21 @@ namespace WTPCoreExample
 
             //var WTP = DBManager.GetDataSourse<IWTP>().Rows.Cast<IWTP>().
             //     Where(r => r.SPECIALFACULTY_ID == SpecialFaculty).
-            //     Where(r => r.SPECIALITY_ID == Speciality).
             //     Where(r => r.STUDYEAR_ID == StudYear).
             //     Where(r => r.FORMEDUC_ID == FormEduc).
             //     Where(r => r.MODEEDUC_ID == ModeEduc).
             //     Where(r => r.STUDYEAR_ID_VERSION == StudYearIDVersion);
 
             WtpPresenter planPresenter = new WtpPresenter();
-            //if (WTP.Count() == 0)
+            //if (WTP.Count() == 0) { }
+            //{
+            
+            //WTP_ID = planPresenter.WTPDuplicationCheck(SpecialFaculty, StudYear, FormEduc, ModeEduc, StudYearIDVersion);
+            //if (WTP_ID == null)
             //{
                 Wtp plan = planPresenter.CreateWtp();
-            //var plan = planPresenter.Plan;
-            plan.DataRow.SPECIALFACULTY_ID = 1231;
-                plan.DataRow.SPECIALITY_ID = 50;
+                plan.DataRow.SPECIALFACULTY_ID = 1231;
+                //plan.DataRow.SPECIALITY_ID = 50;
                 plan.DataRow.STUDYEAR_ID = 22;
                 plan.DataRow.FORMEDUC_ID = 1;
                 plan.DataRow.MODEEDUC_ID = 1;
@@ -118,8 +120,7 @@ namespace WTPCoreExample
             //}
             //else
             //{
-            //    WTP_ID = Convert.ToInt64(WTP.Select(r => r.WTP_ID).First());
-            //    planPresenter.Load(WTP_ID);
+            //    planPresenter.Load((long)WTP_ID);
             //    var plan = planPresenter.Plan;
             //}
 
