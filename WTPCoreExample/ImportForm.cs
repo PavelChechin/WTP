@@ -80,6 +80,7 @@ namespace WTPCoreExample
         {
             return WTP_ID;
         }
+
         private void button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -105,9 +106,8 @@ namespace WTPCoreExample
             //if (WTP.Count() == 0) { }
             //{
             
-            //WTP_ID = planPresenter.WTPDuplicationCheck(SpecialFaculty, StudYear, FormEduc, ModeEduc, StudYearIDVersion);
-            //if (WTP_ID == null)
-            //{
+            if (WTP_ID == null)
+            {
                 Wtp plan = planPresenter.CreateWtp();
                 plan.DataRow.SPECIALFACULTY_ID = 1231;
                 //plan.DataRow.SPECIALITY_ID = 50;
@@ -117,12 +117,12 @@ namespace WTPCoreExample
                 plan.DataRow.STUDYEAR_ID_VERSION = 22;
                 planPresenter.Save();
                 WTP_ID = (long)plan.DataRow.WTP_ID;
-            //}
-            //else
-            //{
-            //    planPresenter.Load((long)WTP_ID);
-            //    var plan = planPresenter.Plan;
-            //}
+            }
+            else
+            {
+                planPresenter.Load((long)WTP_ID);
+                var plan = planPresenter.Plan;
+            }
 
 
 

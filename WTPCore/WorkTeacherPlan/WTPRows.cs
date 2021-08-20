@@ -10,9 +10,18 @@ namespace WTPCore.WorkTeacherPlan
             get;
             private set;
         }
+        public WTPRowGroup RowGroup
+        {
+            get;
+            private set;
+        }
         public WTPRows(Wtp Wtp)
         {
             this.Wtp = Wtp;
+        }
+        public WTPRows(WTPRowGroup RowGroup)
+        {
+            this.RowGroup = RowGroup;
         }
 
         #region Добавление строки

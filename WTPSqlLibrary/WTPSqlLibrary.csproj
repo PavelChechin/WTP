@@ -57,6 +57,7 @@
     <Compile Include="DataRowContainers\Base\WTPPARAMINFO.cs" />
     <Compile Include="DataRowContainers\Base\WTPPRACTICE.cs" />
     <Compile Include="DataRowContainers\Base\WTPROW.cs" />
+    <Compile Include="DataRowContainers\Base\WTPROWGROUP.cs" />
     <Compile Include="DataRowContainers\Base\WTPROWVALUES.cs" />
     <Compile Include="DataRowContainers\Base\WTPSEMESTER.cs" />
     <Compile Include="DataRowContainers\Base\WTPVARIATION.cs" />

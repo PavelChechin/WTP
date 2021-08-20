@@ -15,6 +15,12 @@ namespace WTPCore.WorkTeacherPlan
             get;
             private set;
         }
+
+        internal WTPReadOnlyCollection<WTPRowGroup> ChildRowGroups
+        {
+            get;
+            private set;
+        }
         internal WTPReadOnlyCollection<WTPComponent> ChildComponents
         {
             get;
@@ -171,6 +177,18 @@ namespace WTPCore.WorkTeacherPlan
             }
 
         }
+        public WTPRowGroup[] GetChildRowGroups()
+        {
+            return ChildRowGroups.ToArray();
+        }
+        public WTPRowGroup[] GetAllChildRowGroups()
+        {
+            return GetAllChildComponents()
+                .SelectMany(c => c.GetChildRowGroups())
+                .Concat(GetChildRowGroups())
+                .ToArray();
+        }
+
         public WTPRow[] GetChildRows()
         {
             return ChildRows.ToArray();

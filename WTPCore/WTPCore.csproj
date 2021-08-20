@@ -70,6 +70,7 @@
     <Compile Include="Comparers\WTPSemesterComparer.cs" />
     <Compile Include="Data\Interfaces\Base\CALENDARGRAPHVALUES.cs" />
     <Compile Include="Data\Interfaces\Base\WTPPRACTICE.cs" />
+    <Compile Include="Data\Interfaces\Base\WTPROWGROUP.cs" />
     <Compile Include="Data\Interfaces\Base\WTPVARIATION.cs" />
     <Compile Include="Data\Interfaces\Base\WTP.cs" />
     <Compile Include="Data\Interfaces\Base\WTPCOMPONENT.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Data\SourceInrefaces\WTPPARAMINFO.cs" />
     <Compile Include="Data\SourceInrefaces\WTPPRACTICE.cs" />
     <Compile Include="Data\SourceInrefaces\WTPROW.cs" />
+    <Compile Include="Data\SourceInrefaces\WTPROWGROUP.cs" />
     <Compile Include="Data\SourceInrefaces\WTPROWVALUES.cs" />
     <Compile Include="Data\SourceInrefaces\WTPSEMESTER.cs" />
     <Compile Include="Data\SourceInrefaces\WTPVARIATION.cs" />
@@ -96,6 +98,7 @@
     <Compile Include="Data\Tables\Base\WTPPARAMINFO.cs" />
     <Compile Include="Data\Tables\Base\WTPPRACTICE.cs" />
     <Compile Include="Data\Tables\Base\WTPROW.cs" />
+    <Compile Include="Data\Tables\Base\WTPROWGROUP.cs" />
     <Compile Include="Data\Tables\Base\WTPROWVALUES.cs" />
     <Compile Include="Data\Tables\Base\WTPSEMESTER.cs" />
     <Compile Include="Data\WTPDATAROW.cs" />
@@ -127,6 +130,8 @@
     <Compile Include="WorkTeacherPlan\CalendarGraphvalueCollection.cs" />
     <Compile Include="WorkTeacherPlan\WTPPractice.cs" />
     <Compile Include="WorkTeacherPlan\WTPPractices.cs" />
+    <Compile Include="WorkTeacherPlan\WTPRowGroup.cs" />
+    <Compile Include="WorkTeacherPlan\WTPRowGroups.cs" />
     <Compile Include="WorkTeacherPlan\WTPVariation.cs" />
     <Compile Include="WorkTeacherPlan\WTPVariations.cs" />
     <Compile Include="WorkTeacherPlan\Wtp.cs" />

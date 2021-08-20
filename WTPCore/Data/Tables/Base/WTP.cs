@@ -147,6 +147,32 @@ namespace WTPCore.Data.Tables.Base
             }
         }
 
+        [DataColumnName("SPECIALIZATION_ID")]
+        public Int64? SPECIALIZATION_ID
+        {
+            get
+            {
+                return GetData<Int64?>("SPECIALIZATION_ID");
+            }
+            set
+            {
+                SetData<Int64?>("SPECIALIZATION_ID", value);
+            }
+        }
+
+        [DataColumnName("SPECIALIZATION_NAME")]
+        public String SPECIALIZATION_NAME
+        {
+            get
+            {
+                return GetData<String>("SPECIALIZATION_NAME");
+            }
+            set
+            {
+                SetData<String>("SPECIALIZATION_NAME", value);
+            }
+        }
+
         [DataColumnName("QUALIFICATION_ID")]
         public Int64? QUALIFICATION_ID
         {

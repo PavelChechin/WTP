@@ -1,6 +1,5 @@
 ﻿using RefDataStores.General;
 using RefDataStores.PRACTICE;
-using RefDataStores.WTP.TYPEACTIVITY;
 using RefLib;
 using RefLib.WTP;
 using SqlDataSolution;
@@ -79,6 +78,12 @@ namespace WTPCoreExample
             return newDataRow;
         }
 
+        public IWTPROWGROUP CreateNewRowGroup()
+        {
+            IWTPROWGROUP newDataRow = DbManager.CreateRow<IWTPROWGROUP>();
+            return newDataRow;
+        }
+
         public IWTPROWVALUES CreateNewRowValues()
         {
             IWTPROWVALUES newDataRow = DbManager.CreateRow<IWTPROWVALUES>();
@@ -101,6 +106,14 @@ namespace WTPCoreExample
         {
             ICALENDARGRAPHVALUES newDataRow = DbManager.CreateRow<ICALENDARGRAPHVALUES>();
             return newDataRow;
+        }
+
+        public WTPRowGroup AddRowGroup(IWTPROWGROUP rowGroup, WTPComponent ParentComponent)
+        {
+            Plan.RowGroups.FillRow(rowGroup);
+            WTPRowGroup newRowGroup = Plan.RowGroups.Add(rowGroup, false);
+            newRowGroup.Component = ParentComponent;
+            return newRowGroup;
         }
 
         public WTPRow AddRow(IWTPROW row, WTPComponent ParentComponent)
@@ -185,131 +198,6 @@ namespace WTPCoreExample
 
             DbManager.Save(components.ToArray());
             DbManager.SaveAll();
-        }
-        #endregion
-
-        #region Methods for duplication check
-        /// <summary>
-        /// Если УП с указанными параметрами существует, то возвращает его ID, иначе null
-        /// </summary>
-        /// <param name="SpecialFaculty"></param>
-        /// <param name="Speciality"></param>
-        /// <param name="StudYear"></param>
-        /// <param name="FormEduc"></param>
-        /// <param name="ModeEduc"></param>
-        /// <param name="StudYearIDVersion"></param>
-        /// <returns></returns>
-        public Int64? WTPDuplicationCheck(long? SpecialFacultyID, long? StudYearID, long? FormEducID, long? ModeEducID, long? StudYearIDVersion)
-        {
-            var WTP = DBManager.GetDataSourse<RefDataStores.WTP.IWTP>().Rows.Cast<RefDataStores.WTP.IWTP>().
-                        Where(r => r.SPECIALFACULTY_ID == SpecialFacultyID).
-                        Where(r => r.STUDYEAR_ID == StudYearID).
-                        Where(r => r.FORMEDUC_ID == FormEducID).
-                        Where(r => r.MODEEDUC_ID == ModeEducID).
-                        Where(r => r.STUDYEAR_ID_VERSION == StudYearIDVersion).
-                        Select(r => r.WTP_ID);
-            if (WTP.Count() == 0)
-            {
-                return null;
-            }
-            else
-            {
-                return WTP.First();
-            }
-        }
-
-        /// <summary>
-        /// Если компонент с указанными параметрами суещствует, то возвращает его ID, иначе null
-        /// </summary>
-        /// <param name="WTP_ID"></param>
-        /// <param name="ParentComponent"></param>
-        /// <param name="StudDiscipCicle"></param>
-        /// <param name="StudDiscComponent"></param>
-        /// <param name="Specialization"></param>
-        /// <returns></returns>
-        public Int64? ComponentDuplicationCheck(long? WTP_ID, long? ParentComponentID, long? StudDiscipCicleID, long? StudDiscComponentID, long? SpecializationID)
-        {
-            var Component = DBManager.GetDataSourse<IWTPCOMPONENT>().Rows.Cast<IWTPCOMPONENT>().
-                            Where(r => r.STUDDISCIPCICLE_ID == StudDiscipCicleID).
-                            Where(r => r.STUDDISCCOMPONENT_ID == StudDiscComponentID).
-                            Where(r => r.SPECIALIZATION_ID == SpecializationID).
-                            Where(r => r.WTP_ID == WTP_ID).
-                            Where(r => r.WTPCOMPONENT_PARENTID == ParentComponentID).
-                            Select(r => r.WTPCOMPONENT_ID);
-            if (Component.Count() == 0)
-            {
-                return null;
-            }
-            else
-            {
-                return Component.First();
-            }
-        }
-        
-        /// <summary>
-        /// Если строка с указанными параметрами существует, то возвращает её ID, иначе null
-        /// </summary>
-        /// <param name="ComponentID"></param>
-        /// <param name="SortIndex"></param>
-        /// <param name="Number"></param>
-        /// <returns></returns>
-        public Int64? RowDuplicationCheck(long? WTPComponentID, long? StudDisciplineID, long? ChairID, int SortIndex, int Number)
-        {
-            var Row = DBManager.GetDataSourse<IWTPROW>().Rows.Cast<IWTPROW>().
-                        Where(r => r.WTPCOMPONENT_ID == WTPComponentID).
-                        Where(r => r.STUDDISCIPCICLE_ID == StudDisciplineID).
-                        Where(r => r.CHAIR_ID == ChairID).
-                        Where(r => r.WTPROW_SORTINDEX == SortIndex).
-                        Where(r => r.WTPROW_NUMBER == Number).
-                        Select(r => r.WTPROW_ID);
-            if (Row.Count() == 0)
-            {
-                return null;
-            }
-            else
-            {
-                return Row.First();
-            }
-        }
-
-        /// <summary>
-        /// Если значение строки с указанными параметрами существует, то возвращает его ID, иначе null
-        /// </summary>
-        /// <param name="SemNum"></param>
-        /// <param name="WTPRowID"></param>
-        /// <param name="WTPParamID"></param>
-        /// <returns></returns>
-        public Int64? RowValueDuplicationCheck(short? SemNum, long? WTPRowID, long? WTPParamID)
-        {
-            var RowValue = DBManager.GetDataSourse<IWTPROWVALUES>().Rows.Cast<IWTPROWVALUES>().
-                            Where(r => r.WTPROW_ID == WTPRowID).
-                            Where(r => r.WTPPARAM_ID == WTPParamID).
-                            Where(r => r.WTPROWVALUES_SEMNUM == SemNum).
-                            Select(r => r.WTPROWVALUES_ID);
-            if (RowValue.Count() == 0)
-            {
-                return null;
-            }
-            else
-            {
-                return RowValue.First();
-            }
-        }
-
-        public Int64? WTPSemestrDuplicationCheck(long? WTPRowID, long? WTPSemestrNum)
-        {
-            var WTPSemestr = DBManager.GetDataSourse<IWTPSEMESTER>().Rows.Cast<IWTPSEMESTER>().
-                                Where(r => r.WTPROW_ID == WTPRowID).
-                                Where(r => r.WTPSEMESTER_NUM == WTPSemestrNum).
-                                Select(r => r.WTPSEMESTER_ID);
-            if (WTPSemestr.Count() == 0)
-            {
-                return null;
-            }
-            else
-            {
-                return WTPSemestr.First();
-            }
         }
         #endregion
         
@@ -408,6 +296,10 @@ namespace WTPCoreExample
                             Where(r => r.WTPIMPORTCHAIR_EXTCODE == Code).
                             Select(r => r.CHAIR_ID);
             Int64? id = 0;
+            if (ImportChair.Count() == 0)
+            {
+
+            }
             id = ImportChair.First();
             return id;
         }
@@ -481,30 +373,30 @@ namespace WTPCoreExample
             return ID;
         }
 
-        public long GetTypeActivityIDByCode(int Code)
-        {
-            var Activities = DBManager.GetDataSourse<ITYPEACTIVITY>();   //создать интерфейс в RefDataStores
-            var Activity = Activities.Rows.
-                            Cast<ITYPEACTIVITY>().
-                            Where(r => r.TYPEACTIVITY_CODE == Code).
-                            Select(r => r.TYPEACTIVITY_ID);
-            long ID = 0;
-            if (Activity.Count() == 0)      //возможно стоит оставить только поиск
-            {
-                var newActivity = Activities.CreateRow<ITYPEACTIVITY>();
-                newActivity.TYPEACTIVITY_CODE = Code;
+        //public long GetTypeActivityIDByCode(int Code)
+        //{
+        //    var Activities = DBManager.GetDataSourse<ITYPEACTIVITY>();   //создать интерфейс в RefDataStores
+        //    var Activity = Activities.Rows.
+        //                    Cast<ITYPEACTIVITY>().
+        //                    Where(r => r.TYPEACTIVITY_CODE == Code).
+        //                    Select(r => r.TYPEACTIVITY_ID);
+        //    long ID = 0;
+        //    if (Activity.Count() == 0)      //возможно стоит оставить только поиск
+        //    {
+        //        var newActivity = Activities.CreateRow<ITYPEACTIVITY>();
+        //        newActivity.TYPEACTIVITY_CODE = Code;
 
-                Activities.Add<ITYPEACTIVITY>(newActivity);
-                Activities.Save();
-                ID = newActivity.TYPEACTIVITY_ID;
-            }
-            else
-            {
-                ID = Activity.First();
-            }
+        //        Activities.Add<ITYPEACTIVITY>(newActivity);
+        //        Activities.Save();
+        //        ID = newActivity.TYPEACTIVITY_ID;
+        //    }
+        //    else
+        //    {
+        //        ID = Activity.First();
+        //    }
 
-            return ID;
-        }
+        //    return ID;
+        //}
 
         public long GetTypePracticeIDByName(string Name)
         {
@@ -533,7 +425,7 @@ namespace WTPCoreExample
         //public Int64 GetLastVariationID()
         //{
         //    var Rows = DBManager.GetDataSourse<IWTPROW>();
-        //    var ID = Rows.Rows.Cast<IWTPROW>().Select(r => r.WTPROW_VARIATIONID).Last();
+        //var ID = Rows.Rows.Cast<IWTPROW>().Select(r => r.WTPROW_VARIATIONID).Last();
         //    return ID;
         //}
 

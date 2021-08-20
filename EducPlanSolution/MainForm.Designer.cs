@@ -54,8 +54,8 @@ namespace EducPlanSolution
             this.discipNumberColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             this.tabPane1 = new DevExpress.XtraBars.Navigation.TabPane();
             this.tabNavigationPage1 = new DevExpress.XtraBars.Navigation.TabNavigationPage();
-            this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
-            this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
+            this.MoveUpButton = new DevExpress.XtraEditors.SimpleButton();
+            this.MoveDownButton = new DevExpress.XtraEditors.SimpleButton();
             this.addDiscipButton = new DevExpress.XtraEditors.SimpleButton();
             this.tabNavigationPage2 = new DevExpress.XtraBars.Navigation.TabNavigationPage();
             this.simpleButton11 = new DevExpress.XtraEditors.SimpleButton();
@@ -202,7 +202,7 @@ namespace EducPlanSolution
             this.lectionsColumn.Name = "lectionsColumn";
             this.lectionsColumn.Visible = true;
             this.lectionsColumn.VisibleIndex = 9;
-            this.lectionsColumn.Width = 56;
+            this.lectionsColumn.Width = 54;
             // 
             // zeColumn
             // 
@@ -210,8 +210,8 @@ namespace EducPlanSolution
             this.zeColumn.FieldName = "ZE";
             this.zeColumn.Name = "zeColumn";
             this.zeColumn.Visible = true;
-            this.zeColumn.VisibleIndex = 6;
-            this.zeColumn.Width = 46;
+            this.zeColumn.VisibleIndex = 15;
+            this.zeColumn.Width = 133;
             // 
             // examsColumn
             // 
@@ -220,7 +220,7 @@ namespace EducPlanSolution
             this.examsColumn.Name = "examsColumn";
             this.examsColumn.Visible = true;
             this.examsColumn.VisibleIndex = 3;
-            this.examsColumn.Width = 49;
+            this.examsColumn.Width = 58;
             // 
             // practicsColumn
             // 
@@ -228,8 +228,8 @@ namespace EducPlanSolution
             this.practicsColumn.FieldName = "Practics";
             this.practicsColumn.Name = "practicsColumn";
             this.practicsColumn.Visible = true;
-            this.practicsColumn.VisibleIndex = 12;
-            this.practicsColumn.Width = 56;
+            this.practicsColumn.VisibleIndex = 11;
+            this.practicsColumn.Width = 54;
             // 
             // labWorksColumn
             // 
@@ -237,8 +237,8 @@ namespace EducPlanSolution
             this.labWorksColumn.FieldName = "LabWorks";
             this.labWorksColumn.Name = "labWorksColumn";
             this.labWorksColumn.Visible = true;
-            this.labWorksColumn.VisibleIndex = 13;
-            this.labWorksColumn.Width = 56;
+            this.labWorksColumn.VisibleIndex = 10;
+            this.labWorksColumn.Width = 54;
             // 
             // midTermsColumn
             // 
@@ -247,7 +247,7 @@ namespace EducPlanSolution
             this.midTermsColumn.Name = "midTermsColumn";
             this.midTermsColumn.Visible = true;
             this.midTermsColumn.VisibleIndex = 4;
-            this.midTermsColumn.Width = 49;
+            this.midTermsColumn.Width = 47;
             // 
             // referatsColumn
             // 
@@ -255,8 +255,8 @@ namespace EducPlanSolution
             this.referatsColumn.FieldName = "Referats";
             this.referatsColumn.Name = "referatsColumn";
             this.referatsColumn.Visible = true;
-            this.referatsColumn.VisibleIndex = 10;
-            this.referatsColumn.Width = 56;
+            this.referatsColumn.VisibleIndex = 7;
+            this.referatsColumn.Width = 54;
             // 
             // calcGraphWorksColumn
             // 
@@ -264,8 +264,8 @@ namespace EducPlanSolution
             this.calcGraphWorksColumn.FieldName = "CalcGraphWorks";
             this.calcGraphWorksColumn.Name = "calcGraphWorksColumn";
             this.calcGraphWorksColumn.Visible = true;
-            this.calcGraphWorksColumn.VisibleIndex = 11;
-            this.calcGraphWorksColumn.Width = 56;
+            this.calcGraphWorksColumn.VisibleIndex = 8;
+            this.calcGraphWorksColumn.Width = 54;
             // 
             // coursProjectsColumn
             // 
@@ -274,7 +274,7 @@ namespace EducPlanSolution
             this.coursProjectsColumn.Name = "coursProjectsColumn";
             this.coursProjectsColumn.Visible = true;
             this.coursProjectsColumn.VisibleIndex = 5;
-            this.coursProjectsColumn.Width = 49;
+            this.coursProjectsColumn.Width = 47;
             // 
             // coursWorksColumn
             // 
@@ -282,8 +282,8 @@ namespace EducPlanSolution
             this.coursWorksColumn.FieldName = "CoursWorks";
             this.coursWorksColumn.Name = "coursWorksColumn";
             this.coursWorksColumn.Visible = true;
-            this.coursWorksColumn.VisibleIndex = 7;
-            this.coursWorksColumn.Width = 58;
+            this.coursWorksColumn.VisibleIndex = 6;
+            this.coursWorksColumn.Width = 56;
             // 
             // totalHoursColumn
             // 
@@ -291,8 +291,8 @@ namespace EducPlanSolution
             this.totalHoursColumn.FieldName = "TotalHours";
             this.totalHoursColumn.Name = "totalHoursColumn";
             this.totalHoursColumn.Visible = true;
-            this.totalHoursColumn.VisibleIndex = 8;
-            this.totalHoursColumn.Width = 80;
+            this.totalHoursColumn.VisibleIndex = 14;
+            this.totalHoursColumn.Width = 78;
             // 
             // ksrColumn
             // 
@@ -300,8 +300,8 @@ namespace EducPlanSolution
             this.ksrColumn.FieldName = "KSR";
             this.ksrColumn.Name = "ksrColumn";
             this.ksrColumn.Visible = true;
-            this.ksrColumn.VisibleIndex = 14;
-            this.ksrColumn.Width = 91;
+            this.ksrColumn.VisibleIndex = 12;
+            this.ksrColumn.Width = 89;
             // 
             // independentWorkColumn
             // 
@@ -309,8 +309,8 @@ namespace EducPlanSolution
             this.independentWorkColumn.FieldName = "IndependentWork";
             this.independentWorkColumn.Name = "independentWorkColumn";
             this.independentWorkColumn.Visible = true;
-            this.independentWorkColumn.VisibleIndex = 15;
-            this.independentWorkColumn.Width = 97;
+            this.independentWorkColumn.VisibleIndex = 13;
+            this.independentWorkColumn.Width = 95;
             // 
             // discipSortIndexColumn
             // 
@@ -319,7 +319,7 @@ namespace EducPlanSolution
             this.discipSortIndexColumn.Name = "discipSortIndexColumn";
             this.discipSortIndexColumn.Visible = true;
             this.discipSortIndexColumn.VisibleIndex = 16;
-            this.discipSortIndexColumn.Width = 109;
+            this.discipSortIndexColumn.Width = 52;
             // 
             // discipNumberColumn
             // 
@@ -328,7 +328,7 @@ namespace EducPlanSolution
             this.discipNumberColumn.Name = "discipNumberColumn";
             this.discipNumberColumn.Visible = true;
             this.discipNumberColumn.VisibleIndex = 17;
-            this.discipNumberColumn.Width = 85;
+            this.discipNumberColumn.Width = 68;
             // 
             // tabPane1
             // 
@@ -351,32 +351,32 @@ namespace EducPlanSolution
             // tabNavigationPage1
             // 
             this.tabNavigationPage1.Caption = "План";
-            this.tabNavigationPage1.Controls.Add(this.simpleButton2);
-            this.tabNavigationPage1.Controls.Add(this.simpleButton1);
+            this.tabNavigationPage1.Controls.Add(this.MoveUpButton);
+            this.tabNavigationPage1.Controls.Add(this.MoveDownButton);
             this.tabNavigationPage1.Controls.Add(this.addDiscipButton);
             this.tabNavigationPage1.Controls.Add(this.gridControl1);
             this.tabNavigationPage1.Name = "tabNavigationPage1";
             this.tabNavigationPage1.Size = new System.Drawing.Size(1309, 424);
             // 
-            // simpleButton2
+            // MoveUpButton
             // 
-            this.simpleButton2.Location = new System.Drawing.Point(254, 0);
-            this.simpleButton2.Name = "simpleButton2";
-            this.simpleButton2.Size = new System.Drawing.Size(94, 23);
-            this.simpleButton2.TabIndex = 3;
-            this.simpleButton2.Text = "Сместить вверх";
-            this.simpleButton2.Visible = false;
-            this.simpleButton2.Click += new System.EventHandler(this.simpleButton2_Click);
+            this.MoveUpButton.Location = new System.Drawing.Point(254, 0);
+            this.MoveUpButton.Name = "MoveUpButton";
+            this.MoveUpButton.Size = new System.Drawing.Size(94, 23);
+            this.MoveUpButton.TabIndex = 3;
+            this.MoveUpButton.Text = "Сместить вверх";
+            this.MoveUpButton.Visible = false;
+            this.MoveUpButton.Click += new System.EventHandler(this.MoveUpButton_Click);
             // 
-            // simpleButton1
+            // MoveDownButton
             // 
-            this.simpleButton1.Location = new System.Drawing.Point(162, 0);
-            this.simpleButton1.Name = "simpleButton1";
-            this.simpleButton1.Size = new System.Drawing.Size(86, 23);
-            this.simpleButton1.TabIndex = 2;
-            this.simpleButton1.Text = "Сместить вниз";
-            this.simpleButton1.Visible = false;
-            this.simpleButton1.Click += new System.EventHandler(this.simpleButton1_Click);
+            this.MoveDownButton.Location = new System.Drawing.Point(162, 0);
+            this.MoveDownButton.Name = "MoveDownButton";
+            this.MoveDownButton.Size = new System.Drawing.Size(86, 23);
+            this.MoveDownButton.TabIndex = 2;
+            this.MoveDownButton.Text = "Сместить вниз";
+            this.MoveDownButton.Visible = false;
+            this.MoveDownButton.Click += new System.EventHandler(this.MoveDownButton_Click);
             // 
             // addDiscipButton
             // 
@@ -751,8 +751,8 @@ namespace EducPlanSolution
         private DevExpress.XtraEditors.SimpleButton openPlanButton;
         private DevExpress.XtraEditors.SimpleButton addDiscipButton;
         private System.Windows.Forms.Label facultyNameLabel;
-        private DevExpress.XtraEditors.SimpleButton simpleButton2;
-        private DevExpress.XtraEditors.SimpleButton simpleButton1;
+        private DevExpress.XtraEditors.SimpleButton MoveUpButton;
+        private DevExpress.XtraEditors.SimpleButton MoveDownButton;
         private DevExpress.XtraGrid.GridControl gridControl2;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView2;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn14;

@@ -303,21 +303,6 @@ namespace WTPCoreExample
         //    ParentCycle = parentComponent;
         //}
 
-        public WTPGridRow(WTPComponent parentComponent, WTPRow row)
-        {
-            string block = "";
-            if (parentComponent.DataRow.WTPCOMPONENT_CODE == "Б1") block = "Блок 1.";
-            if (parentComponent.DataRow.WTPCOMPONENT_CODE == "Б2") block = "Блок 2.";
-            if (parentComponent.DataRow.WTPCOMPONENT_CODE == "Б3") block = "Блок 3.";
-            if (parentComponent.DataRow.WTPCOMPONENT_CODE == "ФТД") block = "ФТД.";
-            ParentCycle = block + parentComponent.DataRow.WTPCOMPONENT_NAME;
-            Discip_Name = row.DataRow.STUDDISCIPLINE_NAME;
-            Code = row.Component.DataRow.WTPCOMPONENT_CODE + "." + row.DataRow.WTPROW_NUMBER;
-            SortIndex = row.DataRow.WTPROW_SORTINDEX;
-            Number = row.DataRow.WTPROW_NUMBER;
-
-        }
-
         public WTPGridRow(WTPComponent parentComponent, WTPRow row, List<WTPRowValue> values, long? sem_num)
         {
             string block = "";
@@ -328,7 +313,7 @@ namespace WTPCoreExample
             ParentCycle = block + parentComponent.DataRow.WTPCOMPONENT_NAME;
             Discip_Name = row.DataRow.STUDDISCIPLINE_NAME;
             SemNum = sem_num;
-            Code = row.Component.DataRow.WTPCOMPONENT_CODE + "." + row.DataRow.WTPROW_NUMBER;
+            Code = row.DataRow.WTPROW_INDEX;
             SortIndex = row.DataRow.WTPROW_SORTINDEX;
             Number = row.DataRow.WTPROW_NUMBER;
 
@@ -394,158 +379,158 @@ namespace WTPCoreExample
             }
         }
 
-        public WTPGridRow(WTPComponent parentComponent, WTPComponent childComponent, WTPRow row, List<WTPRowValue> values)
-        {
-            string block = "";
-            if (parentComponent.DataRow.WTPCOMPONENT_CODE == "Б1") block = "Блок 1.";
-            if (parentComponent.DataRow.WTPCOMPONENT_CODE == "Б2") block = "Блок 2.";
-            if (parentComponent.DataRow.WTPCOMPONENT_CODE == "Б3") block = "Блок 3.";
-            if (parentComponent.DataRow.WTPCOMPONENT_CODE == "ФТД") block = "ФТД.";
-            ParentCycle = block + parentComponent.DataRow.WTPCOMPONENT_NAME;
-            ChildCycle = childComponent.DataRow.WTPCOMPONENT_NAME;
-            Discip_Name = row.DataRow.STUDDISCIPLINE_NAME;
-            Code = row.Component.DataRow.WTPCOMPONENT_CODE + "." + row.DataRow.WTPROW_NUMBER;
-            SortIndex = row.DataRow.WTPROW_SORTINDEX;
-            Number = row.DataRow.WTPROW_NUMBER;
+        //public WTPGridRow(WTPComponent parentComponent, WTPComponent childComponent, WTPRow row, List<WTPRowValue> values)
+        //{
+        //    string block = "";
+        //    if (parentComponent.DataRow.WTPCOMPONENT_CODE == "Б1") block = "Блок 1.";
+        //    if (parentComponent.DataRow.WTPCOMPONENT_CODE == "Б2") block = "Блок 2.";
+        //    if (parentComponent.DataRow.WTPCOMPONENT_CODE == "Б3") block = "Блок 3.";
+        //    if (parentComponent.DataRow.WTPCOMPONENT_CODE == "ФТД") block = "ФТД.";
+        //    ParentCycle = block + parentComponent.DataRow.WTPCOMPONENT_NAME;
+        //    ChildCycle = childComponent.DataRow.WTPCOMPONENT_NAME;
+        //    Discip_Name = row.DataRow.STUDDISCIPLINE_NAME;
+        //    Code = row.DataRow.WTPROW_INDEX;
+        //    SortIndex = row.DataRow.WTPROW_SORTINDEX;
+        //    Number = row.DataRow.WTPROW_NUMBER;
 
-            foreach (WTPRowValue value in values)
-            {
-                switch (value.DataRow.WTPPARAM_ID)
-                {
-                    case 16:
-                        Exams = value.DataRow.WTPROWVALUES_VALUE;
-                        break;
+        //    foreach (WTPRowValue value in values)
+        //    {
+        //        switch (value.DataRow.WTPPARAM_ID)
+        //        {
+        //            case 16:
+        //                Exams = value.DataRow.WTPROWVALUES_VALUE;
+        //                break;
 
-                    case 17:
-                        MidTerms = value.DataRow.WTPROWVALUES_VALUE;
-                        break;
+        //            case 17:
+        //                MidTerms = value.DataRow.WTPROWVALUES_VALUE;
+        //                break;
 
-                    case 7:
-                        Lections = value.DataRow.WTPROWVALUES_VALUE;
-                        break;
+        //            case 7:
+        //                Lections = value.DataRow.WTPROWVALUES_VALUE;
+        //                break;
 
-                    case 10:
-                        Practics = value.DataRow.WTPROWVALUES_VALUE;
-                        break;
+        //            case 10:
+        //                Practics = value.DataRow.WTPROWVALUES_VALUE;
+        //                break;
 
-                    case 12:
-                        LabWorks = value.DataRow.WTPROWVALUES_VALUE;
-                        break;
+        //            case 12:
+        //                LabWorks = value.DataRow.WTPROWVALUES_VALUE;
+        //                break;
 
-                    case 14:
-                        Referats = value.DataRow.WTPROWVALUES_VALUE;
-                        break;
+        //            case 14:
+        //                Referats = value.DataRow.WTPROWVALUES_VALUE;
+        //                break;
 
-                    case 13:
-                        CalcGraphWorks = value.DataRow.WTPROWVALUES_VALUE;
-                        break;
+        //            case 13:
+        //                CalcGraphWorks = value.DataRow.WTPROWVALUES_VALUE;
+        //                break;
 
-                    case 18:
-                        CoursProjects = value.DataRow.WTPROWVALUES_VALUE;
-                        break;
+        //            case 18:
+        //                CoursProjects = value.DataRow.WTPROWVALUES_VALUE;
+        //                break;
 
-                    case 19:
-                        CoursWorks = value.DataRow.WTPROWVALUES_VALUE;
-                        break;
+        //            case 19:
+        //                CoursWorks = value.DataRow.WTPROWVALUES_VALUE;
+        //                break;
 
-                    case 34:
-                        TotalHours = value.DataRow.WTPROWVALUES_VALUE;
-                        break;
+        //            case 34:
+        //                TotalHours = value.DataRow.WTPROWVALUES_VALUE;
+        //                break;
 
-                    case 28:
-                        IndependentWork = value.DataRow.WTPROWVALUES_VALUE;
-                        break;
+        //            case 28:
+        //                IndependentWork = value.DataRow.WTPROWVALUES_VALUE;
+        //                break;
 
-                    case 24:
-                        KSR = value.DataRow.WTPROWVALUES_VALUE;
-                        break;
+        //            case 24:
+        //                KSR = value.DataRow.WTPROWVALUES_VALUE;
+        //                break;
 
-                    case 5:
-                        ZE = value.DataRow.WTPROWVALUES_VALUE;
-                        break;
+        //            case 5:
+        //                ZE = value.DataRow.WTPROWVALUES_VALUE;
+        //                break;
 
-                    default:
-                        continue;
-                }
-            }
-        }
+        //            default:
+        //                continue;
+        //        }
+        //    }
+        //}
 
-        public WTPGridRow(WTPComponent parentComponent, WTPComponent childComponent, WTPComponent module, WTPRow row, List<WTPRowValue> values, long? sem_num)
-        {
-            string block = "";
-            if (parentComponent.DataRow.WTPCOMPONENT_CODE == "Б1") block = "Блок 1.";
-            if (parentComponent.DataRow.WTPCOMPONENT_CODE == "Б2") block = "Блок 2.";
-            if (parentComponent.DataRow.WTPCOMPONENT_CODE == "Б3") block = "Блок 3.";
-            if (parentComponent.DataRow.WTPCOMPONENT_CODE == "ФТД") block = "ФТД.";
-            ParentCycle = block + parentComponent.DataRow.WTPCOMPONENT_NAME;
-            ChildCycle = childComponent.DataRow.WTPCOMPONENT_NAME;
-            Discip_Name = row.DataRow.STUDDISCIPLINE_NAME;
-            SemNum = sem_num;
-            Code = row.Component.DataRow.WTPCOMPONENT_CODE + "." + row.DataRow.WTPROW_NUMBER;
-            SortIndex = row.DataRow.WTPROW_SORTINDEX;
-            Number = row.DataRow.WTPROW_NUMBER;
+        ////public WTPGridRow(WTPComponent parentComponent, WTPComponent childComponent, WTPComponent module, WTPRow row, List<WTPRowValue> values, long? sem_num)
+        //{
+        //    string block = "";
+        //    if (parentComponent.DataRow.WTPCOMPONENT_CODE == "Б1") block = "Блок 1.";
+        //    if (parentComponent.DataRow.WTPCOMPONENT_CODE == "Б2") block = "Блок 2.";
+        //    if (parentComponent.DataRow.WTPCOMPONENT_CODE == "Б3") block = "Блок 3.";
+        //    if (parentComponent.DataRow.WTPCOMPONENT_CODE == "ФТД") block = "ФТД.";
+        //    ParentCycle = block + parentComponent.DataRow.WTPCOMPONENT_NAME;
+        //    ChildCycle = childComponent.DataRow.WTPCOMPONENT_NAME;
+        //    Discip_Name = row.DataRow.STUDDISCIPLINE_NAME;
+        //    SemNum = sem_num;
+        //    Code = row.DataRow.WTPROW_INDEX;
+        //    SortIndex = row.DataRow.WTPROW_SORTINDEX;
+        //    Number = row.DataRow.WTPROW_NUMBER;
 
-            foreach (WTPRowValue value in values)
-            {
-                switch (value.DataRow.WTPPARAM_ID)
-                {
-                    case 16:
-                        Exams = value.DataRow.WTPROWVALUES_VALUE;
-                        break;
+        //    foreach (WTPRowValue value in values)
+        //    {
+        //        switch (value.DataRow.WTPPARAM_ID)
+        //        {
+        //            case 16:
+        //                Exams = value.DataRow.WTPROWVALUES_VALUE;
+        //                break;
 
-                    case 17:
-                        MidTerms = value.DataRow.WTPROWVALUES_VALUE;
-                        break;
+        //            case 17:
+        //                MidTerms = value.DataRow.WTPROWVALUES_VALUE;
+        //                break;
 
-                    case 7:
-                        Lections = value.DataRow.WTPROWVALUES_VALUE;
-                        break;
+        //            case 7:
+        //                Lections = value.DataRow.WTPROWVALUES_VALUE;
+        //                break;
 
-                    case 10:
-                        Practics = value.DataRow.WTPROWVALUES_VALUE;
-                        break;
+        //            case 10:
+        //                Practics = value.DataRow.WTPROWVALUES_VALUE;
+        //                break;
 
-                    case 12:
-                        LabWorks = value.DataRow.WTPROWVALUES_VALUE;
-                        break;
+        //            case 12:
+        //                LabWorks = value.DataRow.WTPROWVALUES_VALUE;
+        //                break;
 
-                    case 14:
-                        Referats = value.DataRow.WTPROWVALUES_VALUE;
-                        break;
+        //            case 14:
+        //                Referats = value.DataRow.WTPROWVALUES_VALUE;
+        //                break;
 
-                    case 13:
-                        CalcGraphWorks = value.DataRow.WTPROWVALUES_VALUE;
-                        break;
+        //            case 13:
+        //                CalcGraphWorks = value.DataRow.WTPROWVALUES_VALUE;
+        //                break;
 
-                    case 18:
-                        CoursProjects = value.DataRow.WTPROWVALUES_VALUE;
-                        break;
+        //            case 18:
+        //                CoursProjects = value.DataRow.WTPROWVALUES_VALUE;
+        //                break;
 
-                    case 19:
-                        CoursWorks = value.DataRow.WTPROWVALUES_VALUE;
-                        break;
+        //            case 19:
+        //                CoursWorks = value.DataRow.WTPROWVALUES_VALUE;
+        //                break;
 
-                    case 34:
-                        TotalHours = value.DataRow.WTPROWVALUES_VALUE;
-                        break;
+        //            case 34:
+        //                TotalHours = value.DataRow.WTPROWVALUES_VALUE;
+        //                break;
 
-                    case 28:
-                        IndependentWork = value.DataRow.WTPROWVALUES_VALUE;
-                        break;
+        //            case 28:
+        //                IndependentWork = value.DataRow.WTPROWVALUES_VALUE;
+        //                break;
 
-                    case 24:
-                        KSR = value.DataRow.WTPROWVALUES_VALUE;
-                        break;
+        //            case 24:
+        //                KSR = value.DataRow.WTPROWVALUES_VALUE;
+        //                break;
 
-                    case 5:
-                        ZE = value.DataRow.WTPROWVALUES_VALUE;
-                        break;
+        //            case 5:
+        //                ZE = value.DataRow.WTPROWVALUES_VALUE;
+        //                break;
 
-                    default:
-                        continue;
-                }
-            }
-        }
+        //            default:
+        //                continue;
+        //        }
+        //    }
+        //}
 
         public WTPGridRow(WTPComponent parentComponent, WTPComponent childComponent, WTPRow row, List<WTPRowValue> values, long? sem_num)
         {
@@ -558,7 +543,7 @@ namespace WTPCoreExample
             ChildCycle = childComponent.DataRow.WTPCOMPONENT_NAME;
             Discip_Name = row.DataRow.STUDDISCIPLINE_NAME;
             SemNum = sem_num;
-            Code = row.Component.DataRow.WTPCOMPONENT_CODE +"."+ row.DataRow.WTPROW_NUMBER;
+            Code = row.DataRow.WTPROW_INDEX;
             SortIndex = row.DataRow.WTPROW_SORTINDEX;
             Number = row.DataRow.WTPROW_NUMBER;
 
@@ -631,7 +616,7 @@ namespace WTPCoreExample
         //    ChildCycleCode = row.Component.DataRow.WTPCOMPONENT_CODE;
         //    Discip_Name = row.DataRow.STUDDISCIPLINE_NAME;
         //    SemNum = sem_num;
-        //    Code = row.Component.DataRow.WTPCOMPONENT_CODE + "." + row.DataRow.WTPROW_NUMBER;
+        //    Code = row.DataRow.WTPROW_INDEX;
         //    SortIndex = row.DataRow.WTPROW_SORTINDEX;
         //    Number = row.DataRow.WTPROW_NUMBER;
 

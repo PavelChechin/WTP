@@ -14,6 +14,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using WTPCore.WorkTeacherPlan;
 using WTPCoreExample;
 
@@ -56,11 +57,71 @@ namespace EducPlanSolution
 
         private void importButton_Click(object sender, EventArgs e)
         {
-            WTPCoreExample.ImportForm importForm = new WTPCoreExample.ImportForm();
-            importForm.ShowDialog();
+            OpenFileDialog ofd = new OpenFileDialog();
+            if (ofd.ShowDialog() != DialogResult.OK)
+                return;
 
-            //MessageBox.Show(importForm.WTPID().ToString());
-            WTP_ID = importForm.WTPID();
+            var SpecialFaculty = 1231;
+            //var Speciality = 50;
+            var StudYear = 22;
+            var FormEduc = 1;
+            var ModeEduc = 1;
+            var StudYearIDVersion = 22;
+
+
+            //var WTP = DBManager.GetDataSourse<IWTP>().Rows.Cast<IWTP>().
+            //     Where(r => r.SPECIALFACULTY_ID == SpecialFaculty).
+            //     Where(r => r.STUDYEAR_ID == StudYear).
+            //     Where(r => r.FORMEDUC_ID == FormEduc).
+            //     Where(r => r.MODEEDUC_ID == ModeEduc).
+            //     Where(r => r.STUDYEAR_ID_VERSION == StudYearIDVersion);
+
+            WtpPresenter planPresenter = new WtpPresenter();
+            //if (WTP.Count() == 0) { }
+            //{
+
+            //WTP_ID = planPresenter.WTPDuplicationCheck(SpecialFaculty, StudYear, FormEduc, ModeEduc, StudYearIDVersion);
+            if (WTP_ID == null)
+            {
+                Wtp plan = planPresenter.CreateWtp();
+                plan.DataRow.SPECIALFACULTY_ID = 1231;
+                //plan.DataRow.SPECIALITY_ID = 50;
+                plan.DataRow.STUDYEAR_ID = 22;
+                plan.DataRow.FORMEDUC_ID = 1;
+                plan.DataRow.MODEEDUC_ID = 1;
+                plan.DataRow.STUDYEAR_ID_VERSION = 22;
+                planPresenter.Save();
+                WTP_ID = (long)plan.DataRow.WTP_ID;
+            }
+            else
+            {
+                planPresenter.Load((long)WTP_ID);
+                var plan = planPresenter.Plan;
+            }
+
+
+
+            ImportPlanExample importer = new ImportPlanExample();
+            XDocument xdoc = XDocument.Load(ofd.FileName);
+
+
+            //planPresenter.Load(1297);
+            if (importer.CheckImportFile(planPresenter.Plan, xdoc, out string ErrorMessage))
+            {
+                if (MessageBox.Show(ErrorMessage + " Продолжить?", "Импорт УП", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.Cancel)
+                    return;
+            }
+
+            if (!importer.Import(planPresenter, xdoc, out string ErrorMessage2))
+                MessageBox.Show(ErrorMessage);
+
+
+
+            //WTPCoreExample.ImportForm importForm = new WTPCoreExample.ImportForm();
+            //importForm.ShowDialog();
+
+            ////MessageBox.Show(importForm.WTPID().ToString());
+            //WTP_ID = importForm.WTPID();
 
             DisplayRows(WTP_ID);
         }
@@ -83,7 +144,7 @@ namespace EducPlanSolution
             DisplayRows(WTP_ID);
         }
 
-        private void simpleButton1_Click(object sender, EventArgs e)
+        private void MoveDownButton_Click(object sender, EventArgs e)
         {
             var number = gridView1.FocusedRowHandle;
             var ds = gridControl1.DataSource as BindingList<WTPGridRow>;
@@ -107,10 +168,11 @@ namespace EducPlanSolution
             gridControl1.RefreshDataSource();
         }
 
-        private void simpleButton2_Click(object sender, EventArgs e)
+        private void MoveUpButton_Click(object sender, EventArgs e)
         {
             var number = gridView1.FocusedRowHandle;
             var ds = gridControl1.DataSource as BindingList<WTPGridRow>;
+            ds.OrderBy(r => r.SortIndex).ThenBy(r => r.Number);
             var discipToDecrease = ds.Where(q => q.Discip_Name == ds[number].Discip_Name).Select(q => q.Discip_Name).ToList().First();
             var num = ds.Where(q => q.Discip_Name == ds[number].Discip_Name).First().Number;
             var discipToIncrease = ds.Where(q => q.Number == num - 1).Select(q => q.Discip_Name).ToList().First();
@@ -155,8 +217,8 @@ namespace EducPlanSolution
                 facultyNameLabel.Visible = true;
                 qualificationLabel.Visible = true;
                 addDiscipButton.Visible = true;
-                simpleButton1.Visible = true;
-                simpleButton2.Visible = true;
+                MoveDownButton.Visible = true;
+                MoveUpButton.Visible = true;
                 tabPane1.Visible = true;
                 List<WTPGridRow> list = new List<WTPGridRow>();
                 //BindingList<WTPGridRow> grid = new BindingList<WTPGridRow>();
@@ -181,17 +243,17 @@ namespace EducPlanSolution
                         foreach (WTPComponent childComponent in plan.Components.Where(q => q.DataRow.WTPCOMPONENT_PARENTID == parentComponent.DataRow.WTPCOMPONENT_ID))
                         {
 
-                            foreach (WTPComponent module in plan.Components.Where(q => q.DataRow.WTPCOMPONENT_PARENTID == childComponent.DataRow.WTPCOMPONENT_ID))// plan.Components.Where(q => q.DataRow.WTPCOMPONENT_PARENTID == childComponent.DataRow.WTPCOMPONENT_ID))
-                            {
-                                foreach (WTPRow wtprow in plan.Rows.Where(r => r.DataRow.WTPCOMPONENT_ID == module.DataRow.WTPCOMPONENT_ID))
-                                {
-                                    foreach (WTPSemester semestr in wtprow.Semesters)
-                                    {
-                                        var WTPROWValues = wtprow.Values.Where(r => r.DataRow.WTPROWVALUES_SEMNUM == semestr.DataRow.WTPSEMESTER_NUM).ToList();
-                                        list.Add(new WTPGridRow(parentComponent, childComponent, module, wtprow, WTPROWValues, semestr.DataRow.WTPSEMESTER_NUM));
-                                    }
-                                }
-                            }
+                            //foreach (WTPComponent module in plan.Components.Where(q => q.DataRow.WTPCOMPONENT_PARENTID == childComponent.DataRow.WTPCOMPONENT_ID))// plan.Components.Where(q => q.DataRow.WTPCOMPONENT_PARENTID == childComponent.DataRow.WTPCOMPONENT_ID))
+                            //{
+                            //    foreach (WTPRow wtprow in plan.Rows.Where(r => r.DataRow.WTPCOMPONENT_ID == module.DataRow.WTPCOMPONENT_ID))
+                            //    {
+                            //        foreach (WTPSemester semestr in wtprow.Semesters)
+                            //        {
+                            //            var WTPROWValues = wtprow.Values.Where(r => r.DataRow.WTPROWVALUES_SEMNUM == semestr.DataRow.WTPSEMESTER_NUM).ToList();
+                            //            list.Add(new WTPGridRow(parentComponent, childComponent, module, wtprow, WTPROWValues, semestr.DataRow.WTPSEMESTER_NUM));
+                            //        }
+                            //    }
+                            //}
 
                             foreach (WTPRow wtprow in plan.Rows.Where(r => r.DataRow.WTPCOMPONENT_ID == childComponent.DataRow.WTPCOMPONENT_ID).OrderBy(r => r.DataRow.WTPROW_SORTINDEX))
                             {
@@ -207,10 +269,11 @@ namespace EducPlanSolution
                         }
                     }
                 }
-                var grid = new BindingList<WTPGridRow>(list.OrderBy(r => r.SortIndex).ToList());
+                var grid = new BindingList<WTPGridRow>(list.OrderBy(r => r.SortIndex).ThenBy(r => r.SemNum).ToList());
                 gridControl1.DataSource = null;
                 gridControl1.DataSource = grid;
                 gridControl1.Refresh();
+                gridView1.ExpandAllGroups();
             }
         }
     }

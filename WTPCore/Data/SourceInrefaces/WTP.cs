@@ -53,6 +53,18 @@ namespace WTPCore.Data.SourceInrefaces
             set;
         }
 
+        Int64? SPECIALIZATION_ID
+        {
+            get;
+            set;
+        }
+
+        string SPECIALIZATION_NAME
+        {
+            get;
+            set;
+        }
+
         Int64? SPECIALITY_ID
         {
             get;

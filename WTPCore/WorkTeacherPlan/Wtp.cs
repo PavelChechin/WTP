@@ -29,6 +29,12 @@ namespace WTPCore.WorkTeacherPlan
             private set;
         }
 
+        public WTPRowGroups RowGroups
+        {
+            get;
+            private set;
+        }
+
         public WTPRowValues Values
         {
             get;
@@ -59,8 +65,10 @@ namespace WTPCore.WorkTeacherPlan
             SetDataRow(DataRow);
             Params = new WTPParams();
             Components = new WTPComponents(this);
+            RowGroups = new WTPRowGroups(this);
             Rows = new WTPRows(this);
             Variations = new WTPVariations(this);
+            RowGroups.PropertyChanged += OnPropertyChanged;
             Rows.PropertyChanged += OnPropertyChanged;
             Rows.PropertyChanged += Rows_PropertyChanged;
             Components.PropertyChanged += OnPropertyChanged;
